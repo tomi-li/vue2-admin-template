@@ -14,8 +14,6 @@ export default function RegisterDirectives(Vue) {
       $(el).addClass('dropdown');
       handler.attr('data-toggle', 'dropdown');
       menu.addClass('dropdown-menu');
-      console.log(menu);
-      console.log(el);
     }
   });
 }

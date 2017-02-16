@@ -16,7 +16,7 @@ export function getUrlParams(name) {
   } else {
     return undefined;
   }
-};
+}
 /**
  * 生成模版文件，生成后的html文件头部包含样式信息，不会影响其他组建样式
  * @param style
@@ -54,4 +54,32 @@ export function getConfig(cb) {
  */
 export function isInWeChat() {
   return /MicroMessenger/i.test(navigator.userAgent.toLowerCase());
+}
+
+import Vue from 'vue';
+import $ from 'jquery';
+import * as _ from 'lodash';
+
+// make a modal stack
+export function $modal(modal) {
+  this.modalStack = this.modalStack || [];
+  const modalStack = this.modalStack;
+  $('body').append('<div id="modal"></div>');
+
+  const vm = new Vue({
+    id: 1050 + modalStack.length * 50,
+    template: `<texts id="${1050 + modalStack.length * 50}" style="z-index:${1050 + modalStack.length * 50}"></texts>`,
+    components: {
+      texts: modal
+    }
+  }).$mount('#modal');
+
+  this.modalStack.push(vm);
+
+  $(vm.$el).modal();
+  $(vm.$el).on('hidden.bs.modal', () => {
+    vm.$destroy();
+    $(`#${vm.$options.id}`).remove();
+    _.remove(modalStack, (modal) => modal === vm);
+  });
 }

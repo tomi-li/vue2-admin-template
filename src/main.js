@@ -33,3 +33,5 @@ new Vue({
   store,
   render: h => h('page')
 });
+
+console.clear();
