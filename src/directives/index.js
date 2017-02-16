@@ -17,5 +17,5 @@ export default function RegisterDirectives(Vue) {
       console.log(menu);
       console.log(el);
     }
-  })
+  });
 }
