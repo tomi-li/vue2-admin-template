@@ -13,8 +13,8 @@ export const login = (test, user) => {
   console.log(test);
   let { commit } = test;
   return new Promise((resolve, reject) => {
-    Vue.http.get('http://www.baidu.com').then(response => {
-      commit(types.LOGIN, response.json());
+    Vue.http.get('http://jsonplaceholder.typicode.com/users/1').then(response => {
+      commit(types.LOGIN, response.body);
       resolve();
     }, error => {
       reject(error);

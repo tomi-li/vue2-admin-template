@@ -11,9 +11,7 @@
       </div>
       <ul class="nav navbar-top-links navbar-right">
         <li>
-          <a href="">
-            <i class="fa fa-sign-out"></i> Log out
-          </a>
+          <a @click="logout"><i class="fa fa-sign-out"></i> Log out</a>
         </li>
       </ul>
     </nav>
@@ -22,6 +20,11 @@
 
 <script>
   export default{
-
+    methods: {
+      logout: function() {
+        console.log(this);
+        this.$router.push('/login');
+      }
+    }
   };
 </script>

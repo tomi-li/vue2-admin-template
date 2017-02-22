@@ -12,7 +12,7 @@
               </span>
             </a>
             <ul class="animated fadeInRight m-t-xs">
-              <li><a href="">Logout</a></li>
+              <li><a @click="logout">Logout</a></li>
             </ul>
           </div>
           <div class="logo-element">
@@ -36,5 +36,11 @@
 </template>
 
 <script>
-  export default{};
+  export default{
+    methods: {
+      logout: function() {
+        this.$router.push('/login');
+      }
+    }
+  };
 </script>

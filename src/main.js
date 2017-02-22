@@ -29,9 +29,10 @@ const router = new VueRouter(RouterConfig);
 
 new Vue({
   el: '#app',
+  template: 'router-view',
   router,
   store,
-  render: h => h('page')
+  render: h => h('router-view')
 });
 
 console.clear();
