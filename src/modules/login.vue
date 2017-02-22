@@ -40,11 +40,11 @@
       return {
         username: '',
         password: ''
-      }
+      };
     },
     methods: {
       ...mapActions(['login'])
     }
-  }
+  };
 </script>
 

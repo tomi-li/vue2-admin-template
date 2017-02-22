@@ -5,6 +5,7 @@
 // components
 import api from './plugins/api';
 import * as utils from './plugins/utils';
+import axios from 'axios';
 import Content from './content.vue';
 import TopNavigation from './topnavbar.vue';
 import Navigation from './navigation.vue';
@@ -39,6 +40,11 @@ function plugin(Vue) {
     $config: {
       get() {
         return config;
+      }
+    },
+    $http: {
+      get() {
+        return axios;
       }
     }
   });

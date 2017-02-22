@@ -9,8 +9,7 @@ const mutations = {
   [types.LOGIN](state, userInfo) {
     // 成功登录，获取到了用户信息，保存
     state.userInfo = userInfo;
-    console.log('123');
-    console.log(this);
+    console.log(userInfo);
   }
 };
 

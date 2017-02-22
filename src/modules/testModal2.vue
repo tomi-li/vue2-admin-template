@@ -24,7 +24,7 @@
     data: () => {
       return {
         test: '111'
-      }
+      };
     }
   };
 </script>
