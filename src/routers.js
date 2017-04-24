@@ -1,5 +1,5 @@
-import main from './modules/main.vue';
-import minor from './modules/minor.vue';
+import main from './pages/main.vue';
+import minor from './pages/minor.vue';
 
 export default {
   routes: [

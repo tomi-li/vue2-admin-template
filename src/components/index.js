@@ -12,7 +12,7 @@ const Navigation = r => require.ensure([], () => r(require('./navigation.vue')),
 const TopNavigation = r => require.ensure([], () => r(require('./topnavbar.vue')), 'layout');
 
 require.ensure([], require => {
-  config = require('src/config');
+  config = require('../config');
 }, 'config');
 
 function plugin(Vue) {

@@ -38,15 +38,6 @@ export function javascriptLoader(src, onload) {
   _script.onload = onload;
   document.head.appendChild(_script);
 }
-/**
- * 获取配置文件
- * @param cb
- */
-export function getConfig(cb) {
-  require.ensure([], require => {
-    cb(require('src/config'));
-  }, 'config');
-}
 
 /**
  * 判断是否是微信打开的页面

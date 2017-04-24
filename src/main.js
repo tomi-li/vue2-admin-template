@@ -15,6 +15,8 @@ import RegisterFilter from './filters';
 import RegisterDirectives from './directives';
 import Store from './store';
 
+Vue.config.productionTip = false;
+
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(CustomComponents);
