@@ -12,13 +12,13 @@
 </template>
 
 <script>
-  import modal2 from './testModal2.vue';
+  import modal2 from './testModal2';
 
   export default {
     methods: {
       newmodal() {
         this.utils.$modal(modal2);
-      }
-    }
+      },
+    },
   };
 </script>

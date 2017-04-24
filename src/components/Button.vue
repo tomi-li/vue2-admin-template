@@ -7,24 +7,24 @@
     props: {
       type: {
         type: String,
-        default: 'default'
+        default: 'default',
       },
       title: {
         type: String,
-        default: 'Button'
+        default: 'Button',
       },
       closeModal: {
         type: Boolean,
-        default: false
+        default: false,
       },
       onPress: {
-        type: Function
-      }
+        type: Function,
+      },
     },
     methods: {
       click() {
         if (this.onPress) this.onPress();
-      }
-    }
+      },
+    },
   };
 </script>

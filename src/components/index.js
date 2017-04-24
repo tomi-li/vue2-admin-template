@@ -1,17 +1,17 @@
+/* eslint-disable global-require,import/no-dynamic-require */
 // components
 import api from './plugins/api';
 import * as utils from './plugins/utils';
-import Content from './content.vue';
-import Button from './Button.vue';
-import Modal from './Modal.vue';
+import Navigation from './navigation';
+import Content from './content';
+import Button from './Button';
+import Modal from './Modal';
+import Footer from './footer';
+import TopNavigation from './topnavbar';
 
-// 获取配置，并将配置文件存入config模块
 let config = null;
-const Footer = r => require.ensure([], () => r(require('./footer.vue')), 'layout');
-const Navigation = r => require.ensure([], () => r(require('./navigation.vue')), 'layout');
-const TopNavigation = r => require.ensure([], () => r(require('./topnavbar.vue')), 'layout');
 
-require.ensure([], require => {
+require.ensure([], (require) => {
   config = require('../config');
 }, 'config');
 
@@ -30,18 +30,18 @@ function plugin(Vue) {
     api: {
       get() {
         return api;
-      }
+      },
     },
     utils: {
       get() {
         return utils;
-      }
+      },
     },
     $config: {
       get() {
         return config;
-      }
-    }
+      },
+    },
   });
 }
 if (typeof window !== 'undefined' && window.Vue) {

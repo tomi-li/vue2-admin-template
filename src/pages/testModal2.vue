@@ -14,8 +14,8 @@
   export default {
     data() {
       return {
-        test: '111'
+        test: '111',
       };
-    }
+    },
   };
 </script>

@@ -23,9 +23,9 @@
     props: {
       title: {
         type: String,
-        default: ''
-      }
-    }
+        default: '',
+      },
+    },
   };
 </script>
 

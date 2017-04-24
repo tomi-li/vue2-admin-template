@@ -5,13 +5,13 @@
 </template>
 
 <script>
-  import testModal from './testModal.vue';
+  import testModal from './testModal';
 
   export default {
     methods: {
-      testModal: function() {
+      testModal() {
         this.utils.$modal(testModal, { data: [1, 2, 3] });
-      }
-    }
+      },
+    },
   };
 </script>

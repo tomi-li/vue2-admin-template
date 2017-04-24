@@ -10,6 +10,6 @@ export default function RegisterDirectives(Vue) {
       $(el).addClass('dropdown');
       handler.attr('data-toggle', 'dropdown');
       menu.addClass('dropdown-menu');
-    }
+    },
   });
 }
