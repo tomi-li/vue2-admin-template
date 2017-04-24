@@ -1,7 +1,3 @@
-/**
- * 自定义组件
- * Created by xinchao.dou on 2016/9/5.
- */
 // components
 import api from './plugins/api';
 import * as utils from './plugins/utils';
@@ -9,6 +5,7 @@ import Content from './content.vue';
 import TopNavigation from './topnavbar.vue';
 import Navigation from './navigation.vue';
 import Footer from './footer.vue';
+import Button from './Button.vue';
 // 获取配置，并将配置文件存入config模块
 let config = null;
 
@@ -22,6 +19,7 @@ function plugin(Vue) {
   Vue.component('top-navigation', TopNavigation);
   Vue.component('navigation', Navigation);
   Vue.component('page-footer', Footer);
+  Vue.component('i-button', Button);
   /**
    * 添加通用属性和方法
    */

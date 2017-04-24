@@ -24,7 +24,7 @@ module.exports = {
       'modules': path.resolve(__dirname, '../src/modules'),
       'static': path.resolve(__dirname, '../static/'),
       'jquery': path.resolve(__dirname, '../node_modules/jquery/dist/jquery'),
-      'vue': 'vue/dist/vue.js',
+      'vue': 'vue/dist/vue.js'
     }
   },
   resolveLoader: {
@@ -81,17 +81,14 @@ module.exports = {
         }
       }
     ]
-  }
-  ,
+  },
   eslint: {
     formatter: require('eslint-friendly-formatter')
-  }
-  ,
+  },
   vue: {
     loaders: utils.cssLoaders()
-  }
-  ,
-  postcss: function () {
+  },
+  postcss: function() {
     return [autoprefixer({ browserlist: ['not IE <= 8', 'iOS > 8', 'Android > 4.4', '> 5%'] })];
   },
   plugins: [

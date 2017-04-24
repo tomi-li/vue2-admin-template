@@ -1,7 +1,3 @@
-/**
- * 自定义指令
- * Created by xiang songtao on 2016/9/22.
- */
 import $ from 'jquery';
 
 export default function RegisterDirectives(Vue) {
