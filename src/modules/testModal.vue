@@ -1,36 +1,22 @@
 <template>
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          ...
-          <button @click="amodal">another modal</button>
+  <i-modal
+    title="Test Modal">
+    ...
+    <button @click="newmodal">another modal</button>
 
-        </div>
-        <div class="modal-footer">
-          <i-button></i-button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
+    <div slot="footer">
+      <i-button title="Close" :closeModal="true"></i-button>
+      <i-button type="primary" title="Save changes"></i-button>
     </div>
-  </div>
+  </i-modal>
 </template>
 
 <script>
   import modal2 from './testModal2.vue';
 
   export default {
-    created: function() {
-      console.log(this);
-    },
     methods: {
-      amodal: function() {
-        console.log(this);
+      newmodal() {
         this.utils.$modal(modal2);
       }
     }

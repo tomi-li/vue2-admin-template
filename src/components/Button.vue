@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn" :class="`btn-${type}`" data-dismiss="modal">Close</button>
+  <button type="button" class="btn" :class="`btn-${type}`" :data-dismiss="closeModal ? 'modal': ''" @click="click">{{ title }}</button>
 </template>
 
 <script>
@@ -8,6 +8,22 @@
       type: {
         type: String,
         default: 'default'
+      },
+      title: {
+        type: String,
+        default: 'Button'
+      },
+      closeModal: {
+        type: Boolean,
+        default: false
+      },
+      onPress: {
+        type: Function
+      }
+    },
+    methods: {
+      click() {
+        if (this.onPress) this.onPress();
       }
     }
   };

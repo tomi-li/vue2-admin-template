@@ -8,16 +8,14 @@ import 'font-awesome/css/font-awesome.min.css';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
 import Vuex from 'vuex';
 import RouterConfig from './routers';
-import CustomComponents from 'components/index';
-import RegisterFilter from './filters/index';
-import RegisterDirectives from './directives/index';
+import CustomComponents from './components';
+import RegisterFilter from './filters';
+import RegisterDirectives from './directives';
 import Store from './store';
 
 Vue.use(VueRouter);
-Vue.use(VueResource);
 Vue.use(Vuex);
 Vue.use(CustomComponents);
 

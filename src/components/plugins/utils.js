@@ -58,7 +58,7 @@ export function isInWeChat() {
 
 import Vue from 'vue';
 import $ from 'jquery';
-import * as _ from 'lodash';
+import _remove from 'lodash/remove';
 
 // make a modal stack
 export function $modal(modal) {
@@ -80,6 +80,6 @@ export function $modal(modal) {
   $(vm.$el).on('hidden.bs.modal', () => {
     vm.$destroy();
     $(`#${vm.$options.id}`).remove();
-    _.remove(modalStack, (modal) => modal === vm);
+    _remove(modalStack, (modal) => modal === vm);
   });
 }
