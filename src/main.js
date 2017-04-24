@@ -34,5 +34,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h('page'),
+  render: h => h('router-view'),
 });

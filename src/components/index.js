@@ -1,13 +1,12 @@
 /* eslint-disable global-require,import/no-dynamic-require */
 // components
-import api from './plugins/api';
-import * as utils from './plugins/utils';
+import * as utils from '../utils';
 import Navigation from './navigation';
-import Content from './content';
 import Button from './Button';
 import Modal from './Modal';
 import Footer from './footer';
 import TopNavigation from './topnavbar';
+import Page from './Page';
 
 let config = null;
 
@@ -17,21 +16,16 @@ require.ensure([], (require) => {
 
 function plugin(Vue) {
   // 注册组件
-  Vue.component('page', Content);
   Vue.component('top-navigation', TopNavigation);
   Vue.component('navigation', Navigation);
   Vue.component('page-footer', Footer);
   Vue.component('i-button', Button);
   Vue.component('i-modal', Modal);
+  Vue.component('i-page', Page);
   /**
    * 添加通用属性和方法
    */
   Object.defineProperties(Vue.prototype, {
-    api: {
-      get() {
-        return api;
-      },
-    },
     utils: {
       get() {
         return utils;

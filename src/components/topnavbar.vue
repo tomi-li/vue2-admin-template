@@ -1,6 +1,6 @@
 <template>
   <div class="row border-bottom">
-    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
       <div class="navbar-header">
         <span minimaliza-sidebar></span>
         <form role="search" class="navbar-form-custom" method="post" action="">
@@ -11,9 +11,9 @@
       </div>
       <ul class="nav navbar-top-links navbar-right">
         <li>
-          <a href="">
+          <router-link to="/logout">
             <i class="fa fa-sign-out"></i> Log out
-          </a>
+          </router-link>
         </li>
       </ul>
     </nav>
