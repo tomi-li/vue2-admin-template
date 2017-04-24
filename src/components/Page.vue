@@ -19,7 +19,6 @@
     <div class="wrapper wrapper-content animated fadeInRight">
       <slot></slot>
     </div>
-
   </div>
 </template>
 
@@ -30,14 +29,6 @@
         type: Boolean,
         default: true,
       },
-    },
-    data() {
-      return {
-        route: this.$route,
-      };
-    },
-    created() {
-      console.log(this.$route);
     },
   };
 </script>

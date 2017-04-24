@@ -1,8 +1,8 @@
-import Layout from './components/content';
+import Layout from './components/layouts/content';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import main from './pages/main';
-import Tabs from './pages/minor';
+import Tabs from './pages/Tabs';
 import Index from './pages/Index';
 import Tables from './pages/Tables';
 
