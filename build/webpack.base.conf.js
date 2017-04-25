@@ -26,6 +26,9 @@ module.exports = {
       jquery: 'jquery/src/jquery',
     },
   },
+  externals: {
+    'jquery': 'jquery',
+  },
   module: {
     rules: [
       {

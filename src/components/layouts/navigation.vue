@@ -34,6 +34,10 @@
           <a><i class="fa fa-desktop"></i> <span class="nav-label">Tables</span></a>
         </router-link>
 
+        <router-link tag="li" to="/index/gallery" active-class="active">
+          <a><i class="fa fa-desktop"></i> <span class="nav-label">Gallery</span></a>
+        </router-link>
+
       </ul>
     </div>
   </nav>

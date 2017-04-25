@@ -5,6 +5,7 @@ import main from './pages/main';
 import Tabs from './pages/Tabs';
 import Index from './pages/Index';
 import Tables from './pages/Tables';
+import Gallery from './pages/Gallery';
 
 export default {
   routes: [
@@ -28,6 +29,11 @@ export default {
           path: 'tables',
           name: 'Tables',
           component: Tables,
+        },
+        {
+          path: 'gallery',
+          name: 'Gallery',
+          component: Gallery,
         },
         {
           path: '*',

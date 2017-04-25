@@ -11,6 +11,7 @@ import Page from './Page';
 import Box from './Box';
 import Tabs from './Tabs';
 import Tab from './Tab';
+import Gallery from './Gallery';
 
 let config = null;
 
@@ -29,6 +30,7 @@ export default (Vue) => {
   Vue.component('i-box', Box);
   Vue.component('i-tabs', Tabs);
   Vue.component('i-tab', Tab);
+  Vue.component('i-gallery', Gallery);
 
   /**
    * 添加通用属性和方法

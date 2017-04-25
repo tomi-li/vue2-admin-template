@@ -2,7 +2,7 @@
   <div class="row border-bottom">
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
       <div class="navbar-header">
-        <span minimaliza-sidebar></span>
+        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" v-minimaliza-sidebar><i class="fa fa-bars"></i></a>
         <form role="search" class="navbar-form-custom" method="post" action="">
           <div class="form-group">
             <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">

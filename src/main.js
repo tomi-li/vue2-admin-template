@@ -7,7 +7,7 @@ import Vuex from 'vuex';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
-import './public/style.css';
+import './public/SCSS/style.scss';
 import './public/animate.css';
 import './public/inspinia';
 
