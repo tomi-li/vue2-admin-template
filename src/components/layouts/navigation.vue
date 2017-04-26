@@ -3,8 +3,8 @@
     <div class="sidebar-collapse">
       <ul side-navigation class="nav metismenu" id="side-menu">
         <li class="nav-header">
-
           <div class="profile-element dropdown" v-dropdown>
+            <span><img alt="image" class="img-circle" :src="require('../../assets/avatar.jpg')"></span>
             <a class="dropdown-handler">
               <span class="clear">
                   <span class="block m-t-xs"><strong class="font-bold">test</strong></span>
@@ -18,7 +18,7 @@
             </ul>
           </div>
           <div class="logo-element">
-            IN+
+            FL
           </div>
         </li>
 
@@ -38,6 +38,10 @@
           <a><i class="fa fa-desktop"></i> <span class="nav-label">Gallery</span></a>
         </router-link>
 
+        <router-link tag="li" to="/index/form" active-class="active">
+          <a><i class="fa fa-desktop"></i> <span class="nav-label">Form</span></a>
+        </router-link>
+
       </ul>
     </div>
   </nav>
@@ -46,3 +50,13 @@
 <script>
   export default{};
 </script>
+
+
+<style lang="scss">
+  .nav-header {
+    img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+</style>

@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import 'icheck/icheck';
+import 'icheck/skins/square/green.css';
 
 export default function RegisterDirectives(Vue) {
   // DropDown menu

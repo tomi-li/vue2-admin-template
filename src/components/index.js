@@ -12,6 +12,12 @@ import Box from './Box';
 import Tabs from './Tabs';
 import Tab from './Tab';
 import Gallery from './Gallery';
+import DataTable from './DataTable';
+import Form from './Form';
+import FormItem from './FormItem';
+import Radio from './Radio';
+import Checkbox from './Checkbox';
+
 
 let config = null;
 
@@ -31,6 +37,11 @@ export default (Vue) => {
   Vue.component('i-tabs', Tabs);
   Vue.component('i-tab', Tab);
   Vue.component('i-gallery', Gallery);
+  Vue.component('i-table', DataTable);
+  Vue.component('i-form', Form);
+  Vue.component('i-form-item', FormItem);
+  Vue.component('i-radio', Radio);
+  Vue.component('i-checkbox', Checkbox);
 
   /**
    * 添加通用属性和方法

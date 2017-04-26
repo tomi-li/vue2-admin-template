@@ -3,12 +3,19 @@ import axios from 'axios';
 
 export default {
   login: {
-    url: 'https://jsonplaceholder.typicode.com/posts',
+    url: 'http://localhost:3000/posts',
   },
 };
 
 
-export function request(api) {
-  return axios.get(api.url)
-    .then(res => res.data);
+export function request(api, params = {}) {
+  return axios({
+    url: api.url,
+    method: api.method || 'get',
+    data: params,
+    params,
+  }).then((res) => {
+    console.log(res);
+    return res.data;
+  });
 }

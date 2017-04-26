@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import testModal from './testModal';
+  import testModal from './modal/testModal';
   import api, { request } from '../api';
 
   export default {

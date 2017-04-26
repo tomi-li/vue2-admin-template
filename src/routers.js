@@ -6,6 +6,7 @@ import Tabs from './pages/Tabs';
 import Index from './pages/Index';
 import Tables from './pages/Tables';
 import Gallery from './pages/Gallery';
+import Form from './pages/Form';
 
 export default {
   routes: [
@@ -34,6 +35,11 @@ export default {
           path: 'gallery',
           name: 'Gallery',
           component: Gallery,
+        },
+        {
+          path: 'form',
+          name: 'Form',
+          component: Form,
         },
         {
           path: '*',
