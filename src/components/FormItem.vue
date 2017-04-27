@@ -1,21 +1,22 @@
 <template>
   <div>
-    <div v-if="hasDivider" class="hr-line-dashed"></div>
-    <div class="form-group" v-if="this.$parent.direction === 'vertical'">
-    </div>
+    <!---->
+    <div v-if="showDivider" class="hr-line-dashed"></div>
+    <!---->
+    <div class="form-group" v-if="this.$parent.direction === 'vertical'"></div>
 
-    <div class="form-group" v-if="this.$parent.direction === 'horizontal'">
+    <div class="form-group" :class="{'has-error' : !validated}" v-if="this.$parent.direction === 'horizontal'">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.$parent.ratio[0]}`">{{ label }}</label>
       <div :class="`col-sm-${this.$parent.ratio[1]}`">
         <!-- one line text -->
-        <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="value" :disabled="disabled">
+        <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="internalValue" :disabled="disabled">
         <!-- static text -->
-        <p v-if="_in(type, ['static'])" class="form-control-static">{{ value }}</p>
+        <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
         <!-- radio -->
         <div v-if="_in(type, ['radio'])">
           <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
             <label>
-              <i-radio :name="name" :value="option" :checked="option === value" @value="value => updateValue(value)" :disabled="disabled"></i-radio>
+              <i-radio :name="name" :value="option" :checked="option === internalValue" @value="value => updateValue(value)" :disabled="disabled"></i-radio>
               {{ option }}
             </label>
           </div>
@@ -24,13 +25,17 @@
         <div v-if="_in(type, ['checkbox'])">
           <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
             <label>
-              <i-checkbox :name="name" :value="option" :checked="_in(option, value)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
+              <i-checkbox :name="name" :value="option" :checked="_in(option, internalValue)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
               {{ option }}
             </label>
           </div>
         </div>
+        <!-- Select -->
+
         <!-- help text -->
         <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
+        <!-- error text -->
+        <span v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
       </div>
     </div>
   </div>
@@ -71,29 +76,39 @@
         default: false,
       },
       validator: {
-        type: [Function, Array],
+        // {
+        //  fn: function.
+        //  message: error message.
+        // }
+        type: [Object, Array],
       },
       options: {
+        // ['checkbox', 'radio', 'select'] options
         type: Array,
       },
       inline: {
+        // ['checkbox', 'radio'] display inline or block
         type: Boolean,
         default: false,
       },
     },
     data() {
       return {
-        hasDivider: false,
-        checkboxValue: [...this.value],
+        showDivider: false, // to display divider
+        internalValue: undefined, // to initialize form value, all calculate is base on internal value
+        checkboxValue: [...this.value], // for checkbox only
+        validated: true,
+        errorMessages: [],
       };
     },
     created() {
+      this.internalValue = this.value;
+      this.updateValue(this.internalValue);
       this.$parent.onItemInserted(this);
-      this.updateValue(this.value);
     },
     methods: {
       renderDivider() {
-        this.hasDivider = true;
+        this.showDivider = true;
       },
       // check if type is valid
       _in(type, options) {
@@ -110,6 +125,29 @@
         this.updateValue(this.checkboxValue);
       },
       updateValue(value) {
+        this.internalValue = value;
+
+        if (this.validator !== undefined) {
+          const validatorArray = (this.validator instanceof Array)
+            ? this.validator
+            : [this.validator];
+          const errors = [];
+          validatorArray.forEach((each) => {
+            if (!each.fn(value)) {
+              console.warn(`[form-item] value '${value}' is not valid for '${this.name}'`);
+              errors.push(each.message);
+            }
+          });
+          // get errors message.
+          this.errorMessages = errors;
+          if (errors.length > 0) {
+            this.validated = false;
+            this.$parent.onItemValueChanged({ [this.name]: undefined });
+            return;
+          }
+        }
+
+        this.validated = true;
         this.$parent.onItemValueChanged({ [this.name]: value });
       },
     },

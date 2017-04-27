@@ -14,8 +14,5 @@ export function request(api, params = {}) {
     method: api.method || 'get',
     data: params,
     params,
-  }).then((res) => {
-    console.log(res);
-    return res.data;
-  });
+  }).then(res => ({ data: res.data, res }));
 }

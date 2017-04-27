@@ -54,6 +54,17 @@
           :options="['123', '234', '345']"
           :value="['123', '234']"></i-form-item>
 
+        <i-form-item
+          label="With validator"
+          name="item9"
+          type="text"
+          placeholder="Try type more than 6 words"
+          :validator="[
+            { fn : value => value.length < 2, message : 'length can not longer than 2.'},
+            { fn : value => value.length < 4, message : 'length can not longer than 4.'},
+            { fn : value => value.length < 6, message : 'length can not longer than 6.'},
+            ]"></i-form-item>
+
       </i-form>
     </i-box>
   </i-page>
