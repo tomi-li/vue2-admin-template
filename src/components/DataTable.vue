@@ -85,7 +85,6 @@
         this.updateData();
       },
       sortColumn() {
-        console.log('111');
         this.updateData();
       },
       sortDirection() {
@@ -101,8 +100,6 @@
           [this.pageParam]: this.page,
           [this.pageSizeParam]: [this.pageSize],
         };
-
-        console.log(requestOptions);
 
         if (this.sortColumn) {
           requestOptions[this.sortParam] = this.sortColumn;

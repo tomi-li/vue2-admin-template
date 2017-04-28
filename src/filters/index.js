@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-unused-vars */
 export default function RegisterFilter(Vue) {
-
 }

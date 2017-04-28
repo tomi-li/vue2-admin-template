@@ -33,4 +33,15 @@ export default function RegisterDirectives(Vue) {
       }
     });
   });
+
+  Vue.directive('mouseenterDelay', (el, bindings) => {
+    const delay = window.parseInt(bindings.arg) || 300;
+    el.addEventListener('mouseenter', () => {
+      const delayedFunction = window.setTimeout(() => bindings.value(), delay);
+      const listener = el.addEventListener('mouseleave', () => {
+        window.clearTimeout(delayedFunction);
+        el.removeEventListener('mouseleave', listener);
+      });
+    });
+  });
 }

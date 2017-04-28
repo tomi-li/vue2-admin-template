@@ -17,6 +17,8 @@ import Form from './Form';
 import FormItem from './FormItem';
 import Radio from './Radio';
 import Checkbox from './Checkbox';
+import UserLabel from './UserLabel';
+import Spinner from './Spinner';
 
 
 let config = null;
@@ -42,6 +44,8 @@ export default (Vue) => {
   Vue.component('i-form-item', FormItem);
   Vue.component('i-radio', Radio);
   Vue.component('i-checkbox', Checkbox);
+  Vue.component('i-user-label', UserLabel);
+  Vue.component('i-spinner', Spinner);
 
   /**
    * 添加通用属性和方法
