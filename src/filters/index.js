@@ -1,6 +1,3 @@
-/**
- * Created by xinchao.dou on 2016/9/13.
- */
+/* eslint-disable no-unused-vars */
 export default function RegisterFilter(Vue) {
-
 }

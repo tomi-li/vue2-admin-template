@@ -1,19 +1,23 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import './public/style.css';
-import './public/animate.css';
 import 'jquery';
-import 'bootstrap/dist/js/bootstrap';
-import './public/inspinia';
-import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.min.css';
+import './public/SCSS/style.scss';
+import './public/animate.css';
+import './public/inspinia';
+
 import RouterConfig from './routers';
-import CustomComponents from 'components/index';
-import RegisterFilter from './filters/index';
-import RegisterDirectives from './directives/index';
+import CustomComponents from './components';
+import RegisterFilter from './filters';
+import RegisterDirectives from './directives';
 import Store from './store';
+
+Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -25,12 +29,10 @@ RegisterDirectives(Vue);
 const store = Store(Vuex);
 const router = new VueRouter(RouterConfig);
 
+// eslint-disable-next-line no-new
 new Vue({
   el: '#app',
-  template: 'router-view',
   router,
   store,
-  render: h => h('router-view')
+  render: h => h('router-view'),
 });
-
-console.clear();

@@ -10,24 +10,24 @@ $(document).ready(() => {
   // Full height of sidebar
   function fixHeight() {
     const heightWithoutNavbar = $('body > #wrapper').height() - 61;
-    $('.sidebar-panel').css('min-height', heightWithoutNavbar + 'px');
+    $('.sidebar-panel').css('min-height', `${heightWithoutNavbar}px`);
 
     const navbarHeight = $('nav.navbar-default').height();
     const wrapperHeigh = $('#page-wrapper').height();
 
     if (navbarHeight > wrapperHeigh) {
-      $('#page-wrapper').css('min-height', navbarHeight + 'px');
+      $('#page-wrapper').css('min-height', `${navbarHeight}px`);
     }
 
     if (navbarHeight < wrapperHeigh) {
-      $('#page-wrapper').css('min-height', $(window).height() + 'px');
+      $('#page-wrapper').css('min-height', `${$(window).height()}px`);
     }
 
     if ($('body').hasClass('fixed-nav')) {
       if (navbarHeight > wrapperHeigh) {
-        $('#page-wrapper').css('min-height', navbarHeight + 'px');
+        $('#page-wrapper').css('min-height', `${navbarHeight}px`);
       } else {
-        $('#page-wrapper').css('min-height', $(window).height() - 60 + 'px');
+        $('#page-wrapper').css('min-height', `${$(window).height() - 60}px`);
       }
     }
   }

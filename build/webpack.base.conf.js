@@ -1,104 +1,71 @@
 var path = require('path')
-var config = require('../config')
 var utils = require('./utils')
-var autoprefixer = require('autoprefixer')
-var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-var projectRoot = path.resolve(__dirname, '../');
-var webpack = require('webpack');
+var config = require('../config')
+var vueLoaderConfig = require('./vue-loader.conf')
+
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
   },
   output: {
     path: config.build.assetsRoot,
-    publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath,
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
-    fallback: [path.join(__dirname, '../node_modules')],
+    extensions: ['.js', '.vue', '.json'],
     alias: {
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components'),
-      'modules': path.resolve(__dirname, '../src/modules'),
-      'static': path.resolve(__dirname, '../static/'),
-      'jquery': path.resolve(__dirname, '../node_modules/jquery/dist/jquery'),
-      'vue': 'vue/dist/vue.js',
-    }
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+      jquery: 'jquery/src/jquery',
+    },
   },
-  resolveLoader: {
-    fallback: [path.join(__dirname, '../node_modules')]
+  externals: {
+    'jquery': 'jQuery',
   },
   module: {
-    preLoaders: [
+    rules: [
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [resolve('src'), resolve('test')],
+        options: {
+          formatter: require('eslint-friendly-formatter'),
+        },
+      },
       {
         test: /\.vue$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
+        loader: 'vue-loader',
+        options: vueLoaderConfig,
       },
       {
         test: /\.js$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
-      }
-    ],
-    loaders: [
-      {
-        test: /\.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel',
-        include: projectRoot,
-        exclude: /node_modules|vue\/dist|vue-router\/|vue-loader\/|vue-hot-reload-api\//
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
-        test: /\.html$/,
-        loader: 'vue-html'
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test')],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url',
-        query: {
+        loader: 'url-loader',
+        options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name]_[hash:7].[ext]')
-        }
+          name: utils.assetsPath('img/[name].[hash:7].[ext]'),
+        },
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url',
-        query: {
+        loader: 'url-loader',
+        options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name]_[hash:7].[ext]')
-        }
-      }
-    ]
-  }
-  ,
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
-  }
-  ,
-  vue: {
-    loaders: utils.cssLoaders()
-  }
-  ,
-  postcss: function () {
-    return [autoprefixer({ browserlist: ['not IE <= 8', 'iOS > 8', 'Android > 4.4', '> 5%'] })];
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
+        },
+      },
+    ],
   },
-  plugins: [
-    new CaseSensitivePathsPlugin(),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    })
-  ]
 };
