@@ -2,32 +2,36 @@
   <div :style="{'display': this.$parent.inline ? 'inline-block' : 'block'}">
     <!---->
     <div v-if="showDivider" class="hr-line-dashed"></div>
+
     <!---->
-    <div class="form-group" v-if="this.$parent.direction === 'vertical'">
+    <div v-if="this.$parent.direction === 'vertical'" class="form-group" :class="{'has-error' : !validated}">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }}</label>
       <!-- one line text -->
       <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="internalValue" :disabled="disabled">
       <!-- static text -->
       <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
       <!-- radio -->
-      <div v-if="_in(type, ['radio'])">
-        <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
-          <label>
-            <i-radio :name="name" :value="option" :checked="option === internalValue" @value="value => updateValue(value)" :disabled="disabled"></i-radio>
-            {{ option }}
-          </label>
-        </div>
-      </div>
+      <i-radio-group v-if="_in(type, ['radio'])"
+                     :name="name"
+                     :options="options"
+                     :inline="inline"
+                     :value="internalValue"
+                     @value="value => updateValue(value)"></i-radio-group>
+
       <!-- checkbox -->
-      <div v-if="_in(type, ['checkbox'])">
-        <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
-          <label>
-            <i-checkbox :name="name" :value="option" :checked="_in(option, internalValue)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
-            {{ option }}
-          </label>
-        </div>
-      </div>
+      <i-checkbox-group v-if="_in(type, ['checkbox'])"
+                        :name="name"
+                        :options="options"
+                        :inline="inline"
+                        :value="internalValue"
+                        @value="value => updateValue(value)"></i-checkbox-group>
       <!-- Select -->
+      <select v-if="_in(type, ['select'])" class="form-control" @change="e => updateValue(e.target.value)">
+        <option v-for="option in options" :value="option">{{option}}</option>
+      </select>
+
+      <!-- Date -->
+      <i-date-picker v-if="_in(type, ['date'])" :placeholder="placeholder" @value="value => updateValue(value)"></i-date-picker>
 
       <!-- help text -->
       <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
@@ -35,32 +39,41 @@
       <span v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
     </div>
 
-    <div class="form-group" :class="{'has-error' : !validated}" v-if="this.$parent.direction === 'horizontal'">
+    <!---->
+    <div v-if="this.$parent.direction === 'horizontal'" class="form-group" :class="{'has-error' : !validated}">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.$parent.ratio[0]}`">{{ label }}</label>
       <div :class="`col-sm-${this.$parent.ratio[1]}`">
         <!-- one line text -->
         <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="internalValue" :disabled="disabled">
+
         <!-- static text -->
         <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
+
         <!-- radio -->
-        <div v-if="_in(type, ['radio'])">
-          <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
-            <label>
-              <i-radio :name="name" :value="option" :checked="option === internalValue" @value="value => updateValue(value)" :disabled="disabled"></i-radio>
-              {{ option }}
-            </label>
-          </div>
-        </div>
+        <i-radio-group v-if="_in(type, ['radio'])"
+                       :name="name"
+                       :options="options"
+                       :inline="inline"
+                       :value="internalValue"
+                       @value="value => updateValue(value)"></i-radio-group>
+
         <!-- checkbox -->
-        <div v-if="_in(type, ['checkbox'])">
-          <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
-            <label>
-              <i-checkbox :name="name" :value="option" :checked="_in(option, internalValue)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
-              {{ option }}
-            </label>
-          </div>
-        </div>
+        <i-checkbox-group v-if="_in(type, ['checkbox'])"
+                          :name="name"
+                          :options="options"
+                          :inline="inline"
+                          :value="internalValue"
+                          @value="value => updateValue(value)"></i-checkbox-group>
+
         <!-- Select -->
+        <select v-if="_in(type, ['select'])" class="form-control" @change="(value) => console.log(value)">
+          <option v-for="option in options" value="option">{{options}}</option>
+        </select>
+
+        <!-- Date -->
+        <i-date-picker v-if="_in(type, ['date'])"
+                       :placeholder="placeholder"
+                       @value="value => updateValue(value)"></i-date-picker>
 
         <!-- help text -->
         <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
@@ -74,7 +87,6 @@
 
 <script>
   import _includes from 'lodash/includes';
-  import _remove from 'lodash/remove';
 
   export default {
     props: {
@@ -88,7 +100,7 @@
       type: {
         type: String,
         default: 'text',
-        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox'], value),
+        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date'], value),
       },
       placeholder: {
         type: [String, Number],
@@ -126,7 +138,6 @@
       return {
         showDivider: false, // to display divider
         internalValue: undefined, // to initialize form value, all calculate is base on internal value
-        checkboxValue: [...this.value], // for checkbox only
         validated: true,
         errorMessages: [],
       };
@@ -144,16 +155,10 @@
       _in(type, options) {
         return _includes(options, type);
       },
-      checkboxAdd(value) {
-        if (_includes(this.checkboxValue, value)) return;
-        this.checkboxValue.push(value);
-        this.updateValue(this.checkboxValue);
+      _log(...args) {
+        console.log(args);
       },
-      checkboxRemove(value) {
-        if (!_includes(this.checkboxValue, value)) return;
-        _remove(this.checkboxValue, each => each === value);
-        this.updateValue(this.checkboxValue);
-      },
+
       updateValue(value) {
         this.internalValue = value;
 

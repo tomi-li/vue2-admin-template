@@ -4,7 +4,16 @@ import * as utils from '../utils';
 import Navigation from './layouts/navigation';
 import Footer from './layouts/footer';
 import TopNavigation from './layouts/topnavbar';
+// form
+import Form from './form/Form';
+import FormItem from './form/FormItem';
+import Radio from './form/Radio';
+import RadioGroup from './form/RadioGroup';
+import Checkbox from './form/Checkbox';
+import CheckboxGroup from './form/CheckboxGroup';
+import DatePicker from './form/DatePicker';
 
+// ui
 import Button from './Button';
 import Modal from './Modal';
 import Page from './Page';
@@ -13,10 +22,6 @@ import Tabs from './Tabs';
 import Tab from './Tab';
 import Gallery from './Gallery';
 import DataTable from './DataTable';
-import Form from './Form';
-import FormItem from './FormItem';
-import Radio from './Radio';
-import Checkbox from './Checkbox';
 import UserLabel from './UserLabel';
 import Spinner from './Spinner';
 import Avatar from './Avatar';
@@ -50,6 +55,9 @@ export default (Vue) => {
   Vue.component('i-spinner', Spinner);
   Vue.component('i-avatar', Avatar);
   Vue.component('i-gender', Gender);
+  Vue.component('i-date-picker', DatePicker);
+  Vue.component('i-checkbox-group', CheckboxGroup);
+  Vue.component('i-radio-group', RadioGroup);
 
   /**
    * 添加通用属性和方法

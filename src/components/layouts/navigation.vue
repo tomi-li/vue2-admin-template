@@ -26,6 +26,10 @@
           <a><i class="fa fa-laptop"></i> <span class="nav-label">Main</span></a>
         </router-link>
 
+        <router-link tag="li" to="/index/users" active-class="active">
+          <a><i class="fa fa-desktop"></i> <span class="nav-label">Users</span></a>
+        </router-link>
+
         <router-link tag="li" to="/index/tabs" active-class="active">
           <a><i class="fa fa-desktop"></i> <span class="nav-label">Tabs</span></a>
         </router-link>

@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="i-data-table">
+    <div v-if="loading" class="backdrop">
+      <i-spinner></i-spinner>
+    </div>
+
     <table class="table table-hover">
       <thead>
       <tr>
@@ -27,7 +31,6 @@
       <li :class="{'disabled' : page === pageCount}"><a @click="updatePage(page + 1)">></a></li>
       <li :class="{'disabled' : page === pageCount}"><a @click="updatePage(pageCount)">>></a></li>
     </ul>
-
   </div>
 </template>
 
@@ -79,11 +82,11 @@
       },
       filter: {
         type: Object,
-        default: {},
       },
     },
     data() {
       return {
+        loading: false,
         pageCount: 0,
         pageRange: [],
         totalCount: 0,
@@ -104,20 +107,26 @@
         this.updateData();
       },
       filter() {
-        this.debouncedUpdate();
+        this.filterUpdate();
       },
     },
     computed: {
-      debouncedUpdate() {
-        return _debounce(this.updateData, 300);
+      filterUpdate() {
+        return _debounce(() => {
+          this.page = 1;
+          this.updateData();
+        }, 300);
       },
     },
     created() {
-      this.updateData();
+      if (!this.filter) {
+        this.updateData();
+      }
     },
     methods: {
       updateData() {
-        console.log('1@#');
+        this.loading = true;
+
         let requestOptions = {
           [this.pageParam]: this.page,
           [this.pageSizeParam]: this.pageSize,
@@ -133,13 +142,13 @@
         }
 
         request(this.api, requestOptions)
-        // eslint-disable-next-line no-unused-vars
           .then(({ data }) => {
             this.data = data;
-            this.data.pageBase = this.page * this.pageSize;
+            this.data.pageBase = (this.page - 1) * this.pageSize;
             this.totalCount = data.totalRecordCount;
             this.setPagination(this.totalCount);
             this.onData(data);
+            this.loading = false;
           });
       },
       updatePage(pageNumber) {
@@ -192,31 +201,47 @@
 
 <style lang="scss">
 
-  table.table thead th {
-    white-space: nowrap;
-    cursor: pointer;
-  }
+  .i-data-table {
+    position: relative;
 
-  table.table tbody td {
-    vertical-align: middle;
-  }
-
-  .pagination li {
-    text-align: center;
-  }
-
-  .pagination li a {
-    user-select: none;
-    display: inline-block;
-    min-width: 37px; // no jumping. minimal 2 digits
-  }
-
-  .pagination .disabled a {
-    color: #cccccc;
-
-    &:hover {
-      color: #cccccc;
+    .backdrop {
+      position: absolute;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(#ffffff, .9);
     }
+
+    table.table thead th {
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    table.table tbody td {
+      vertical-align: middle;
+    }
+
+    .pagination li {
+      text-align: center;
+    }
+
+    .pagination li a {
+      user-select: none;
+      display: inline-block;
+      min-width: 37px; // no jumping. minimal 2 digits
+    }
+
+    .pagination .disabled a {
+      color: #cccccc;
+
+      &:hover {
+        color: #cccccc;
+      }
+    }
+
   }
 
 </style>

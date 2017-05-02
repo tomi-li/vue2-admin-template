@@ -1,6 +1,6 @@
 <template>
   <form :class="{'form-horizontal': direction === 'horizontal', 'form-inline': inline}">
-    <pre>{{value}}</pre>
+    <pre v-if="debug">{{value}}</pre>
     <slot></slot>
   </form>
 </template>
@@ -31,6 +31,10 @@
       },
       onValue: {
         type: Function,
+      },
+      debug: {
+        type: Boolean,
+        default: false,
       },
     },
     data() {

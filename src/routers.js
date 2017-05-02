@@ -1,10 +1,10 @@
 import Layout from './components/layouts/content';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
-import main from './pages/main';
+import Dashboard from './pages/Dashboard';
 import Tabs from './pages/Tabs';
 import Index from './pages/Index';
-import Tables from './pages/Tables';
+import Users from './pages/Users';
 import Gallery from './pages/Gallery';
 import Form from './pages/Form';
 
@@ -13,23 +13,23 @@ export default {
     {
       path: '/index',
       name: 'Index',
-      redirect: '/index/main',
+      redirect: '/index/dashboard',
       component: Layout,
       children: [
         {
-          path: 'main',
-          name: 'Main',
-          component: main,
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: Dashboard,
+        },
+        {
+          path: 'users',
+          name: 'Users',
+          component: Users,
         },
         {
           path: 'tabs',
           name: 'Tabs',
           component: Tabs,
-        },
-        {
-          path: 'tables',
-          name: 'Tables',
-          component: Tables,
         },
         {
           path: 'gallery',
@@ -43,7 +43,7 @@ export default {
         },
         {
           path: '*',
-          redirect: 'main',
+          redirect: 'dashboard',
         },
       ],
     },

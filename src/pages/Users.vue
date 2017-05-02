@@ -4,18 +4,19 @@
       <i-form
         :inline="true"
         :onValue="onFormValue">
+
         <i-form-item
           name="name"
           placeholder="Name"
           type="text"></i-form-item>
 
         <i-form-item
-          name="name"
+          name="userId"
           placeholder="User Id"
           type="text"></i-form-item>
 
         <i-form-item
-          name="name"
+          name="suid"
           placeholder="Super User Id"
           type="text"></i-form-item>
 
@@ -24,10 +25,26 @@
           placeholder="Email"
           type="text"></i-form-item>
 
-        <i-form-item
-          name="registerTime"
-          placeholder="Register Time"
-          type="text"></i-form-item>
+        <div class="m-t-sm">
+
+          <i-form-item
+            name="registerFrom"
+            placeholder="Register From"
+            type="date"></i-form-item>
+
+          <i-form-item
+            name="registerTo"
+            placeholder="Register To"
+            type="date"></i-form-item>
+
+          <i-form-item
+            name="type"
+            placeholder="asd"
+            type="select"
+            :value="'AllUser'"
+            :options="['AllUser', 'NormalUser', 'Partner', 'Administrator']"></i-form-item>
+        </div>
+
       </i-form>
     </i-box>
 
