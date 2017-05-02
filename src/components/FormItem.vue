@@ -1,9 +1,39 @@
 <template>
-  <div>
+  <div :style="{'display': this.$parent.inline ? 'inline-block' : 'block'}">
     <!---->
     <div v-if="showDivider" class="hr-line-dashed"></div>
     <!---->
-    <div class="form-group" v-if="this.$parent.direction === 'vertical'"></div>
+    <div class="form-group" v-if="this.$parent.direction === 'vertical'">
+      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }}</label>
+      <!-- one line text -->
+      <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="internalValue" :disabled="disabled">
+      <!-- static text -->
+      <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
+      <!-- radio -->
+      <div v-if="_in(type, ['radio'])">
+        <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
+          <label>
+            <i-radio :name="name" :value="option" :checked="option === internalValue" @value="value => updateValue(value)" :disabled="disabled"></i-radio>
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <!-- checkbox -->
+      <div v-if="_in(type, ['checkbox'])">
+        <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
+          <label>
+            <i-checkbox :name="name" :value="option" :checked="_in(option, internalValue)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
+            {{ option }}
+          </label>
+        </div>
+      </div>
+      <!-- Select -->
+
+      <!-- help text -->
+      <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
+      <!-- error text -->
+      <span v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
+    </div>
 
     <div class="form-group" :class="{'has-error' : !validated}" v-if="this.$parent.direction === 'horizontal'">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.$parent.ratio[0]}`">{{ label }}</label>
@@ -153,3 +183,9 @@
     },
   };
 </script>
+
+<style>
+  .i-form-item-container {
+    display: inline-block;
+  }
+</style>

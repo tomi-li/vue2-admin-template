@@ -11,8 +11,7 @@
         <div class="popover-content">
           <i-spinner v-if="!user" class="loader" type="circle"></i-spinner>
           <div v-if="user">
-            <p>{{ user.name }}</p>
-            <p>{{ user.email }}</p>
+            {{ user }}
           </div>
         </div>
       </div>
@@ -63,7 +62,7 @@
         if (this.showDetail) this.showDetail = false;
       },
       requestInfo() {
-        request(api.userDetail)
+        request(api.userDetail, { id: this.id })
           .then(({ data }) => {
             this.user = data;
           });

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <table class="table">
+    <table class="table table-hover">
       <thead>
       <tr>
+        <th v-if="withIndex">#</th>
         <th v-for="column in columns" @click="sortBy(column)">
           <span>{{ column }}</span>
           <span class="sort-indicator">
@@ -17,6 +18,8 @@
       </tbody>
     </table>
 
+    <p>Total: {{totalCount}} Records</p>
+
     <ul class="pagination">
       <li :class="{'disabled' : page === 1}"><a @click="updatePage(1)"><<</a></li>
       <li :class="{'disabled' : page === 1}"><a @click="updatePage(page -1)"><</a></li>
@@ -29,6 +32,7 @@
 </template>
 
 <script>
+  import _debounce from 'lodash/debounce';
   import { request } from '../api';
 
   export default {
@@ -47,11 +51,11 @@
       },
       pageParam: {
         type: String,
-        default: '_page',
+        default: 'pageNo',
       },
       pageSizeParam: {
         type: String,
-        default: '_limit',
+        default: 'pageSize',
       },
       sortParam: {
         type: String,
@@ -63,17 +67,26 @@
       },
       pageSize: {
         type: Number,
-        default: 7,
+        default: 10,
       },
       paginationSize: {
         type: Number,
         default: 7,
+      },
+      withIndex: {
+        type: Boolean,
+        default: true,
+      },
+      filter: {
+        type: Object,
+        default: {},
       },
     },
     data() {
       return {
         pageCount: 0,
         pageRange: [],
+        totalCount: 0,
         page: 1,
         data: undefined,
         sortColumn: undefined,
@@ -90,15 +103,24 @@
       sortDirection() {
         this.updateData();
       },
+      filter() {
+        this.debouncedUpdate();
+      },
+    },
+    computed: {
+      debouncedUpdate() {
+        return _debounce(this.updateData, 300);
+      },
     },
     created() {
       this.updateData();
     },
     methods: {
       updateData() {
-        const requestOptions = {
+        console.log('1@#');
+        let requestOptions = {
           [this.pageParam]: this.page,
-          [this.pageSizeParam]: [this.pageSize],
+          [this.pageSizeParam]: this.pageSize,
         };
 
         if (this.sortColumn) {
@@ -106,12 +128,17 @@
           requestOptions[this.sortDirectionParam] = this.sortDirection;
         }
 
+        if (this.filter) {
+          requestOptions = Object.assign({}, requestOptions, this.filter);
+        }
+
         request(this.api, requestOptions)
         // eslint-disable-next-line no-unused-vars
-          .then(({ data, res }) => {
+          .then(({ data }) => {
             this.data = data;
-            const totalCount = res.headers['x-total-count'];
-            this.setPagination(totalCount);
+            this.data.pageBase = this.page * this.pageSize;
+            this.totalCount = data.totalRecordCount;
+            this.setPagination(this.totalCount);
             this.onData(data);
           });
       },
@@ -168,6 +195,10 @@
   table.table thead th {
     white-space: nowrap;
     cursor: pointer;
+  }
+
+  table.table tbody td {
+    vertical-align: middle;
   }
 
   .pagination li {

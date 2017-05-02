@@ -1,5 +1,5 @@
 <template>
-  <form :class="{'form-horizontal': direction === 'horizontal'}">
+  <form :class="{'form-horizontal': direction === 'horizontal', 'form-inline': inline}">
     <pre>{{value}}</pre>
     <slot></slot>
   </form>
@@ -25,12 +25,26 @@
         type: Boolean,
         default: false,
       },
+      inline: {
+        type: Boolean,
+        default: false,
+      },
+      onValue: {
+        type: Function,
+      },
     },
     data() {
       return {
         value: () => ({}),
         items: [],
       };
+    },
+    watch: {
+      value() {
+        if (this.onValue) {
+          this.onValue(this.value);
+        }
+      },
     },
     methods: {
       onItemInserted(item) {

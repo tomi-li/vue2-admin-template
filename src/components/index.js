@@ -19,6 +19,8 @@ import Radio from './Radio';
 import Checkbox from './Checkbox';
 import UserLabel from './UserLabel';
 import Spinner from './Spinner';
+import Avatar from './Avatar';
+import Gender from './Gender';
 
 
 let config = null;
@@ -46,6 +48,8 @@ export default (Vue) => {
   Vue.component('i-checkbox', Checkbox);
   Vue.component('i-user-label', UserLabel);
   Vue.component('i-spinner', Spinner);
+  Vue.component('i-avatar', Avatar);
+  Vue.component('i-gender', Gender);
 
   /**
    * 添加通用属性和方法
