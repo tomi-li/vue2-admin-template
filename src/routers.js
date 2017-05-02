@@ -4,16 +4,18 @@ import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
 import Tabs from './pages/Tabs';
 import Index from './pages/Index';
-import Users from './pages/Users';
 import Gallery from './pages/Gallery';
 import Form from './pages/Form';
+
+import User from './pages/User/User';
+import Users from './pages/User/Users';
+
 
 export default {
   routes: [
     {
       path: '/index',
       name: 'Index',
-      redirect: '/index/dashboard',
       component: Layout,
       children: [
         {
@@ -22,9 +24,13 @@ export default {
           component: Dashboard,
         },
         {
-          path: 'users',
-          name: 'Users',
-          component: Users,
+          path: 'user',
+          name: 'User',
+          redirect: '/index/user/list',
+          component: User,
+          children: [
+            { path: 'list', name: 'UserList', component: Users },
+          ],
         },
         {
           path: 'tabs',

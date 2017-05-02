@@ -22,29 +22,19 @@
           </div>
         </li>
 
-        <router-link tag="li" to="/index/main" active-class="active">
-          <a><i class="fa fa-laptop"></i> <span class="nav-label">Main</span></a>
-        </router-link>
+        <li v-for="route in routes" :class="{active: _routeIn(route.name)}">
 
-        <router-link tag="li" to="/index/users" active-class="active">
-          <a><i class="fa fa-desktop"></i> <span class="nav-label">Users</span></a>
-        </router-link>
+          <router-link v-if="!route.children" :to="{ name : route.name }">
+            <i class="fa" :class="route.icon || 'fa-user'"></i><span class="nav-label">{{ route.name }}</span>
+          </router-link>
 
-        <router-link tag="li" to="/index/tabs" active-class="active">
-          <a><i class="fa fa-desktop"></i> <span class="nav-label">Tabs</span></a>
-        </router-link>
-
-        <router-link tag="li" to="/index/tables" active-class="active">
-          <a><i class="fa fa-desktop"></i> <span class="nav-label">Tables</span></a>
-        </router-link>
-
-        <router-link tag="li" to="/index/gallery" active-class="active">
-          <a><i class="fa fa-desktop"></i> <span class="nav-label">Gallery</span></a>
-        </router-link>
-
-        <router-link tag="li" to="/index/form" active-class="active">
-          <a><i class="fa fa-desktop"></i> <span class="nav-label">Form</span></a>
-        </router-link>
+          <a v-if="route.children" href="#"> <i class="fa" :class="route.icon || 'fa-user'"></i> <span class="nav-label">{{ route.name }}</span><span class="fa arrow"></span></a>
+          <ul v-if="route.children" class="nav nav-second-level collapse" :class="{in: _routeIn('User')}">
+            <li v-for="subroute in route.children">
+              <router-link :to="{ name : route.name}">{{ subroute.name }}</router-link>
+            </li>
+          </ul>
+        </li>
 
       </ul>
     </div>
@@ -52,7 +42,31 @@
 </template>
 
 <script>
-  export default{};
+  import _find from 'lodash/find';
+  import _filter from 'lodash/filter';
+  import $ from 'jquery';
+  import 'metismenu';
+  import routers from '../../routers';
+
+  export default{
+    data() {
+      return {
+        routes: () => ({}),
+      };
+    },
+    created() {
+      const rootRoute = _find(routers.routes, { name: 'Index' });
+      this.routes = _filter(rootRoute.children, route => route.path !== '*');
+    },
+    mounted() {
+      $('.metismenu').metisMenu();
+    },
+    methods: {
+      _routeIn(name) {
+        return !!_find(this.$route.matched, { name });
+      },
+    },
+  };
 </script>
 
 
