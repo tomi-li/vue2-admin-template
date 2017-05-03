@@ -3,7 +3,7 @@
     <!---->
     <div v-if="showDivider" class="hr-line-dashed"></div>
 
-    <!---->
+    <!-- vertical -->
     <div v-if="this.$parent.direction === 'vertical'" class="form-group" :class="{'has-error' : !validated}">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }}</label>
       <!-- one line text -->
@@ -27,6 +27,8 @@
                         @value="value => updateValue(value)"></i-checkbox-group>
       <!-- Select -->
       <select v-if="_in(type, ['select'])" class="form-control" @change="e => updateValue(e.target.value)">
+        <!-- if there are no default value. will put empty value as default -->
+        <option v-if="!value" value="">------</option>
         <option v-for="option in options" :value="option">{{option}}</option>
       </select>
 
@@ -67,6 +69,8 @@
 
         <!-- Select -->
         <select v-if="_in(type, ['select'])" class="form-control" @change="(value) => console.log(value)">
+          <!-- if there are no default value. will put empty value as default -->
+          <option v-if="!value" value="">------</option>
           <option v-for="option in options" value="option">{{options}}</option>
         </select>
 

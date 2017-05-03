@@ -29,6 +29,11 @@ RegisterDirectives(Vue);
 const store = Store(Vuex);
 const router = new VueRouter(RouterConfig);
 
+router.beforeEach((to, from, next) => {
+  document.title = to.name;
+  next();
+});
+
 // eslint-disable-next-line no-new
 new Vue({
   el: '#app',

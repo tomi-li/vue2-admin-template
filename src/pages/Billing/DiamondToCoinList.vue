@@ -1,23 +1,24 @@
 <template>
   <i-page>
+
     <i-box>
       <i-table
-        :api="api.abuseSummary"
-        :columns="['id', 'avatar', 'reason', 'Report Time']"
+        :api="api.convertCoinUser"
+        :columns="['id', 'User', 'Converted Coins', 'Deducted Diamonds']"
         :onData="data => userData = data">
 
-        <tr v-if="!!userData.response" v-for="(item, index) in userData.response.result">
+        <tr v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>
-          <td>{{ item['targetId'] }}</td>
+          <td>{{ item['userId'] }}</td>
           <td>
-            <i-avatar :src="item['avatar']"></i-avatar>
+            <i-user-label :id="item['userId']" :name="item['userName']"></i-user-label>
           </td>
-          <td>{{ item['reasons'] }}</td>
-          <td>{{ item['reportTime'] | date }}</td>
+          <td>{{ item['coins'] }}</td>
+          <td>{{ item['diamond'] }}</td>
         </tr>
       </i-table>
-
     </i-box>
+
   </i-page>
 </template>
 
@@ -29,7 +30,6 @@
     data() {
       return {
         api,
-        filter: {},
         userData: {
           response: {},
         },
@@ -37,7 +37,7 @@
     },
     methods: {
       onFormValue(value) {
-        this.filter = { ...value, AllUser: 'Partner' };
+        this.filter = value;
       },
     },
   };

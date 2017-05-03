@@ -1,10 +1,6 @@
 import Vue from 'vue';
 import * as types from '../types';
-/**
- * 登录
- * @param commit
- * @param user
- */
+
 export const login = (test) => {
   const { commit } = test;
   return new Promise((resolve, reject) => {

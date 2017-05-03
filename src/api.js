@@ -22,6 +22,10 @@ export default {
   userDetail: new API('account/detail'),
   banedUserList: new API('ban/index'),
   abuseSummary: new API('abuse/summary'),
+  cashOutUser: new API('billing/diamond/cashout-users'),
+  diamondIncome: new API('billing/diamond/diamond-earning-users'),
+  convertCoinUser: new API('billing/diamond/convert-coin-users'),
+  cashOutRequests: new API('treasure/cash-out/details'),
 };
 
 export function request(api, params = {}) {

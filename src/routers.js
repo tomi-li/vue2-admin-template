@@ -15,6 +15,12 @@ import ReportedUserList from './pages/User/ReportedUserList';
 import BanedUserList from './pages/User/BanedUserList';
 import BanedHistory from './pages/User/BanedHistory';
 
+// Billing
+import BillingIndex from './pages/Billing/Index';
+import CashOutUserList from './pages/Billing/CashOutUserList';
+import DiamondIncomeList from './pages/Billing/DiamondIncomeList';
+import DiamondToCoinList from './pages/Billing/DiamondToCoinList';
+import CashOutRequests from './pages/Billing/CashOutRequests';
 
 export default {
   routes: [
@@ -39,6 +45,18 @@ export default {
             { path: 'reported-user-list', name: 'Reported User List', component: ReportedUserList },
             { path: 'banned-user-list', name: 'Banned User List', component: BanedUserList },
             { path: 'ban-history', name: 'Ban History', component: BanedHistory },
+          ],
+        },
+        {
+          path: 'billing',
+          name: 'Billing',
+          redirect: '/index/billing/cash-out-user',
+          component: BillingIndex,
+          children: [
+            { path: 'cash-out', name: 'Cash Out User List', component: CashOutUserList },
+            { path: 'diamond-income', name: 'Diamond Income List', component: DiamondIncomeList },
+            { path: 'diamond-to-coins', name: 'Diamond To Coins List', component: DiamondToCoinList },
+            { path: 'cash-out-request', name: 'Cash Out Requests', component: CashOutRequests },
           ],
         },
         {
