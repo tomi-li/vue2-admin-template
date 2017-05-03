@@ -7,8 +7,13 @@ import Index from './pages/Index';
 import Gallery from './pages/Gallery';
 import Form from './pages/Form';
 
-import User from './pages/User/User';
-import Users from './pages/User/Users';
+// User
+import UserIndex from './pages/User/Index';
+import UserList from './pages/User/UserList';
+import PartnerList from './pages/User/PartnerList';
+import ReportedUserList from './pages/User/ReportedUserList';
+import BanedUserList from './pages/User/BanedUserList';
+import BanedHistory from './pages/User/BanedHistory';
 
 
 export default {
@@ -27,9 +32,13 @@ export default {
           path: 'user',
           name: 'User',
           redirect: '/index/user/list',
-          component: User,
+          component: UserIndex,
           children: [
-            { path: 'list', name: 'UserList', component: Users },
+            { path: 'list', name: 'User List', component: UserList },
+            { path: 'partners', name: 'Partner List', component: PartnerList },
+            { path: 'reported-user-list', name: 'Reported User List', component: ReportedUserList },
+            { path: 'banned-user-list', name: 'Banned User List', component: BanedUserList },
+            { path: 'ban-history', name: 'Ban History', component: BanedHistory },
           ],
         },
         {

@@ -83,6 +83,10 @@
       filter: {
         type: Object,
       },
+      lazy: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
@@ -119,7 +123,7 @@
       },
     },
     created() {
-      if (!this.filter) {
+      if (!this.lazy) {
         this.updateData();
       }
     },
@@ -145,7 +149,7 @@
           .then(({ data }) => {
             this.data = data;
             this.data.pageBase = (this.page - 1) * this.pageSize;
-            this.totalCount = data.totalRecordCount;
+            this.totalCount = data.totalRecordCount || data.response.total_record_count;
             this.setPagination(this.totalCount);
             this.onData(data);
             this.loading = false;

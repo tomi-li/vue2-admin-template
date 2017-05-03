@@ -50,10 +50,11 @@
 
     <i-box>
       <i-table
-        :api="api.users"
+        :api="api.userList"
         :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'birthday']"
         :onData="data => userData = data"
-        :filter="filter">
+        :filter="filter"
+        :lazy="true">
 
         <tr v-for="(item, index) in userData.accounts">
           <td>{{ (index + 1) + userData.pageBase}}</td>

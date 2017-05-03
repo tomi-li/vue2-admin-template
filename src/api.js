@@ -18,8 +18,10 @@ class API {
 export default {
   login: new API('posts'),
   // user list
-  users: new API('account/index'),
+  userList: new API('account/index'),
   userDetail: new API('account/detail'),
+  banedUserList: new API('ban/index'),
+  abuseSummary: new API('abuse/summary'),
 };
 
 export function request(api, params = {}) {

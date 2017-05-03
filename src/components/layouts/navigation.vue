@@ -29,10 +29,8 @@
           </router-link>
 
           <a v-if="route.children" href="#"> <i class="fa" :class="route.icon || 'fa-user'"></i> <span class="nav-label">{{ route.name }}</span><span class="fa arrow"></span></a>
-          <ul v-if="route.children" class="nav nav-second-level collapse" :class="{in: _routeIn('User')}">
-            <li v-for="subroute in route.children">
-              <router-link :to="{ name : route.name}">{{ subroute.name }}</router-link>
-            </li>
+          <ul v-if="route.children" class="nav nav-second-level collapse" :class="{in: _routeIn(route.name)}">
+            <router-link v-for="subroute in route.children" tag="li" :to="{name : subroute.name}" active-class="active"><a>{{ subroute.name }}</a></router-link>
           </ul>
         </li>
 
