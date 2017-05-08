@@ -26,6 +26,10 @@ export default {
   diamondIncome: new API('billing/diamond/diamond-earning-users'),
   convertCoinUser: new API('billing/diamond/convert-coin-users'),
   cashOutRequests: new API('treasure/cash-out/details'),
+  floatBannerList: new API('float-banner/get-all'),
+  bannerList: new API('adv/index', { method: 'post' }),
+  eventList: new API('event/index', { method: 'post' }),
+  topEventList: new API('topevent/index', { method: 'post' }),
 };
 
 export function request(api, params = {}) {

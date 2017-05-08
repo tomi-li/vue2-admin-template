@@ -22,6 +22,18 @@ import DiamondIncomeList from './pages/Billing/DiamondIncomeList';
 import DiamondToCoinList from './pages/Billing/DiamondToCoinList';
 import CashOutRequests from './pages/Billing/CashOutRequests';
 
+// Video
+import VideoIndex from './pages/Video/Index';
+import ReplayList from './pages/Video/ReplyVideoList';
+
+// Banner
+import BannerIndex from './pages/Banner/Index';
+import FloatBanner from './pages/Banner/FloatBanner';
+import Banner from './pages/Banner/Banner';
+
+// Event
+import Event from './pages/Event/Event';
+
 export default {
   routes: [
     {
@@ -58,6 +70,35 @@ export default {
             { path: 'diamond-to-coins', name: 'Diamond To Coins List', component: DiamondToCoinList },
             { path: 'cash-out-request', name: 'Cash Out Requests', component: CashOutRequests },
           ],
+        },
+        {
+          path: 'video',
+          name: 'Video',
+          redirect: '/index/video/replay-list',
+          component: VideoIndex,
+          children: [
+            { path: 'replay-list', name: 'Replay Video List', component: ReplayList },
+          ],
+        },
+        {
+          path: 'banner',
+          name: 'Banner',
+          redirect: '/index/video/float-banner',
+          component: BannerIndex,
+          children: [
+            { path: 'float-banner', name: 'Float Banner', component: FloatBanner },
+            { path: 'banner', name: 'Banner', component: Banner },
+          ],
+        },
+        {
+          path: 'system',
+          name: 'System',
+          component: BannerIndex,
+        },
+        {
+          path: 'event',
+          name: 'Event',
+          component: Event,
         },
         {
           path: 'tabs',

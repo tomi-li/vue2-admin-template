@@ -37,10 +37,20 @@
           this.$emit('value', moment(event.target.value).format('x'));
         }
       });
+
+      datepicker.on('clearDate', () => {
+        this.$emit('value', '');
+      });
     },
     methods: {
       validateDate(e) {
-        const date = moment(e.target.value);
+        const value = e.target.value;
+        if (value === '') {
+          this.valid = true;
+          return;
+        }
+
+        const date = moment(value);
         if (date.isValid()) {
           this.valid = true;
         } else {

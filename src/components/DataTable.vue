@@ -22,9 +22,9 @@
       </tbody>
     </table>
 
-    <p>Total: {{totalCount}} Records</p>
+    <p v-if="pagination">Total: {{totalCount}} Records</p>
 
-    <ul class="pagination">
+    <ul class="pagination" v-if="pagination">
       <li :class="{'disabled' : page === 1}"><a @click="updatePage(1)"><<</a></li>
       <li :class="{'disabled' : page === 1}"><a @click="updatePage(page -1)"><</a></li>
       <li v-for="pageNumber in pageRange" :class="{'active': page == pageNumber}"><a @click="() => updatePage(pageNumber)">{{ pageNumber }}</a></li>
@@ -98,6 +98,7 @@
         data: undefined,
         sortColumn: undefined,
         sortDirection: 'ASC',
+        pagination: true,
       };
     },
     watch: {
@@ -131,10 +132,13 @@
       updateData() {
         this.loading = true;
 
-        let requestOptions = {
-          [this.pageParam]: this.page,
-          [this.pageSizeParam]: this.pageSize,
-        };
+        let requestOptions = {};
+
+        if (this.pagination) {
+          requestOptions[this.pageParam] = this.page;
+          requestOptions.pageNumber = this.page;
+          requestOptions[this.pageSizeParam] = this.pageSize;
+        }
 
         if (this.sortColumn) {
           requestOptions[this.sortParam] = this.sortColumn;
@@ -149,7 +153,8 @@
           .then(({ data }) => {
             this.data = data;
             this.data.pageBase = (this.page - 1) * this.pageSize;
-            this.totalCount = data.totalRecordCount || data.response.total_record_count;
+            this.totalCount = data.totalRecordCount
+              || (data.response && data.response.total_record_count);
             this.setPagination(this.totalCount);
             this.onData(data);
             this.loading = false;
@@ -160,6 +165,10 @@
         this.page = pageNumber;
       },
       setPagination(totalCount) {
+        if (!totalCount) {
+          this.pagination = false;
+        }
+
         const pageCount =
                 window.parseInt(totalCount / this.pageSize)
                 + (totalCount % this.pageSize === 0 ? 0 : 1);
