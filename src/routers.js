@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
 import Index from './pages/Index';
+import UserDetail from './pages/UserDetail';
 
 // User
 import UserIndex from './pages/User/Index';
@@ -86,7 +87,7 @@ export default {
         },
         {
           path: 'banner',
-          name: 'Banner',
+          name: 'Banners',
           redirect: '/index/video/float-banner',
           component: BannerIndex,
           children: [
@@ -125,6 +126,11 @@ export default {
     {
       path: '/logout',
       component: Logout,
+    },
+    {
+      path: '/user/:id',
+      name: 'UserDetail',
+      component: UserDetail,
     },
     {
       path: '/',
