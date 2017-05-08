@@ -16,7 +16,6 @@ class API {
 }
 
 export default {
-  login: new API('posts'),
   // user list
   userList: new API('account/index'),
   userDetail: new API('account/detail'),
@@ -30,6 +29,9 @@ export default {
   bannerList: new API('adv/index', { method: 'post' }),
   eventList: new API('event/index', { method: 'post' }),
   topEventList: new API('topevent/index', { method: 'post' }),
+  photos: new API('photo/index'),
+  // feedback
+  feedbackList: new API('feedback/index'),
 };
 
 export function request(api, params = {}) {

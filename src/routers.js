@@ -2,10 +2,7 @@ import Layout from './components/layouts/content';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
-import Tabs from './pages/Tabs';
 import Index from './pages/Index';
-import Gallery from './pages/Gallery';
-import Form from './pages/Form';
 
 // User
 import UserIndex from './pages/User/Index';
@@ -33,6 +30,13 @@ import Banner from './pages/Banner/Banner';
 
 // Event
 import Event from './pages/Event/Event';
+
+// Picture
+import PictureList from './pages/Picture/Picture';
+
+// Other Operations
+import OtherOperationsIndex from './pages/OtherOperations/Index';
+import FeedbackList from './pages/OtherOperations/FeedbackList';
 
 export default {
   routes: [
@@ -91,9 +95,9 @@ export default {
           ],
         },
         {
-          path: 'system',
-          name: 'System',
-          component: BannerIndex,
+          path: 'picture',
+          name: 'Picture',
+          component: PictureList,
         },
         {
           path: 'event',
@@ -101,19 +105,12 @@ export default {
           component: Event,
         },
         {
-          path: 'tabs',
-          name: 'Tabs',
-          component: Tabs,
-        },
-        {
-          path: 'gallery',
-          name: 'Gallery',
-          component: Gallery,
-        },
-        {
-          path: 'form',
-          name: 'Form',
-          component: Form,
+          path: 'other-operations',
+          name: 'OtherOperations',
+          component: OtherOperationsIndex,
+          children: [
+            { path: 'feedback-list', name: 'FeedbackList', component: FeedbackList },
+          ],
         },
         {
           path: '*',
