@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Header -->
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <div v-if="withHeader" class="row wrapper border-bottom white-bg page-heading">
       <div class="col-lg-10">
         <h2>{{this.$route.name}}</h2>
         <ol class="breadcrumb">

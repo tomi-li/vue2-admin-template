@@ -29,6 +29,7 @@ RegisterDirectives(Vue);
 const store = Store(Vuex);
 const router = new VueRouter(RouterConfig);
 
+// set page title to route name
 router.beforeEach((to, from, next) => {
   document.title = to.name;
   next();

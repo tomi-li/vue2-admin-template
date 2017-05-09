@@ -1,6 +1,6 @@
 <template>
   <div class="i-user-label">
-    <span class="badge badge-info" v-mouseenter-delay="showDetails" @mouseleave="hideDetails">
+    <span class="badge badge-info" v-mouseenter-delay="showDetails" @mouseleave="hideDetails" @click="showDetailPage">
       <i class="fa fa-user"></i>
       <span>{{name}}</span>
     </span>
@@ -66,6 +66,9 @@
           .then(({ data }) => {
             this.user = data;
           });
+      },
+      showDetailPage() {
+        this.$router.push({ name: 'UserDetail', params: { id: this.id } });
       },
     },
   };

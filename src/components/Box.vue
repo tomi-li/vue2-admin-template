@@ -1,7 +1,7 @@
 <template>
   <div class="ibox float-e-margins">
     <div class="ibox-title" v-if="title"><h5>{{ title }}</h5></div>
-    <div class="ibox-content">
+    <div class="ibox-content" :class="{'no-padding': noPadding}">
       <slot></slot>
     </div>
   </div>
@@ -13,6 +13,10 @@
       title: {
         type: String,
         default: '',
+      },
+      noPadding: {
+        type: Boolean,
+        default: false,
       },
     },
   };

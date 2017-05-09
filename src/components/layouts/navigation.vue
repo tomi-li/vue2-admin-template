@@ -22,7 +22,7 @@
           </div>
         </li>
 
-        <li v-for="route in routes" :class="{active: _routeIn(route.name)}">
+        <li v-for="route in routes" :key="route.name" :class="{active: _routeIn(route.name)}">
 
           <router-link v-if="!route.children" :to="{ name : route.name }">
             <i class="fa" :class="route.icon || 'fa-user'"></i><span class="nav-label">{{ route.name }}</span>
@@ -30,7 +30,7 @@
 
           <a v-if="route.children" href="#"> <i class="fa" :class="route.icon || 'fa-user'"></i> <span class="nav-label">{{ route.name }}</span><span class="fa arrow"></span></a>
           <ul v-if="route.children" class="nav nav-second-level collapse" :class="{in: _routeIn(route.name)}">
-            <router-link v-for="subroute in route.children" tag="li" :to="{name : subroute.name}" active-class="active"><a>{{ subroute.name }}</a></router-link>
+            <router-link v-for="subroute in route.children" v-if="!subroute.hide" tag="li" :key="subroute.name" :to="{name : subroute.name}" active-class="active"><a>{{ subroute.name }}</a></router-link>
           </ul>
         </li>
 

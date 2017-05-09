@@ -1,5 +1,5 @@
 <template>
-  <img :src="src" class="i-avatar"
+  <img :src="hasError ? defaultAvatar : src" class="i-avatar"
        :class="{'circle-border': type === 'circle'}">
 </template>
 
@@ -16,6 +16,20 @@
       src: {
         type: String,
       },
+    },
+    data() {
+      return {
+        hasError: false,
+        // eslint-disable-next-line global-require
+        defaultAvatar: require('../assets/avatar.jpg'),
+      };
+    },
+    created() {
+      const img = new Image();
+      img.onerror = () => {
+        this.hasError = true;
+      };
+      img.src = this.src;
     },
   };
 </script>

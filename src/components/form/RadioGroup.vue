@@ -1,9 +1,13 @@
 <template>
   <div>
     <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
-      <label>
+      <label v-if="isSimpleData">
         <i-radio :name="name" :value="option" :checked="option === value" @value="value => emitValue(value)" :disabled="disabled"></i-radio>
         {{ option }}
+      </label>
+      <label v-else="isSimpleData">
+        <i-radio :name="name" :value="option.value" :checked="option.value === value" @value="value => emitValue(value)" :disabled="disabled"></i-radio>
+        {{ option.name }}
       </label>
     </div>
   </div>
@@ -27,11 +31,17 @@
         default: false,
       },
       value: {
-        type: String,
+        type: [String, Number],
       },
       disabled: {
         type: Boolean,
         default: false,
+      },
+    },
+    computed: {
+      isSimpleData() {
+        if (!this.options || this.options.length === 0) return true;
+        return typeof this.options[0] === 'string';
       },
     },
     methods: {

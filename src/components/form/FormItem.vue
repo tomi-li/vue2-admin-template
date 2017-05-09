@@ -26,11 +26,10 @@
                         :value="internalValue"
                         @value="value => updateValue(value)"></i-checkbox-group>
       <!-- Select -->
-      <select v-if="_in(type, ['select'])" class="form-control" @change="e => updateValue(e.target.value)">
-        <!-- if there are no default value. will put empty value as default -->
-        <option v-if="!value" value="">------</option>
-        <option v-for="option in options" :value="option">{{option}}</option>
-      </select>
+      <i-select v-if="_in(type, ['select'])"
+                :options="options"
+                :value="value"
+                @value="value => updateValue(value)"></i-select>
 
       <!-- Date -->
       <i-date-picker v-if="_in(type, ['date'])" :placeholder="placeholder" @value="value => updateValue(value)"></i-date-picker>
@@ -68,16 +67,20 @@
                           @value="value => updateValue(value)"></i-checkbox-group>
 
         <!-- Select -->
-        <select v-if="_in(type, ['select'])" class="form-control" @change="(value) => console.log(value)">
-          <!-- if there are no default value. will put empty value as default -->
-          <option v-if="!value" value="">------</option>
-          <option v-for="option in options" value="option">{{options}}</option>
-        </select>
+        <i-select v-if="_in(type, ['select'])"
+                  :options="options"
+                  :value="value"
+                  @value="value => updateValue(value)"></i-select>
 
         <!-- Date -->
         <i-date-picker v-if="_in(type, ['date'])"
                        :placeholder="placeholder"
                        @value="value => updateValue(value)"></i-date-picker>
+
+        <!-- Text Area -->
+        <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => updateValue(e.target.value)">
+
+        </textarea>
 
         <!-- help text -->
         <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
@@ -104,7 +107,7 @@
       type: {
         type: String,
         default: 'text',
-        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date'], value),
+        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date', 'textarea'], value),
       },
       placeholder: {
         type: [String, Number],

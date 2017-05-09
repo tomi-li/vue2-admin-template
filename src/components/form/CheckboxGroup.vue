@@ -1,9 +1,13 @@
 <template>
   <div>
     <div v-for="option in options" :class="{'checkbox-inline' : inline}" class="i-checks">
-      <label>
+      <label v-if="isSimpleData">
         <i-checkbox :name="name" :value="option" :checked="_in(option, value)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
         {{ option }}
+      </label>
+      <label v-else="isSimpleData">
+        <i-checkbox :name="name" :value="option.value" :checked="_in(option.value, value)" @add="value => checkboxAdd(value)" @remove="value => checkboxRemove(value)" :disabled="disabled"></i-checkbox>
+        {{ option.name }}
       </label>
     </div>
   </div>
@@ -39,6 +43,12 @@
       return {
         checkboxValue: this.value || [],
       };
+    },
+    computed: {
+      isSimpleData() {
+        if (!this.options || this.options.length === 0) return true;
+        return typeof this.options[0] === 'string';
+      },
     },
     methods: {
       _in(type, options) {

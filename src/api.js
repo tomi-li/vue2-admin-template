@@ -10,16 +10,15 @@ class API {
     } else {
       this.url = `${URL_BASE}${url}`;
     }
-
     this.method = method || 'get';
   }
 }
 
 export default {
-  // user list
+  // account
+  userLevel: new API('account/level/details'),
   userList: new API('account/index'),
   userDetail: new API('account/detail'),
-  banedUserList: new API('ban/index'),
   abuseSummary: new API('abuse/summary'),
   cashOutUser: new API('billing/diamond/cashout-users'),
   diamondIncome: new API('billing/diamond/diamond-earning-users'),
@@ -30,9 +29,19 @@ export default {
   eventList: new API('event/index', { method: 'post' }),
   topEventList: new API('topevent/index', { method: 'post' }),
   photos: new API('photo/index'),
-  // feedback
   feedbackList: new API('feedback/index'),
   filteredWordList: new API('text-filter/get-pagination-words'),
+  // ban
+  banedUserList: new API('ban/index'),
+  banDetail: new API('ban/detail'),
+  isBanned: new API('ban/isBanned'),
+  ban: new API('ban/setBan', { method: 'post' }),
+  unBan: new API('ban/setUnBan', { method: 'post' }),
+  // block
+  blockedUserList: new API('block/index'),
+  isBlocked: new API('block/isBlocked', { method: 'post' }),
+  block: new API('block/setBlock', { method: 'post' }),
+  unBlock: new API('block/setUnBlock', { method: 'post' }),
 };
 
 export function request(api, params = {}) {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import testModal from './modal/testModal';
+  import testModal from './User/modal/testModal';
 
   export default {
     methods: {

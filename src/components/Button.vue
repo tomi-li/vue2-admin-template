@@ -14,7 +14,6 @@
       },
       title: {
         type: [String, Number],
-        default: 'Button',
       },
       size: {
         type: String,

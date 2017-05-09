@@ -3,7 +3,6 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
 import Index from './pages/Index';
-import UserDetail from './pages/UserDetail';
 
 // User
 import UserIndex from './pages/User/Index';
@@ -12,6 +11,7 @@ import PartnerList from './pages/User/PartnerList';
 import ReportedUserList from './pages/User/ReportedUserList';
 import BanedUserList from './pages/User/BanedUserList';
 import BanedHistory from './pages/User/BanedHistory';
+import UserDetail from './pages/User/UserDetail';
 
 // Billing
 import BillingIndex from './pages/Billing/Index';
@@ -58,6 +58,7 @@ export default {
           redirect: '/index/user/list',
           component: UserIndex,
           children: [
+            { path: 'detail/:id', name: 'UserDetail', component: UserDetail, hide: true },
             { path: 'list', name: 'User List', component: UserList },
             { path: 'partners', name: 'Partner List', component: PartnerList },
             { path: 'reported-user-list', name: 'Reported User List', component: ReportedUserList },
@@ -128,11 +129,6 @@ export default {
     {
       path: '/logout',
       component: Logout,
-    },
-    {
-      path: '/user/:id',
-      name: 'UserDetail',
-      component: UserDetail,
     },
     {
       path: '/',

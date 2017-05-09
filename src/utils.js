@@ -50,17 +50,17 @@ export function isInWeChat() {
 }
 
 // make a modal stack
-export function $modal(modal) {
+export function $modal(modal, params = {}) {
   this.modalStack = this.modalStack || [];
   const modalStack = this.modalStack;
   $('body').append('<div id="modal"></div>');
 
+  const modalId = 1050 + (modalStack.length * 50);
   const vm = new Vue({
-    id: 1050 + (modalStack.length * 50),
-    template: `<texts id="${1050 + (modalStack.length * 50)}" style="z-index:${1050 + (modalStack.length * 50)}"></texts>`,
-    components: {
-      texts: modal,
-    },
+    id: modalId,
+    data: { params },
+    template: `<modal :id="${modalId}" style="z-index:${modalId}" :params="params"></modal>`,
+    components: { modal },
   }).$mount('#modal');
 
   this.modalStack.push(vm);

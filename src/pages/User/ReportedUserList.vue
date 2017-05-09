@@ -12,7 +12,7 @@
           <td>
             <i-avatar :src="item['avatar']"></i-avatar>
           </td>
-          <td>{{ item['reasons'] }}</td>
+          <td>{{ item['reasons'] | arrayToString }}</td>
           <td>{{ item['reportTime'] | date }}</td>
         </tr>
       </i-table>
