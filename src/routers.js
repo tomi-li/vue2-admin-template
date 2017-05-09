@@ -38,6 +38,7 @@ import PictureList from './pages/Picture/Picture';
 // Other Operations
 import OtherOperationsIndex from './pages/OtherOperations/Index';
 import FeedbackList from './pages/OtherOperations/FeedbackList';
+import FilteredWordList from './pages/OtherOperations/FilteredWordList';
 
 export default {
   routes: [
@@ -111,6 +112,7 @@ export default {
           component: OtherOperationsIndex,
           children: [
             { path: 'feedback-list', name: 'FeedbackList', component: FeedbackList },
+            { path: 'filtered-word-list', name: 'FilteredWordList', component: FilteredWordList },
           ],
         },
         {
