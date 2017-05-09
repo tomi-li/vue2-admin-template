@@ -32,6 +32,7 @@ export default {
   photos: new API('photo/index'),
   // feedback
   feedbackList: new API('feedback/index'),
+  filteredWordList: new API('text-filter/get-pagination-words'),
 };
 
 export function request(api, params = {}) {
