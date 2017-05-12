@@ -59,7 +59,8 @@
         <i-box title="User Properties" :noPadding="true">
           <i-list>
             <i-list-item label="Banned">
-              <i-button v-if="userIsBaned" title="UnBan" size="xs" type="info"></i-button>
+              <i-button v-if="userIsBaned" title="UnBan" size="xs" type="info" :onPress="showUnBanModal"></i-button>
+              <i-button v-if="userIsBaned" title="Detail" size="xs" type="default" :onPress="showBanDetailModal"></i-button>
               <i-button v-else="userIsBaned" title="Ban" size="xs" type="warning" :onPress="showBanModal"></i-button>
               <i-boolean-text :value="userIsBaned"></i-boolean-text>
             </i-list-item>
@@ -136,7 +137,16 @@
     },
     methods: {
       showBanModal() {
-        this.utils.$modal(BanUserModal, { id: this.id });
+        this.utils.$modal(BanUserModal, { id: this.id })
+          .then(() => this.$router.go(0));
+      },
+      showUnBanModal() {
+        this.utils.confirm({
+          content: `Do you really want to unBan this user: ${this.id}`,
+          fn: () => request(api.unBan, { id: this.id }),
+        }).then(() => this.$router.go(0));
+      },
+      showBanDetailModal() {
       },
     },
   };

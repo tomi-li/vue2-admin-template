@@ -5,6 +5,8 @@
 import Vue from 'vue';
 import $ from 'jquery';
 import _remove from 'lodash/remove';
+import ConfirmModal from './public/modal/ConfirmModal';
+import AlertModal from './public/modal/AlertModal';
 
 /**
  * 取地址栏参数
@@ -51,24 +53,44 @@ export function isInWeChat() {
 
 // make a modal stack
 export function $modal(modal, params = {}) {
-  this.modalStack = this.modalStack || [];
-  const modalStack = this.modalStack;
-  $('body').append('<div id="modal"></div>');
+  return new Promise((resolve, reject) => {
+    this.modalStack = this.modalStack || [];
+    const modalStack = this.modalStack;
+    $('body').append('<div id="modal"></div>');
 
-  const modalId = 1050 + (modalStack.length * 50);
-  const vm = new Vue({
-    id: modalId,
-    data: { params },
-    template: `<modal :id="${modalId}" style="z-index:${modalId}" :params="params"></modal>`,
-    components: { modal },
-  }).$mount('#modal');
+    const modalId = 1050 + (modalStack.length * 50);
+    const vm = new Vue({
+      id: modalId,
+      data: { params },
+      methods: {
+        ok(value) {
+          $(vm.$el).modal('hide');
+          resolve(value);
+        },
+        dismiss(value) {
+          $(vm.$el).modal('hide');
+          reject(value);
+        },
+      },
+      template: `<modal :id="${modalId}" style="z-index:${modalId}" :params="params" :ok="ok" :dismiss="dismiss"></modal>`,
+      components: { modal },
+    }).$mount('#modal');
 
-  this.modalStack.push(vm);
+    this.modalStack.push(vm);
 
-  $(vm.$el).modal();
-  $(vm.$el).on('hidden.bs.modal', () => {
-    vm.$destroy();
-    $(`#${vm.$options.id}`).remove();
-    _remove(modalStack, modalInstance => modalInstance === vm);
+    $(vm.$el).modal();
+    $(vm.$el).on('hidden.bs.modal', () => {
+      vm.$destroy();
+      $(`#${vm.$options.id}`).remove();
+      _remove(modalStack, modalInstance => modalInstance === vm);
+    });
   });
+}
+
+export function alert(params) {
+  return this.$modal(AlertModal, params);
+}
+
+export function confirm(params) {
+  return this.$modal(ConfirmModal, params);
 }

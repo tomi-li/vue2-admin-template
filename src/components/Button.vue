@@ -34,6 +34,7 @@
     methods: {
       click() {
         if (this.onPress) this.onPress();
+        this.$emit('onPress');
       },
     },
   };

@@ -18,6 +18,7 @@ export default {
   // account
   userLevel: new API('account/level/details'),
   userList: new API('account/index'),
+  kickOff: new API('account/kick-off', { method: 'post' }),
   userDetail: new API('account/detail'),
   abuseSummary: new API('abuse/summary'),
   cashOutUser: new API('billing/diamond/cashout-users'),
@@ -31,6 +32,8 @@ export default {
   photos: new API('photo/index'),
   feedbackList: new API('feedback/index'),
   filteredWordList: new API('text-filter/get-pagination-words'),
+  // abuse
+  clear: new API('abuse/clear'),
   // ban
   banedUserList: new API('ban/index'),
   banDetail: new API('ban/detail'),

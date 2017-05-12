@@ -59,27 +59,19 @@
   import api, { request } from '../../../api';
 
   export default {
-    props: ['params', 'ok', 'dismiss'],
+    props: ['params'],
     data() {
       return {
         formData: undefined,
       };
-    },
-    created() {
-      if (this.params.id === undefined) {
-        console.warn('[Modal] required properties id is not exist in params');
-        this.dismiss();
-      }
     },
     methods: {
       getDuration(number, unit) {
         return moment.duration(number, unit).asMilliseconds();
       },
       ban() {
-        Promise.all([
-          request(api.ban, { ...this.formData, role: 'admin', operator: 'mozat staff' }),
-          request(api.kickOff, { idList: [this.params.id] }),
-        ]).then(() => this.ok());
+        request(api.ban, this.formData)
+          .then(() => this.utils.closeModal(this));
       },
     },
   };

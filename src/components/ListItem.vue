@@ -1,6 +1,6 @@
 <template>
   <li class="list-group-item">
-    <span v-if="label" class="label label-info">{{ label }}</span>
+    <span v-if="label" class="label label-primary">{{ label }}</span>
     <b v-if="label" class="pull-right">
       <slot></slot>
     </b>
