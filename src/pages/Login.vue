@@ -8,26 +8,54 @@
       <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
       </p>
       <p>Login in. To see it in action.</p>
-      <form class="m-t" role="form" action="#">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Username" required="">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" required="">
-        </div>
-        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-        <a ui-sref="forgot_password">
-          <small>Forgot password?</small>
-        </a>
-        <p class="text-muted text-center">
-          <small>Do not have an account?</small>
-        </p>
-        <a class="btn btn-sm btn-white btn-block" ui-sref="register">Create an account</a>
-      </form>
+      <i-form
+        :debug="true"
+        :onValue="data => loginInfo = data">
+
+        <i-form-item
+          name="email"
+          placeholder="Email"
+          type="text"></i-form-item>
+
+        <i-form-item
+          name="password"
+          placeholder="Password"
+          type="password"></i-form-item>
+
+      </i-form>
+
+      <i-button title="Login" @onPress="form_login" type="primary"></i-button>
+
       <p class="m-t">
         <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
       </p>
     </div>
   </div>
 </template>
+
+<script>
+  import { mapActions } from 'vuex';
+  import api, { request } from '../api';
+
+  export default {
+    data() {
+      return {
+        loginInfo: {},
+      };
+    },
+    methods: {
+      ...mapActions(['login']),
+      form_login() {
+        request(api.login, this.loginInfo)
+          .then((res) => {
+            console.log(this);
+            console.log(res);
+          })
+          .catch((res) => {
+            console.warn(res);
+          });
+      },
+    },
+  };
+</script>

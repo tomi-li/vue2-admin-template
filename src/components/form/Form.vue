@@ -47,6 +47,7 @@
       value() {
         if (this.onValue) {
           this.onValue(this.value);
+          this.$emit('onValue', this.value);
         }
       },
     },

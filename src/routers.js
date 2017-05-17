@@ -1,8 +1,11 @@
+// Store
+import { store } from './main';
+
+// Layout
 import Layout from './components/layouts/content';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Dashboard from './pages/Dashboard';
-import Index from './pages/Index';
 
 // User
 import UserIndex from './pages/User/Index';
@@ -43,9 +46,22 @@ import FilteredWordList from './pages/OtherOperations/FilteredWordList';
 export default {
   routes: [
     {
-      path: '/index',
+      path: '/login',
+      name: 'Login',
+      component: Login,
+    },
+    {
+      path: '/logout',
+      component: Logout,
+    },
+    {
+      path: '/',
       name: 'Index',
       component: Layout,
+      beforeEnter(previous, current, next) {
+        if (!store.getters.userInfo()) next({ name: 'Login' });
+        next();
+      },
       children: [
         {
           path: 'dashboard',
@@ -118,26 +134,12 @@ export default {
         },
         {
           path: '*',
-          redirect: 'dashboard',
+          redirect: () => {
+            if (!store.getters.userInfo()) return { name: 'Login' };
+            return { name: 'Dashboard' };
+          },
         },
       ],
-    },
-    {
-      path: '/login',
-      component: Login,
-    },
-    {
-      path: '/logout',
-      component: Logout,
-    },
-    {
-      path: '/',
-      component: Index,
-    },
-    // redirect all unmatched url to root
-    {
-      path: '*',
-      redirect: '/',
     },
   ],
 };

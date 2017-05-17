@@ -26,7 +26,7 @@ Vue.use(CustomComponents);
 RegisterFilter(Vue);
 RegisterDirectives(Vue);
 
-const store = Store(Vuex);
+export const store = Store(Vuex);
 const router = new VueRouter(RouterConfig);
 
 // set page title to route name
