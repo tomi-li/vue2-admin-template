@@ -1,13 +1,16 @@
 <template>
   <form :class="{'form-horizontal': direction === 'horizontal', 'form-inline': inline}">
-    <pre v-if="debug">{{value}}</pre>
+    <pre v-if="debug">{{ itemsValidated }} {{value}}</pre>
     <slot></slot>
   </form>
 </template>
 
 <script>
+  /* eslint-disable no-underscore-dangle */
+
   import _includes from 'lodash/includes';
   import _find from 'lodash/find';
+  import _every from 'lodash/every';
 
   export default {
     props: {
@@ -29,9 +32,6 @@
         type: Boolean,
         default: false,
       },
-      onValue: {
-        type: Function,
-      },
       debug: {
         type: Boolean,
         default: false,
@@ -41,33 +41,46 @@
       return {
         value: () => ({}),
         items: [],
+        itemsValidated: true,
       };
     },
-    watch: {
-      value() {
-        if (this.onValue) {
-          this.onValue(this.value);
-          this.$emit('onValue', this.value);
-        }
-      },
-    },
     methods: {
+      /**
+       * do validate on changes each time.
+       * because. in VUE. updated lifecycle methods will not trigger for every changes.
+       * will group them and fire them together like. _debounce in lodash
+       */
+      _validate() {
+        this.itemsValidated = _every(this.items, 'validated');
+      },
       onItemInserted(item) {
         if (_find(this.items, { name: item.name })) {
           console.warn(`[i-form] duplicated form name '${item.name}'`);
           return;
         }
-        this.items.push(item);
-
         // check divider
-        if (this.hasDivider) {
-          this.$children.forEach((child, index) => {
-            if (index !== 0) child.renderDivider();
-          });
+        if (this.hasDivider && this.items.length !== 0) {
+          item.renderDivider();
         }
+
+        this.items = [...this.items, item];
+        this._validate();
       },
       onItemValueChanged(value) {
         this.value = { ...this.value, ...value };
+        this._validate();
+        this.$emit('onValue', this.value);
+      },
+      submit() {
+        this.$children.forEach(formItem => formItem.touch());
+
+        return new Promise((resolve, reject) => {
+          if (this.itemsValidated) {
+            resolve(this.value);
+          } else {
+            reject();
+          }
+        });
       },
     },
   };

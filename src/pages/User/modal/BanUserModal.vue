@@ -1,8 +1,10 @@
 <template>
   <i-modal title="Ban User">
     <i-form
-      direction="horizontal"
-      :onValue="value => formData = value">
+      ref="form"
+      :debug="true"
+      direction="horizontal">
+
       <i-form-item
         label="User ID"
         name="id"
@@ -30,6 +32,7 @@
       <i-form-item
         label="Reason"
         name="reason_flag"
+        :required="true"
         :options="[
             { name: $root.$options.filters.reasonFlag(0) , value: 0 },
             { name: $root.$options.filters.reasonFlag(1) , value: 1 },
@@ -43,6 +46,7 @@
       <i-form-item
         label="Remark"
         name="remark"
+        :required="true"
         type="textarea"></i-form-item>
 
     </i-form>
@@ -56,14 +60,13 @@
 
 <script>
   import moment from 'moment';
+  import { mapGetters } from 'vuex';
   import api, { request } from '../../../api';
 
   export default {
     props: ['params', 'ok', 'dismiss'],
-    data() {
-      return {
-        formData: undefined,
-      };
+    computed: {
+      ...mapGetters(['userInfo']),
     },
     created() {
       if (this.params.id === undefined) {
@@ -76,10 +79,15 @@
         return moment.duration(number, unit).asMilliseconds();
       },
       ban() {
-        Promise.all([
-          request(api.ban, { ...this.formData, role: 'admin', operator: 'mozat staff' }),
-          request(api.kickOff, { idList: [this.params.id] }),
-        ]).then(() => this.ok());
+        this.$refs.form.submit()
+          .then((data) => {
+            Promise.all([
+              request(api.ban, { data, role: 'admin', operator: 'mozat staff' }),
+              request(api.kickOff, { idList: [this.params.id] }),
+            ]).then(() => this.ok());
+          })
+          .catch(() => {
+          });
       },
     },
   };

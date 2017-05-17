@@ -4,10 +4,10 @@
     <div v-if="showDivider" class="hr-line-dashed"></div>
 
     <!-- vertical -->
-    <div v-if="this.$parent.direction === 'vertical'" class="form-group" :class="{'has-error' : !validated}">
+    <div v-if="this.$parent.direction === 'vertical'" class="form-group" :class="{'has-error' : showError}">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }}</label>
       <!-- one line text -->
-      <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="internalValue" :disabled="disabled">
+      <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
       <!-- static text -->
       <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
       <!-- radio -->
@@ -16,7 +16,7 @@
                      :options="options"
                      :inline="inline"
                      :value="internalValue"
-                     @value="value => updateValue(value)"></i-radio-group>
+                     @value="value => receiveValue(value)"></i-radio-group>
 
       <!-- checkbox -->
       <i-checkbox-group v-if="_in(type, ['checkbox'])"
@@ -24,28 +24,28 @@
                         :options="options"
                         :inline="inline"
                         :value="internalValue"
-                        @value="value => updateValue(value)"></i-checkbox-group>
+                        @value="value => receiveValue(value)"></i-checkbox-group>
       <!-- Select -->
       <i-select v-if="_in(type, ['select'])"
                 :options="options"
                 :value="value"
-                @value="value => updateValue(value)"></i-select>
+                @value="value => receiveValue(value)"></i-select>
 
       <!-- Date -->
-      <i-date-picker v-if="_in(type, ['date'])" :placeholder="placeholder" @value="value => updateValue(value)"></i-date-picker>
+      <i-date-picker v-if="_in(type, ['date'])" :placeholder="placeholder" @value="value => receiveValue(value)"></i-date-picker>
 
       <!-- help text -->
       <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
       <!-- error text -->
-      <span v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
+      <span v-if="showError" v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
     </div>
 
-    <!---->
-    <div v-if="this.$parent.direction === 'horizontal'" class="form-group" :class="{'has-error' : !validated}">
+    <!-- horizontal -->
+    <div v-if="this.$parent.direction === 'horizontal'" class="form-group" :class="{'has-error' : showError }">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.$parent.ratio[0]}`">{{ label }}</label>
       <div :class="`col-sm-${this.$parent.ratio[1]}`">
         <!-- one line text -->
-        <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => updateValue(e.target.value)" :value="internalValue" :disabled="disabled">
+        <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
 
         <!-- static text -->
         <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
@@ -56,7 +56,7 @@
                        :options="options"
                        :inline="inline"
                        :value="internalValue"
-                       @value="value => updateValue(value)"></i-radio-group>
+                       @value="value => receiveValue(value)"></i-radio-group>
 
         <!-- checkbox -->
         <i-checkbox-group v-if="_in(type, ['checkbox'])"
@@ -64,28 +64,28 @@
                           :options="options"
                           :inline="inline"
                           :value="internalValue"
-                          @value="value => updateValue(value)"></i-checkbox-group>
+                          @value="value => receiveValue(value)"></i-checkbox-group>
 
         <!-- Select -->
         <i-select v-if="_in(type, ['select'])"
                   :options="options"
                   :value="value"
-                  @value="value => updateValue(value)"></i-select>
+                  @value="value => receiveValue(value)"></i-select>
 
         <!-- Date -->
         <i-date-picker v-if="_in(type, ['date'])"
                        :placeholder="placeholder"
-                       @value="value => updateValue(value)"></i-date-picker>
+                       @value="value => receiveValue(value)"></i-date-picker>
 
         <!-- Text Area -->
-        <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => updateValue(e.target.value)">
+        <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => receiveValue(e.target.value)">
 
         </textarea>
 
         <!-- help text -->
         <span v-if="helpText" class="help-block m-b-none">{{ helpText }}</span>
         <!-- error text -->
-        <span v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
+        <span v-if="showError" v-for="errorMessage in errorMessages" class="help-block m-b-none error">{{ errorMessage }}</span>
       </div>
     </div>
   </div>
@@ -93,6 +93,8 @@
 
 
 <script>
+  /* eslint-disable no-underscore-dangle */
+
   import _includes from 'lodash/includes';
 
   export default {
@@ -111,14 +113,10 @@
       },
       placeholder: {
         type: [String, Number],
-        default: '',
       },
-      value: {
-        default: '',
-      },
+      value: {},
       helpText: {
         type: [String, Number],
-        default: '',
       },
       disabled: {
         type: Boolean,
@@ -130,6 +128,7 @@
         //  message: error message.
         // }
         type: [Object, Array],
+        default: () => ([]),
       },
       options: {
         // ['checkbox', 'radio', 'select'] options
@@ -140,57 +139,88 @@
         type: Boolean,
         default: false,
       },
+      required: {
+        type: Boolean,
+        default: false,
+      },
     },
     data() {
       return {
-        showDivider: false, // to display divider
-        internalValue: undefined, // to initialize form value, all calculate is base on internal value
+        // to display divider
+        showDivider: false,
+        // to initialize form value, all calculations are base on internal value
+        internalValue: undefined,
         validated: true,
         errorMessages: [],
+        touched: false,
       };
     },
     created() {
       this.internalValue = this.value;
-      this.updateValue(this.internalValue);
+      // add required validator if is required
+      if (this.required) {
+        this.validator.push({
+          fn: value => value !== undefined && value !== '',
+          message: 'value can not be empty',
+        });
+      }
+
+      this._updateValue(this.internalValue);
       this.$parent.onItemInserted(this);
     },
+    computed: {
+      // to determine if show error.
+      showError() {
+        return !this.validated && this.touched;
+      },
+    },
     methods: {
+      // for parent to call
       renderDivider() {
         this.showDivider = true;
+      },
+      touch() {
+        this.touched = true;
       },
       // check if type is valid
       _in(type, options) {
         return _includes(options, type);
       },
-      _log(...args) {
-        console.log(args);
-      },
+      _validate(value) {
+        const validatorArray = (this.validator instanceof Array)
+          ? this.validator
+          : [this.validator];
 
-      updateValue(value) {
+        // if no validator. skip
+        if (this.validator.length === 0) return [];
+
+        const errors = [];
+        validatorArray.forEach((each) => {
+          if (!each.fn(value)) {
+            console.warn(`[form-item] value '${value}' is not valid for '${this.name}'`);
+            errors.push(each.message);
+          }
+        });
+        // get errors message.
+        this.errorMessages = errors;
+        return errors;
+      },
+      _updateValue(value) {
         this.internalValue = value;
 
-        if (this.validator !== undefined) {
-          const validatorArray = (this.validator instanceof Array)
-            ? this.validator
-            : [this.validator];
-          const errors = [];
-          validatorArray.forEach((each) => {
-            if (!each.fn(value)) {
-              console.warn(`[form-item] value '${value}' is not valid for '${this.name}'`);
-              errors.push(each.message);
-            }
-          });
-          // get errors message.
-          this.errorMessages = errors;
-          if (errors.length > 0) {
-            this.validated = false;
-            this.$parent.onItemValueChanged({ [this.name]: undefined });
-            return;
-          }
+        const errors = this._validate(value);
+        if (errors.length > 0) {
+          this.validated = false;
+          this.$parent.onItemValueChanged({ [this.name]: undefined });
+          return;
         }
 
         this.validated = true;
         this.$parent.onItemValueChanged({ [this.name]: value });
+      },
+      receiveValue(value) {
+        if (!this.touched) this.touched = true;
+        this._updateValue(value);
       },
     },
   };

@@ -11,7 +11,7 @@
 
       <i-form
         :debug="true"
-        :onValue="data => loginInfo = data">
+        @onValue="data => loginInfo = data">
 
         <i-form-item
           name="email"

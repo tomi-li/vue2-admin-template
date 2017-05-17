@@ -51,7 +51,7 @@
         }
 
         const date = moment(value);
-          this.valid = date.isValid();
+        this.valid = date.isValid();
       },
     },
   };

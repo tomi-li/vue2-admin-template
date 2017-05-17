@@ -3,7 +3,7 @@
     <i-box>
       <i-form
         :inline="true"
-        :onValue="onFormValue">
+        @onValue="onFormValue">
 
         <i-form-item
           name="name"
