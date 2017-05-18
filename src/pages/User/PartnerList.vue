@@ -3,7 +3,7 @@
     <i-box>
       <i-form
         :inline="true"
-        @onValue="onFormValue">
+        v-model="filter">
 
         <i-form-item
           name="name"
@@ -45,9 +45,9 @@
       <i-table
         :api="api.userList"
         :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'monthly income', 'birthday']"
-        @onData="data => userData = data"
-        :filter="filter"
-        :lazy="true">
+        :filter="partnerFilter"
+        :lazy="true"
+        v-model="userData">
 
         <tr v-for="(item, index) in userData.accounts">
           <td>{{ (index + 1) + userData.pageBase}}</td>
@@ -84,9 +84,9 @@
         userData: {},
       };
     },
-    methods: {
-      onFormValue(value) {
-        this.filter = { ...value, AllUser: 'Partner' };
+    computed: {
+      partnerFilter() {
+        return { ...this.filter, AllUser: 'Partner' };
       },
     },
   };

@@ -39,6 +39,9 @@
   import { request } from '../api';
 
   export default {
+    model: {
+      event: 'onData',
+    },
     props: {
       api: {
         type: Object,

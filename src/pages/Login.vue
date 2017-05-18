@@ -11,7 +11,7 @@
 
       <i-form
         :debug="true"
-        @onValue="data => loginInfo = data">
+        v-model="loginInfo">
 
         <i-form-item
           name="email"

@@ -3,7 +3,7 @@
     <i-box>
       <i-form
         :inline="true"
-        @onValue="onFormValue">
+        v-model="filter">
 
         <i-form-item
           name="name"
@@ -52,7 +52,7 @@
       <i-table
         :api="api.userList"
         :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'birthday']"
-        @onData="data => userData = data"
+        v-model="userData"
         :filter="filter"
         :lazy="true">
 
@@ -89,11 +89,6 @@
         filter: {},
         userData: {},
       };
-    },
-    methods: {
-      onFormValue(value) {
-        this.filter = value;
-      },
     },
   };
 </script>

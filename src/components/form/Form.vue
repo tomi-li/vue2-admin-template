@@ -13,6 +13,9 @@
   import _every from 'lodash/every';
 
   export default {
+    model: {
+      event: 'onValue',
+    },
     props: {
       direction: {
         type: String,

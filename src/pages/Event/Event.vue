@@ -4,7 +4,8 @@
     <i-box>
       <i-form
         :inline="true"
-        @onValue="onFormValue">
+        v-model="filterValue">
+
         <i-form-item
           name="title"
           placeholder="Event Title"
@@ -25,8 +26,8 @@
         <i-table
           :api="api.eventList"
           :columns="['Cover Image', 'Theme', 'Host', 'Start Time', 'End Time']"
-          @onData="d => currentEvents = d"
-          :filter="currentFilter">
+          :filter="currentFilter"
+          v-model="currentEvents">
 
           <tr v-for="(item, index) in currentEvents.response.result">
             <td>{{ (index + 1) + currentEvents.pageBase }}</td>
@@ -42,8 +43,8 @@
         <i-table
           :api="api.eventList"
           :columns="['Cover Image', 'Theme', 'Host', 'Start Time', 'End Time']"
-          @onData="d => pastEvents = d"
-          :filter="pastFilter">
+          :filter="pastFilter"
+          v-model="pastEvents">
 
           <tr v-for="(item, index) in pastEvents.response.result">
             <td>{{ (index + 1) + pastEvents.pageBase }}</td>
@@ -59,8 +60,8 @@
         <i-table
           :api="api.eventList"
           :columns="['Cover Image', 'Theme', 'Host', 'Start Time', 'End Time']"
-          @onData="d => deletedEvents = d"
-          :filter="deletedFilter">
+          :filter="deletedFilter"
+          v-model="deletedEvents">
 
           <tr v-for="(item, index) in deletedEvents.response.result">
             <td>{{ (index + 1) + deletedEvents.pageBase }}</td>
@@ -84,19 +85,21 @@
     data() {
       return {
         api,
+        filterValue: {},
         currentEvents: { response: {} },
-        currentFilter: { timeRangeLower: moment().format('x'), isDeleted: false },
         pastEvents: { response: {} },
-        pastFilter: { timeRangeUpper: moment().format('x'), isDeleted: false },
         deletedEvents: { response: {} },
-        deletedFilter: { isDeleted: true },
       };
     },
-    methods: {
-      onFormValue(value) {
-        this.pastFilter = { ...this.pastFilter, ...value };
-        this.currentFilter = { ...this.currentFilter, ...value };
-        this.deletedFilter = { ...this.deletedFilter, ...value };
+    computed: {
+      currentFilter() {
+        return { timeRangeLower: moment().format('x'), isDeleted: false, ...this.filterValue };
+      },
+      pastFilter() {
+        return { timeRangeUpper: moment().format('x'), isDeleted: false, ...this.filterValue };
+      },
+      deletedFilter() {
+        return { isDeleted: true, ...this.filterValue };
       },
     },
   };

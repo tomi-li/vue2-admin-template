@@ -4,7 +4,7 @@
     <i-box>
       <i-form
         :inline="true"
-        @onValue="onFormValue">
+        v-model="filter">
         <i-form-item
           name="userId"
           placeholder="User ID"
@@ -20,9 +20,9 @@
       <i-table
         :api="api.cashOutRequests"
         :columns="['Request Time', 'User ID',  'Amount (SAR)', 'Diamonds', 'Cash-out Account', 'Status']"
-        @onData="data => userData = data"
         :filter="filter"
-        :lazy="true">
+        :lazy="true"
+        v-model="userData">
         <tr v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>
           <td>{{ item['updateTime'] | datetime }}</td>
@@ -51,11 +51,6 @@
           response: {},
         },
       };
-    },
-    methods: {
-      onFormValue(value) {
-        this.filter = value;
-      },
     },
   };
 </script>

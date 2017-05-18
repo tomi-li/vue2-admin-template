@@ -5,7 +5,7 @@
       <i-table
         :api="api.banedUserList"
         :columns="['User ID', 'Ban Reason','Ban Start Time', 'Ban End Time']"
-        @onData="data => userData = data"
+        v-model="userData"
         :filter="filter">
 
         <tr v-for="(item, index) in userData.response.result">

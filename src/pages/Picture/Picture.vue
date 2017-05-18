@@ -4,7 +4,7 @@
     <i-box>
       <i-form
         :inline="true"
-        @onValue="onFormValue">
+        v-model="filter">
         <i-form-item
           name="type"
           type="select"
@@ -28,9 +28,9 @@
       <i-table
         :api="api.photos"
         :columns="['userId', 'Image', 'size', 'type', 'Creation Time']"
-        @onData="d => pictures = d"
         :filter="filter"
-        :lazy="true">
+        :lazy="true"
+        v-model="pictures">
         <tr v-for="(item, index) in pictures.entityList">
           <td>{{ (index + 1) + pictures.pageBase }}</td>
           <td>{{ item['userId'] }}</td>
@@ -54,11 +54,6 @@
         pictures: {},
         filter: {},
       };
-    },
-    methods: {
-      onFormValue(value) {
-        this.filter = value;
-      },
     },
   };
 </script>

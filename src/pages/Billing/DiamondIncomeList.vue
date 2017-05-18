@@ -3,7 +3,7 @@
     <i-box>
       <i-form
         :inline="true"
-        @onValue="onFormValue">
+        v-model="filter">
 
         <i-form-item
           name="diamondRangeFrom"
@@ -22,9 +22,9 @@
       <i-table
         :api="api.diamondIncome"
         :columns="['id', 'User', 'Earned Diamonds', 'Estimated Income']"
-        @onData="data => userData = data"
         :filter="filter"
-        :lazy="true">
+        :lazy="true"
+        v-model="userData">
 
         <tr v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>
@@ -54,11 +54,6 @@
           response: {},
         },
       };
-    },
-    methods: {
-      onFormValue(value) {
-        this.filter = value;
-      },
     },
   };
 </script>

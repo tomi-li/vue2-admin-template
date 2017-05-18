@@ -2,7 +2,8 @@
   <i-modal title="Ban User">
     <i-form
       direction="horizontal"
-      @onValue="value => formData = value">
+      v-model="formData">
+
       <i-form-item
         label="User ID"
         name="id"
