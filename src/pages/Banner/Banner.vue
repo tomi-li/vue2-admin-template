@@ -5,7 +5,7 @@
         <i-table
           :api="api.bannerList"
           :columns="['weight', 'adv_name', 'pic_url', 'click_url']"
-          :onData="d => using = d"
+          @onData="d => using = d"
           :filter="usingFilter">
           <tr v-for="(item, index) in using.response.result">
             <td>{{ (index + 1) + using.pageBase}}</td>
@@ -20,7 +20,7 @@
         <i-table
           :api="api.bannerList"
           :columns="['weight', 'adv_name', 'pic_url', 'click_url']"
-          :onData="d => deleted = d"
+          @onData="d => deleted = d"
           :filter="deletedFilter">
           <tr v-for="(item, index) in deleted.response.result">
             <td>{{ (index + 1) + deleted.pageBase}}</td>

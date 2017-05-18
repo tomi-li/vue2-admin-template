@@ -25,7 +25,7 @@
         <i-table
           :api="api.eventList"
           :columns="['Cover Image', 'Theme', 'Host', 'Start Time', 'End Time']"
-          :onData="d => currentEvents = d"
+          @onData="d => currentEvents = d"
           :filter="currentFilter">
 
           <tr v-for="(item, index) in currentEvents.response.result">
@@ -42,7 +42,7 @@
         <i-table
           :api="api.eventList"
           :columns="['Cover Image', 'Theme', 'Host', 'Start Time', 'End Time']"
-          :onData="d => pastEvents = d"
+          @onData="d => pastEvents = d"
           :filter="pastFilter">
 
           <tr v-for="(item, index) in pastEvents.response.result">
@@ -59,7 +59,7 @@
         <i-table
           :api="api.eventList"
           :columns="['Cover Image', 'Theme', 'Host', 'Start Time', 'End Time']"
-          :onData="d => deletedEvents = d"
+          @onData="d => deletedEvents = d"
           :filter="deletedFilter">
 
           <tr v-for="(item, index) in deletedEvents.response.result">

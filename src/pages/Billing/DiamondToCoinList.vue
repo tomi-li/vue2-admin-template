@@ -5,7 +5,7 @@
       <i-table
         :api="api.convertCoinUser"
         :columns="['id', 'User', 'Converted Coins', 'Deducted Diamonds']"
-        :onData="data => userData = data">
+        @onData="data => userData = data">
 
         <tr v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>

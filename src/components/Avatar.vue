@@ -1,10 +1,12 @@
 <template>
-  <img :src="hasError ? defaultAvatar : src" class="i-avatar"
+  <img :src="srcURL" class="i-avatar"
        :class="{'circle-border': type === 'circle'}">
 </template>
 
 <script>
   import _includes from 'lodash/includes';
+
+  const defaultAvatar = require('../assets/avatar.jpg');
 
   export default {
     props: {
@@ -14,14 +16,18 @@
         validator: value => _includes(['circle', 'square', 'rounded'], value),
       },
       src: {
+        // no need to required
         type: String,
+      },
+    },
+    computed: {
+      srcURL() {
+        return this.hasError ? defaultAvatar : this.src;
       },
     },
     data() {
       return {
         hasError: false,
-        // eslint-disable-next-line global-require
-        defaultAvatar: require('../assets/avatar.jpg'),
       };
     },
     created() {

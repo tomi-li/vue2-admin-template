@@ -45,7 +45,7 @@
       <i-table
         :api="api.userList"
         :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'monthly income', 'birthday']"
-        :onData="data => userData = data"
+        @onData="data => userData = data"
         :filter="filter"
         :lazy="true">
 

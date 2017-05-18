@@ -5,7 +5,7 @@
             <i-table
                     :api="api.filteredWordList"
                     :columns="['words', 'operation']"
-                    :onData="data => userData = data"
+                    @onData="data => userData = data"
                     :filter="filter">
                 <tr v-for="(item, index) in userData.wordList">
                     <td>{{ (index + 1) + userData.pageBase }}</td>

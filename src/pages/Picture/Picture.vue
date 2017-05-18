@@ -28,7 +28,7 @@
       <i-table
         :api="api.photos"
         :columns="['userId', 'Image', 'size', 'type', 'Creation Time']"
-        :onData="d => pictures = d"
+        @onData="d => pictures = d"
         :filter="filter"
         :lazy="true">
         <tr v-for="(item, index) in pictures.entityList">

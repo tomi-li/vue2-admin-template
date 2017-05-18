@@ -22,7 +22,7 @@
       <i-table
         :api="api.diamondIncome"
         :columns="['id', 'User', 'Earned Diamonds', 'Estimated Income']"
-        :onData="data => userData = data"
+        @onData="data => userData = data"
         :filter="filter"
         :lazy="true">
 

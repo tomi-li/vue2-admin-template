@@ -48,10 +48,6 @@
         type: Array,
         required: true,
       },
-      onData: {
-        type: Function,
-        required: true,
-      },
       pageParam: {
         type: String,
         default: 'pageNo',
@@ -146,7 +142,7 @@
         }
 
         if (this.filter) {
-          requestOptions = Object.assign({}, requestOptions, this.filter);
+          requestOptions = { ...requestOptions, ...this.filter };
         }
 
         request(this.api, requestOptions)
@@ -156,8 +152,8 @@
             this.totalCount = data.totalRecordCount
               || (data.response && data.response.total_record_count);
             this.setPagination(this.totalCount);
-            this.onData(data);
             this.loading = false;
+            this.$emit('onData', data);
           });
       },
       updatePage(pageNumber) {

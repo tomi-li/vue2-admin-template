@@ -20,7 +20,7 @@
       <i-table
         :api="api.cashOutRequests"
         :columns="['Request Time', 'User ID',  'Amount (SAR)', 'Diamonds', 'Cash-out Account', 'Status']"
-        :onData="data => userData = data"
+        @onData="data => userData = data"
         :filter="filter"
         :lazy="true">
         <tr v-for="(item, index) in userData.response.result">

@@ -5,7 +5,7 @@
         <i-table
           :api="api.floatBannerList"
           :columns="['bannerPosition', 'activityType', 'bannerName', 'bannerPicUrl', 'bannerClickUrl']"
-          :onData="d => using = d"
+          @onData="d => using = d"
           :filter="usingFilter">
           <tr v-for="(item, index) in using.floatBanners">
             <td>{{ (index + 1) + using.pageBase}}</td>
@@ -21,7 +21,7 @@
         <i-table
           :api="api.floatBannerList"
           :columns="['bannerPosition', 'activityType', 'bannerName', 'bannerPicUrl', 'bannerClickUrl']"
-          :onData="d => deleted = d"
+          @onData="d => deleted = d"
           :filter="deletedFilter">
           <tr v-for="(item, index) in deleted.floatBanners">
             <td>{{ (index + 1) + deleted.pageBase}}</td>

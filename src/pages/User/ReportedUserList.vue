@@ -4,7 +4,7 @@
       <i-table
         :api="api.abuseSummary"
         :columns="['id', 'avatar', 'reason', 'Report Time']"
-        :onData="data => userData = data">
+        @onData="data => userData = data">
 
         <tr v-if="!!userData.response" v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>
