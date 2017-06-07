@@ -52,11 +52,11 @@
       <i-table
         :api="api.userList"
         :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'birthday']"
-        v-model="userData"
         :filter="filter"
-        :lazy="true">
+        :lazy="true"
+        v-model="userData">
 
-        <tr v-for="(item, index) in userData.accounts">
+        <tr v-for="(item, index) in userData">
           <td>{{ (index + 1) + userData.pageBase}}</td>
           <td>{{ item['id'] }}</td>
           <td>

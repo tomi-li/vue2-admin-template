@@ -4,7 +4,7 @@
       <i-table
         :api="api.abuseSummary"
         :columns="['id', 'avatar', 'reason', 'Report Time']"
-        v-model="userData"
+        v-model="userData">
 
         <tr v-if="!!userData.response" v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>
@@ -15,6 +15,7 @@
           <td>{{ item['reasons'] | arrayToString }}</td>
           <td>{{ item['reportTime'] | date }}</td>
         </tr>
+
       </i-table>
 
     </i-box>

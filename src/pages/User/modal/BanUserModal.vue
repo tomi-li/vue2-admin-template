@@ -82,7 +82,7 @@
         this.$refs.form.submit()
           .then((data) => {
             Promise.all([
-              request(api.ban, { data, role: 'admin', operator: 'mozat staff' }),
+              request(api.ban, { ...data, role: 'admin', operator: 'mozat staff' }),
               request(api.kickOff, { idList: [this.params.id] }),
             ]).then(() => this.ok());
           })

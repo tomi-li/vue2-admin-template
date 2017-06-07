@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const URL_BASE = 'http://localhost:3000/';
-const URL_BASE = 'http://192.168.128.62:8099/';
+const URL_BASE = 'http://localhost:5000/';
 
 class API {
   constructor(url, { method, baseUrl } = {}) {
@@ -17,7 +17,7 @@ class API {
 export default {
   // account
   userLevel: new API('account/level/details'),
-  userList: new API('account/index'),
+  userList: new API('account/'),
   kickOff: new API('account/kick-off', { method: 'post' }),
   userDetail: new API('account/detail'),
   abuseSummary: new API('abuse/summary'),

@@ -10,7 +10,6 @@
       <p>Login in. To see it in action.</p>
 
       <i-form
-        :debug="true"
         v-model="loginInfo">
 
         <i-form-item

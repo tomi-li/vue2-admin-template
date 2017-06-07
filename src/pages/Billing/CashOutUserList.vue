@@ -5,7 +5,7 @@
       <i-table
         :api="api.cashOutUser"
         :columns="['id', 'name', 'Deducted Diamonds', 'Cash-out Amount']"
-        v-model="userData"
+        v-model="userData">
 
         <tr v-for="(item, index) in userData.response.result">
           <td>{{ (index + 1) + userData.pageBase}}</td>
