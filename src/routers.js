@@ -44,7 +44,7 @@ export default {
       name: 'Index',
       component: Layout,
       beforeEnter(previous, current, next) {
-        if (!store.getters.userInfo()) next({ name: 'Login' });
+        if (!store.getters.user() || Object.keys(store.getters.user()).length === 0) next({ name: 'Login' });
         next();
       },
       children: [
@@ -132,10 +132,7 @@ export default {
         },
         {
           path: '*',
-          redirect: () => {
-            if (!store.getters.userInfo()) return { name: 'Login' };
-            return { name: 'Dashboard' };
-          },
+          redirect: () => ({ name: 'Dashboard' }),
         },
       ],
     },

@@ -1,8 +1,8 @@
 import axios from 'axios';
+import { store } from './main';
 
 // const URL_BASE = 'http://localhost:3000/';
 const URL_BASE = 'http://localhost:5000/';
-
 
 function replacePathVariables(url, params) {
   if (params === {}) {
@@ -29,11 +29,13 @@ function replacePathVariables(url, params) {
 
 export function request(api, params = {}) {
   const requestURL = replacePathVariables(api.url, params);
-  console.log(requestURL);
+  const user = store.getters.user();
+  // TODO using object to assert properties.
   return axios({
     url: requestURL,
     method: api.method,
     data: params,
+    headers: { Authorization: user && user.token },
     params,
   }).then(res => ({ data: res.data, res }));
 }
@@ -88,6 +90,7 @@ export default {
   // admin
   adminList: new API('admin/'),
   adminLogin: new API('admin/login', { method: 'post' }),
+  adminLogout: new API('admin/logout', { method: 'post' }),
   adminUpdatePassword: new API('admin/:id/update-password', { method: 'post' }),
 };
 

@@ -35,7 +35,6 @@
 
 <script>
   import { mapActions } from 'vuex';
-  import api, { request } from '../api';
 
   export default {
     data() {
@@ -46,13 +45,14 @@
     methods: {
       ...mapActions(['login']),
       form_login() {
-        request(api.adminLogin, this.loginInfo)
-          .then((res) => {
-            console.log(this);
-            console.log(res);
-          })
-          .catch((res) => {
-            console.warn(res);
+        this.$refs.form.submit()
+          .then((values) => {
+            this.login({
+              email: values.email,
+              password: values.password,
+            }).then(() => {
+              this.$router.push('/dashboard');
+            });
           });
       },
     },

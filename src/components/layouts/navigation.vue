@@ -7,18 +7,18 @@
             <span><img alt="image" class="img-circle" :src="require('../../assets/avatar.jpg')"></span>
             <a class="dropdown-handler">
               <span class="clear">
-                  <span class="block m-t-xs"><strong class="font-bold">test</strong></span>
-                  <span class="text-muted text-xs block">Example menu<b class="caret"></b></span>
+                  <span class="block m-t-xs"><strong class="font-bold">{{ user().user_name }}</strong></span>
+                  <span class="text-muted text-xs block">Menu<b class="caret"></b></span>
               </span>
             </a>
             <ul class="animated fadeInRight m-t-xs">
               <li>
-                <router-link to="/logout">Logout</router-link>
+                <a @click="_logout">Logout</a>
               </li>
             </ul>
           </div>
           <div class="logo-element">
-            FL
+
           </div>
         </li>
 
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+  import { mapActions, mapGetters } from 'vuex';
   import _find from 'lodash/find';
   import _filter from 'lodash/filter';
   import $ from 'jquery';
@@ -52,6 +53,11 @@
         routes: () => ({}),
       };
     },
+    computed: {
+      ...mapGetters([
+        'user',
+      ]),
+    },
     created() {
       const rootRoute = _find(routers.routes, { name: 'Index' });
       this.routes = _filter(rootRoute.children, route => route.path !== '*');
@@ -60,8 +66,16 @@
       $('.metismenu').metisMenu();
     },
     methods: {
+      ...mapActions([
+        'logout',
+      ]),
       _routeIn(name) {
         return !!_find(this.$route.matched, { name });
+      },
+      _logout() {
+        this.logout().then(() => {
+          this.$router.push({ name: 'Login' });
+        });
       },
     },
   };

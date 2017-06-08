@@ -1,12 +1,11 @@
-/**
- * 通用处理工具
- * Created by xinchao.dou on 2016/9/6.
- */
 import Vue from 'vue';
 import $ from 'jquery';
+import toastr from 'toastr';
 import _remove from 'lodash/remove';
+import 'toastr/toastr.scss';
 import ConfirmModal from './public/modal/ConfirmModal';
 import AlertModal from './public/modal/AlertModal';
+
 
 /**
  * 取地址栏参数
@@ -21,30 +20,8 @@ export function getUrlParams(name) {
   }
   return undefined;
 }
-/**
- * 生成模版文件，生成后的html文件头部包含样式信息，不会影响其他组建样式
- * @param style
- * @param html
- * @returns {string}
- */
-export function generatorTemplate(style, html) {
-  return `<style>${style}</style>${html}`;
-}
-/**
- * 动态加载script文件
- * @param src
- * @param onload
- */
-export function javascriptLoader(src, onload) {
-  const scriptEl = document.createElement('script');
-  scriptEl.setAttribute('src', src);
-  scriptEl.setAttribute('type', 'text/javascript');
-  scriptEl.onload = onload;
-  document.head.appendChild(scriptEl);
-}
 
 /**
- * 判断是否是微信打开的页面
  * @returns {boolean}
  */
 export function isInWeChat() {
@@ -93,4 +70,46 @@ export function alert(params) {
 
 export function confirm(params) {
   return this.modal(ConfirmModal, params);
+}
+
+
+export const toast = {
+  /**
+   type: 'error',
+   title: 'Title example',
+   body: 'This is example of Toastr notification box.',
+   showCloseButton: true,
+   timeout: 600
+   */
+  warn(message, options) {
+    toastr.warn(message, options);
+  },
+  info(message, options) {
+    toastr.info(message, options);
+  },
+  error(message, options) {
+    toastr.error(message, options);
+  },
+  success(message, options) {
+    toastr.success(message, options);
+  },
+};
+
+
+export function cloneStateInLocalStorage(state) {
+  localStorage.setItem('State', JSON.stringify(state));
+}
+
+export function restoreStateFromLocalStorage() {
+  console.log('[store] restored from localStorage');
+  const defaultState = {
+    user: {},
+  };
+  let previousState;
+  try {
+    previousState = JSON.parse(localStorage.getItem('State'));
+    return previousState || defaultState;
+  } catch (e) {
+    return defaultState;
+  }
 }
