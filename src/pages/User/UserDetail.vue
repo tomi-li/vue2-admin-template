@@ -130,9 +130,9 @@
         request(api.userLevel, { id }),
         request(api.isBanned, { id }),
       ]).then((resArray) => {
-        this.user = resArray[0].data.account;
-        this.userLevel = resArray[1].data.entity;
-        this.userIsBaned = resArray[2].data.response;
+        this.user = resArray[0].data;
+        this.userLevel = resArray[1].data;
+        this.userIsBaned = resArray[2].data.msg;
       });
     },
     methods: {

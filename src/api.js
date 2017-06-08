@@ -16,10 +16,10 @@ class API {
 
 export default {
   // account
-  userLevel: new API('account/level/details'),
   userList: new API('account/'),
-  kickOff: new API('account/kick-off', { method: 'post' }),
-  userDetail: new API('account/detail'),
+  userDetail: new API('account/:id/'),
+  userLevel: new API('account/:id/level/'),
+  isBanned: new API('account/:id/is-banned/'),
   abuseSummary: new API('abuse/summary'),
   cashOutUser: new API('billing/diamond/cashout-users'),
   diamondIncome: new API('billing/diamond/diamond-earning-users'),
@@ -37,7 +37,7 @@ export default {
   // ban
   banedUserList: new API('ban/index'),
   banDetail: new API('ban/detail'),
-  isBanned: new API('ban/isBanned'),
+
   ban: new API('ban/setBan', { method: 'post' }),
   unBan: new API('ban/setUnBan', { method: 'post' }),
   // block
@@ -47,11 +47,37 @@ export default {
   unBlock: new API('block/setUnBlock', { method: 'post' }),
 };
 
+function replacePathVariables(url, params) {
+  if (params === {}) {
+    return url;
+  }
+  const regex = /\/:(\w+)/gm;
+  let formattedURL = url;
+  let m = regex.exec(formattedURL);
+  while (m) {
+    // This is necessary to avoid infinite loops with zero-width matches
+    if (m.index === regex.lastIndex) {
+      regex.lastIndex += 1;
+    }
+    if (params[m[1]] === undefined) {
+      console.warn(`"${m[1]}" is not provided in params`);
+      return formattedURL;
+    }
+    formattedURL = formattedURL.replace(`:${m[1]}`, params[m[1]]);
+    m = regex.exec(formattedURL);
+  }
+  return formattedURL;
+}
+
+
 export function request(api, params = {}) {
+  const requestURL = replacePathVariables(api.url, params);
+  console.log(requestURL);
   return axios({
-    url: api.url,
+    url: requestURL,
     method: api.method,
     data: params,
     params,
   }).then(res => ({ data: res.data, res }));
 }
+

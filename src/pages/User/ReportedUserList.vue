@@ -17,7 +17,6 @@
         </tr>
 
       </i-table>
-
     </i-box>
   </i-page>
 </template>

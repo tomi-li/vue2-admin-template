@@ -49,7 +49,7 @@
         :lazy="true"
         v-model="userData">
 
-        <tr v-for="(item, index) in userData.accounts">
+        <tr v-for="(item, index) in userData">
           <td>{{ (index + 1) + userData.pageBase}}</td>
           <td>{{ item['id'] }}</td>
           <td>
