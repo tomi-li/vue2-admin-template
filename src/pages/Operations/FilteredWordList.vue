@@ -1,6 +1,5 @@
 <template>
     <i-page>
-
         <i-box>
             <i-table
                     :api="api.filteredWordList"

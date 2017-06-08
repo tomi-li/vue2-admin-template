@@ -68,7 +68,7 @@
           });
       },
       showDetailPage() {
-        this.$router.push({ name: 'UserDetail', params: { id: this.id } });
+        this.$router.push({ name: 'User Detail', params: { id: this.id } });
       },
     },
   };

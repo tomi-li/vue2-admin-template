@@ -45,6 +45,8 @@ export default {
   isBlocked: new API('block/isBlocked', { method: 'post' }),
   block: new API('block/setBlock', { method: 'post' }),
   unBlock: new API('block/setUnBlock', { method: 'post' }),
+  // admin
+  adminList: new API('admin/'),
 };
 
 function replacePathVariables(url, params) {

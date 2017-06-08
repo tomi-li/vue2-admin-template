@@ -5,43 +5,28 @@ import { store } from './main';
 import Layout from './components/layouts/content';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
+import Index from './pages/Index';
 import Dashboard from './pages/Dashboard';
 
-// User
-import UserIndex from './pages/User/Index';
+// Pages
+import ReportedUserList from './pages/Monitoring/ReportedUserList';
+import BanedUserList from './pages/Monitoring/BanedUserList';
+import BanedHistory from './pages/Monitoring/BanedHistory';
+import ReplayList from './pages/Monitoring/ReplyVideoList';
+import PictureList from './pages/Monitoring/Picture';
+import UserDetail from './pages/User/UserDetail';
 import UserList from './pages/User/UserList';
 import PartnerList from './pages/User/PartnerList';
-import ReportedUserList from './pages/User/ReportedUserList';
-import BanedUserList from './pages/User/BanedUserList';
-import BanedHistory from './pages/User/BanedHistory';
-import UserDetail from './pages/User/UserDetail';
-
-// Billing
-import BillingIndex from './pages/Billing/Index';
 import CashOutUserList from './pages/Billing/CashOutUserList';
 import DiamondIncomeList from './pages/Billing/DiamondIncomeList';
 import DiamondToCoinList from './pages/Billing/DiamondToCoinList';
 import CashOutRequests from './pages/Billing/CashOutRequests';
-
-// Video
-import VideoIndex from './pages/Video/Index';
-import ReplayList from './pages/Video/ReplyVideoList';
-
-// Banner
-import BannerIndex from './pages/Banner/Index';
-import FloatBanner from './pages/Banner/FloatBanner';
-import Banner from './pages/Banner/Banner';
-
-// Event
-import Event from './pages/Event/Event';
-
-// Picture
-import PictureList from './pages/Picture/Picture';
-
-// Other Operations
-import OtherOperationsIndex from './pages/OtherOperations/Index';
-import FeedbackList from './pages/OtherOperations/FeedbackList';
-import FilteredWordList from './pages/OtherOperations/FilteredWordList';
+import FloatBanner from './pages/Campaigns/FloatBanner';
+import Banner from './pages/Campaigns/Banner';
+import Event from './pages/Upcoming/Event';
+import FeedbackList from './pages/CustomerService/FeedbackList';
+import FilteredWordList from './pages/Operations/FilteredWordList';
+import AdministratorList from './pages/Sytem/AdministratorList';
 
 export default {
   routes: [
@@ -69,24 +54,51 @@ export default {
           component: Dashboard,
         },
         {
-          path: 'user',
-          name: 'User',
-          redirect: '/index/user/list',
-          component: UserIndex,
+          path: 'customer-service',
+          name: 'Customer Service',
+          redirect: { name: 'Feedback List' },
+          component: Index,
           children: [
-            { path: 'detail/:id', name: 'UserDetail', component: UserDetail, hide: true },
-            { path: 'list', name: 'User List', component: UserList },
-            { path: 'partners', name: 'Partner List', component: PartnerList },
+            { path: 'feedback-list', name: 'Feedback List', component: FeedbackList },
+          ],
+        },
+        {
+          path: 'monitoring',
+          name: 'Monitoring',
+          component: Index,
+          children: [
             { path: 'reported-user-list', name: 'Reported User List', component: ReportedUserList },
             { path: 'banned-user-list', name: 'Banned User List', component: BanedUserList },
             { path: 'ban-history', name: 'Ban History', component: BanedHistory },
+            { path: 'picture', name: 'Picture', component: PictureList },
+            { path: 'replay-video', name: 'Replay Video', component: ReplayList },
+          ],
+        },
+        {
+          path: 'campaigns',
+          name: 'Campaigns',
+          component: Index,
+          children: [
+            { path: 'banner', name: 'Banner', component: Banner },
+            { path: 'float-banner', name: 'Float Banner', component: FloatBanner },
+          ],
+        },
+        {
+          path: 'user',
+          name: 'User Information',
+          component: Index,
+          redirect: { name: 'User List' },
+          children: [
+            { path: 'list', name: 'User List', component: UserList },
+            { path: 'detail/:id', name: 'User Detail', component: UserDetail, hide: true },
+            { path: 'partners', name: 'Partner List', component: PartnerList },
           ],
         },
         {
           path: 'billing',
-          name: 'Billing',
+          name: 'User Billing',
+          component: Index,
           redirect: '/index/billing/cash-out-user',
-          component: BillingIndex,
           children: [
             { path: 'cash-out', name: 'Cash Out User List', component: CashOutUserList },
             { path: 'diamond-income', name: 'Diamond Income List', component: DiamondIncomeList },
@@ -95,41 +107,27 @@ export default {
           ],
         },
         {
-          path: 'video',
-          name: 'Video',
-          redirect: '/index/video/replay-list',
-          component: VideoIndex,
+          path: 'upcoming',
+          name: 'Upcoming',
+          component: Index,
           children: [
-            { path: 'replay-list', name: 'Replay Video List', component: ReplayList },
+            { path: 'event', name: 'Event', component: Event },
           ],
         },
         {
-          path: 'banner',
-          name: 'Banners',
-          redirect: '/index/video/float-banner',
-          component: BannerIndex,
+          path: 'operations',
+          name: 'App View Operations',
+          component: Index,
           children: [
-            { path: 'float-banner', name: 'Float Banner', component: FloatBanner },
-            { path: 'banner', name: 'Banner', component: Banner },
+            { path: 'filtered-word', name: 'FilteredWordList', component: FilteredWordList },
           ],
         },
         {
-          path: 'picture',
-          name: 'Picture',
-          component: PictureList,
-        },
-        {
-          path: 'event',
-          name: 'Event',
-          component: Event,
-        },
-        {
-          path: 'other-operations',
-          name: 'OtherOperations',
-          component: OtherOperationsIndex,
+          path: 'system',
+          name: 'System',
+          component: Index,
           children: [
-            { path: 'feedback-list', name: 'FeedbackList', component: FeedbackList },
-            { path: 'filtered-word-list', name: 'FilteredWordList', component: FilteredWordList },
+            { path: 'administrator', name: 'Administrators', component: AdministratorList },
           ],
         },
         {
