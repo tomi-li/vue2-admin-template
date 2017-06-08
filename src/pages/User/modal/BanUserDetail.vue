@@ -60,7 +60,7 @@
   import api, { request } from '../../../api';
 
   export default {
-    props: ['params'],
+    props: ['params', 'ok', 'dismiss'],
     data() {
       return {
         formData: undefined,

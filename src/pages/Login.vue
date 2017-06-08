@@ -10,7 +10,7 @@
       <p>Login in. To see it in action.</p>
 
       <i-form
-        v-model="loginInfo">
+        ref="form">
 
         <i-form-item
           name="email"
@@ -46,7 +46,7 @@
     methods: {
       ...mapActions(['login']),
       form_login() {
-        request(api.login, this.loginInfo)
+        request(api.adminLogin, this.loginInfo)
           .then((res) => {
             console.log(this);
             console.log(res);

@@ -137,7 +137,7 @@
     },
     methods: {
       showBanModal() {
-        this.utils.$modal(BanUserModal, { id: this.id })
+        this.utils.modal(BanUserModal, { id: this.id })
           .then(() => this.$router.go(0));
       },
       showUnBanModal() {

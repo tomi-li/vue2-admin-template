@@ -153,13 +153,20 @@
         validated: true,
         errorMessages: [],
         touched: false,
+        internalValidators: [], // for add validator in runtime
       };
     },
     created() {
       this.internalValue = this.value;
+
+      // check if the validator value is object
+      if (this.validator && !(this.validator instanceof Array)) {
+        this.internalValidators.push(this.validator);
+      }
+
       // add required validator if is required
       if (this.required) {
-        this.validator.push({
+        this.internalValidators.push({
           fn: value => value !== undefined && value !== '',
           message: 'value can not be empty',
         });
@@ -187,15 +194,11 @@
         return _includes(options, type);
       },
       _validate(value) {
-        const validatorArray = (this.validator instanceof Array)
-          ? this.validator
-          : [this.validator];
-
         // if no validator. skip
-        if (this.validator.length === 0) return [];
+        if (this.internalValidators.length === 0) return [];
 
         const errors = [];
-        validatorArray.forEach((each) => {
+        this.internalValidators.forEach((each) => {
           if (!each.fn(value)) {
             console.warn(`[form-item] value '${value}' is not valid for '${this.name}'`);
             errors.push(each.message);

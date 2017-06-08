@@ -3,6 +3,42 @@ import axios from 'axios';
 // const URL_BASE = 'http://localhost:3000/';
 const URL_BASE = 'http://localhost:5000/';
 
+
+function replacePathVariables(url, params) {
+  if (params === {}) {
+    return url;
+  }
+  const regex = /\/:(\w+)/gm;
+  let formattedURL = url;
+  let m = regex.exec(formattedURL);
+  while (m) {
+    // This is necessary to avoid infinite loops with zero-width matches
+    if (m.index === regex.lastIndex) {
+      regex.lastIndex += 1;
+    }
+    if (params[m[1]] === undefined) {
+      console.warn(`"${m[1]}" is not provided in params`);
+      return formattedURL;
+    }
+    formattedURL = formattedURL.replace(`:${m[1]}`, params[m[1]]);
+    m = regex.exec(formattedURL);
+  }
+  return formattedURL;
+}
+
+
+export function request(api, params = {}) {
+  const requestURL = replacePathVariables(api.url, params);
+  console.log(requestURL);
+  return axios({
+    url: requestURL,
+    method: api.method,
+    data: params,
+    params,
+  }).then(res => ({ data: res.data, res }));
+}
+
+
 class API {
   constructor(url, { method, baseUrl } = {}) {
     if (baseUrl) {
@@ -11,6 +47,10 @@ class API {
       this.url = `${URL_BASE}${url}`;
     }
     this.method = method || 'get';
+  }
+
+  request(params) {
+    return request(this, params);
   }
 }
 
@@ -47,39 +87,7 @@ export default {
   unBlock: new API('block/setUnBlock', { method: 'post' }),
   // admin
   adminList: new API('admin/'),
+  adminLogin: new API('admin/login', { method: 'post' }),
+  adminUpdatePassword: new API('admin/:id/update-password', { method: 'post' }),
 };
-
-function replacePathVariables(url, params) {
-  if (params === {}) {
-    return url;
-  }
-  const regex = /\/:(\w+)/gm;
-  let formattedURL = url;
-  let m = regex.exec(formattedURL);
-  while (m) {
-    // This is necessary to avoid infinite loops with zero-width matches
-    if (m.index === regex.lastIndex) {
-      regex.lastIndex += 1;
-    }
-    if (params[m[1]] === undefined) {
-      console.warn(`"${m[1]}" is not provided in params`);
-      return formattedURL;
-    }
-    formattedURL = formattedURL.replace(`:${m[1]}`, params[m[1]]);
-    m = regex.exec(formattedURL);
-  }
-  return formattedURL;
-}
-
-
-export function request(api, params = {}) {
-  const requestURL = replacePathVariables(api.url, params);
-  console.log(requestURL);
-  return axios({
-    url: requestURL,
-    method: api.method,
-    data: params,
-    params,
-  }).then(res => ({ data: res.data, res }));
-}
 

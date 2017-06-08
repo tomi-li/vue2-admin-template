@@ -23,6 +23,7 @@ import Tabs from './Tabs';
 import Tab from './Tab';
 import Gallery from './Gallery';
 import DataTable from './DataTable';
+import DataTableRow from './DataTableRow';
 import UserLabel from './UserLabel';
 import Spinner from './Spinner';
 import Avatar from './Avatar';
@@ -51,6 +52,7 @@ export default (Vue) => {
   Vue.component('i-tab', Tab);
   Vue.component('i-gallery', Gallery);
   Vue.component('i-table', DataTable);
+  Vue.component('i-table-row', DataTableRow);
   Vue.component('i-form', Form);
   Vue.component('i-form-item', FormItem);
   Vue.component('i-radio', Radio);

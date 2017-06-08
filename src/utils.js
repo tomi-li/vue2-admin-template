@@ -52,7 +52,7 @@ export function isInWeChat() {
 }
 
 // make a modal stack
-export function $modal(modal, params = {}) {
+export function modal(VUEModal, params = {}) {
   return new Promise((resolve, reject) => {
     this.modalStack = this.modalStack || [];
     const modalStack = this.modalStack;
@@ -72,8 +72,8 @@ export function $modal(modal, params = {}) {
           reject(value);
         },
       },
-      template: `<modal :id="${modalId}" style="z-index:${modalId}" :params="params" :ok="ok" :dismiss="dismiss"></modal>`,
-      components: { modal },
+      template: `<VUEModal :id="${modalId}" style="z-index:${modalId}" :params="params" :ok="ok" :dismiss="dismiss"></VUEModal>`,
+      components: { VUEModal },
     }).$mount('#modal');
 
     this.modalStack.push(vm);
@@ -88,9 +88,9 @@ export function $modal(modal, params = {}) {
 }
 
 export function alert(params) {
-  return this.$modal(AlertModal, params);
+  return this.modal(AlertModal, params);
 }
 
 export function confirm(params) {
-  return this.$modal(ConfirmModal, params);
+  return this.modal(ConfirmModal, params);
 }

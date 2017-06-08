@@ -36,7 +36,7 @@
 
 <script>
   import _debounce from 'lodash/debounce';
-  import { request } from '../api';
+  import API, { request } from '../api';
 
   export default {
     model: {
@@ -44,7 +44,7 @@
     },
     props: {
       api: {
-        type: Object,
+        type: [Object, String],
         required: true,
       },
       columns: {
@@ -53,11 +53,11 @@
       },
       pageParam: {
         type: String,
-        default: 'pageNo',
+        default: 'page',
       },
       pageSizeParam: {
         type: String,
-        default: 'pageSize',
+        default: 'page_size',
       },
       sortParam: {
         type: String,
@@ -98,6 +98,7 @@
         sortColumn: undefined,
         sortDirection: 'ASC',
         pagination: true,
+        rows_: [],
       };
     },
     watch: {
@@ -135,7 +136,6 @@
 
         if (this.pagination) {
           requestOptions[this.pageParam] = this.page;
-          requestOptions.pageNumber = this.page;
           requestOptions[this.pageSizeParam] = this.pageSize;
         }
 
@@ -148,15 +148,20 @@
           requestOptions = { ...requestOptions, ...this.filter };
         }
 
-        request(this.api, requestOptions)
-          .then(({ data }) => {
+        const api = this.api instanceof Object ? this.api : API[this.api];
+        if (api === undefined) {
+          console.error(`api with name ${this.api} is not exist`);
+          throw new Error(`api with name ${this.api} is not exist`);
+        }
+        request(api, requestOptions)
+          .then(({ data, res }) => {
             this.data = data;
-            this.data.pageBase = (this.page - 1) * this.pageSize;
-            this.totalCount = data.totalRecordCount
-              || (data.response && data.response.total_record_count);
+            this.totalCount = res.headers['item-count'];
             this.setPagination(this.totalCount);
             this.loading = false;
             this.$emit('onData', data);
+            // pass data to row
+            this.rows_.forEach(each => each.renderIndex(data));
           });
       },
       updatePage(pageNumber) {
@@ -205,6 +210,9 @@
         } else if (this.sortColumn === column && this.sortDirection === 'DESC') {
           this.sortColumn = undefined;
         }
+      },
+      rowInserted_(row) {
+        this.rows_.push(row);
       },
     },
   };
