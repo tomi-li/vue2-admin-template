@@ -29,14 +29,13 @@
           :filter="currentFilter"
           v-model="currentEvents">
 
-          <tr v-for="(item, index) in currentEvents.response.result">
-            <td>{{ (index + 1) + currentEvents.pageBase }}</td>
+          <i-table-row v-for="(item, index) in currentEvents" :key="index">
             <td><img class="event-cover" :src="item['event_poster']" alt=""></td>
             <td>{{ item['event_theme'] }}</td>
             <td>{{ item['host_id'] }}</td>
             <td>{{ item['event_start_time'] | datetime }}</td>
             <td>{{ item['event_end_time'] | datetime }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
       <i-tab title="Past Events">
@@ -46,14 +45,13 @@
           :filter="pastFilter"
           v-model="pastEvents">
 
-          <tr v-for="(item, index) in pastEvents.response.result">
-            <td>{{ (index + 1) + pastEvents.pageBase }}</td>
+          <i-table-row v-for="(item, index) in pastEvents" :key="index">
             <td><img class="event-cover" :src="item['event_poster']" alt=""></td>
             <td>{{ item['event_theme'] }}</td>
             <td>{{ item['host_id'] }}</td>
             <td>{{ item['event_start_time'] | datetime }}</td>
             <td>{{ item['event_end_time'] | datetime }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
       <i-tab title="Deleted Events">
@@ -63,14 +61,13 @@
           :filter="deletedFilter"
           v-model="deletedEvents">
 
-          <tr v-for="(item, index) in deletedEvents.response.result">
-            <td>{{ (index + 1) + deletedEvents.pageBase }}</td>
+          <i-table-row v-for="(item, index) in deletedEvents" :key="index">
             <td><img class="event-cover" :src="item['event_poster']" alt=""></td>
             <td>{{ item['event_theme'] }}</td>
             <td>{{ item['host_id'] }}</td>
             <td>{{ item['event_start_time'] | datetime }}</td>
             <td>{{ item['event_end_time'] | datetime }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
     </i-tabs>

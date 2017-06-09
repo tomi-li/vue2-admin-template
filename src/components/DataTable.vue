@@ -98,7 +98,6 @@
         sortColumn: undefined,
         sortDirection: 'ASC',
         pagination: true,
-        rows_: [],
       };
     },
     watch: {
@@ -160,8 +159,6 @@
             this.setPagination(this.totalCount);
             this.loading = false;
             this.$emit('onData', data);
-            // pass data to row
-            this.rows_.forEach(each => each.renderIndex(data));
           });
       },
       updatePage(pageNumber) {
@@ -210,9 +207,6 @@
         } else if (this.sortColumn === column && this.sortDirection === 'DESC') {
           this.sortColumn = undefined;
         }
-      },
-      rowInserted_(row) {
-        this.rows_.push(row);
       },
     },
   };

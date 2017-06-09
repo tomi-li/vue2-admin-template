@@ -7,13 +7,12 @@
           :columns="['weight', 'adv_name', 'pic_url', 'click_url']"
           v-model="using"
           :filter="usingFilter">
-          <tr v-for="(item, index) in using.response.result">
-            <td>{{ (index + 1) + using.pageBase}}</td>
+          <i-table-row v-for="(item, index) in using" :key="index">
             <td>{{ item['weight'] }}</td>
             <td>{{ item['adv_name'] }}</td>
             <td><img class="float-banner-image" :src="item['pic_url']"></td>
             <td>{{ item['click_url'] }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
       <i-tab title="Deleted">
@@ -22,13 +21,12 @@
           :columns="['weight', 'adv_name', 'pic_url', 'click_url']"
           v-model="deleted"
           :filter="deletedFilter">
-          <tr v-for="(item, index) in deleted.response.result">
-            <td>{{ (index + 1) + deleted.pageBase}}</td>
+          <i-table-row v-for="(item, index) in deleted" :key="index">
             <td>{{ item['weight'] }}</td>
             <td>{{ item['adv_name'] }}</td>
             <td><img class="float-banner-image" :src="item['pic_url']"></td>
             <td>{{ item['click_url'] }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
     </i-tabs>

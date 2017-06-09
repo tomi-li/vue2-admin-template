@@ -35,6 +35,7 @@ export default function RegisterFilter(Vue) {
   });
 
   Vue.filter('ellipses', (str, limitation = 30) => {
+    if (str === undefined) return str;
     if (str.length < limitation) return str;
     return `${str.substring(0, limitation)} ...`;
   });

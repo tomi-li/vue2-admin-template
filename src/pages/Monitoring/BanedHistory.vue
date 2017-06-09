@@ -3,17 +3,16 @@
 
     <i-box>
       <i-table
-        :api="api.banedUserList"
+        api="banedUserList"
         :columns="['User ID', 'Ban Reason','Ban Start Time', 'Ban End Time']"
         v-model="userData">
 
-        <tr v-for="(item, index) in userData.response.result">
-          <td>{{ (index + 1) + userData.pageBase}}</td>
+        <i-table-row v-for="(item, index) in userData" :key="index">
           <td>{{ item['id'] }}</td>
           <td>{{ item['reason_flag'] | banReason }}</td>
           <td>{{ item['begin_time'] | datetime }}</td>
           <td>{{ item['end_time'] | datetime }}</td>
-        </tr>
+        </i-table-row>
       </i-table>
 
     </i-box>
@@ -22,15 +21,10 @@
 
 
 <script>
-  import api from '../../api';
-
   export default {
     data() {
       return {
-        api,
-        userData: {
-          response: {},
-        },
+        userData: {},
       };
     },
   };

@@ -44,13 +44,12 @@
     <i-box>
       <i-table
         :api="api.userList"
-        :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'monthly income', 'birthday']"
+        :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'birthday']"
         :filter="partnerFilter"
         :lazy="true"
         v-model="userData">
 
-        <tr v-for="(item, index) in userData">
-          <td>{{ (index + 1) + userData.pageBase}}</td>
+        <i-table-row v-for="(item, index) in userData" :key="index">
           <td>{{ item['id'] }}</td>
           <td>
             <i-avatar :src="item['avatar']"></i-avatar>
@@ -63,9 +62,8 @@
           </td>
           <td>{{ item['email'] }}</td>
           <td>{{ item['registerTime'] | datetime }}</td>
-          <td> TODO!!</td>
           <td>{{ item['birthday'] | date }}</td>
-        </tr>
+        </i-table-row>
       </i-table>
 
     </i-box>

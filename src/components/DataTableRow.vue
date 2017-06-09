@@ -6,13 +6,10 @@
 
 <script>
   export default {
-    data() {
-      return {
-        IndexRendered: false,
-      };
-    },
     mounted() {
-      this.$parent.rowInserted_(this);
+      this.renderIndex();
+    },
+    updated() {
       this.renderIndex();
     },
     methods: {
@@ -23,12 +20,11 @@
             existIndexNode.remove();
           }
           const index = ((this.$parent.page - 1) * this.$parent.pageSize)
-            + this.$parent.rows_.indexOf(this) + 1;
+            + this.$parent.$children.indexOf(this) + 1;
           const indexNode = document.createElement('td');
           indexNode.innerText = index.toString();
           indexNode.setAttribute('i-index', index);
           this.$el.insertBefore(indexNode, this.$el.firstChild);
-          this.IndexRendered = true;
         }
       },
     },

@@ -62,24 +62,19 @@ export default {
   userDetail: new API('account/:id/'),
   userLevel: new API('account/:id/level/'),
   isBanned: new API('account/:id/is-banned/'),
-  abuseSummary: new API('abuse/summary'),
   cashOutUser: new API('billing/diamond/cashout-users'),
   diamondIncome: new API('billing/diamond/diamond-earning-users'),
   convertCoinUser: new API('billing/diamond/convert-coin-users'),
   cashOutRequests: new API('treasure/cash-out/details'),
-  floatBannerList: new API('float-banner/get-all'),
-  bannerList: new API('adv/index', { method: 'post' }),
-  eventList: new API('event/index', { method: 'post' }),
   topEventList: new API('topevent/index', { method: 'post' }),
   photos: new API('photo/index'),
-  feedbackList: new API('feedback/index'),
+
   filteredWordList: new API('text-filter/get-pagination-words'),
   // abuse
   clear: new API('abuse/clear'),
   // ban
-  banedUserList: new API('ban/index'),
-  banDetail: new API('ban/detail'),
 
+  banDetail: new API('ban/detail'),
   ban: new API('ban/setBan', { method: 'post' }),
   unBan: new API('ban/setUnBan', { method: 'post' }),
   // block
@@ -92,5 +87,17 @@ export default {
   adminLogin: new API('admin/login', { method: 'post' }),
   adminLogout: new API('admin/logout', { method: 'post' }),
   adminUpdatePassword: new API('admin/:id/update-password', { method: 'post' }),
+  // event
+  eventList: new API('event/'),
+  // banner
+  bannerList: new API('banner/'),
+  floatBannerList: new API('banner/float/'),
+  // Reported User
+  reportedUserList: new API('reported-user/'),
+  // Banned User
+  banedUserList: new API('banned-user/'),
+  // Feedback
+  feedbackList: new API('feedback/'),
+  feedbackDetail: new API('feedback/:id'),
 };
 

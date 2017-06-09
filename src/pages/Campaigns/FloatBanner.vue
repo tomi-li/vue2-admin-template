@@ -7,14 +7,13 @@
           :columns="['bannerPosition', 'activityType', 'bannerName', 'bannerPicUrl', 'bannerClickUrl']"
           v-model="using"
           :filter="usingFilter">
-          <tr v-for="(item, index) in using.floatBanners">
-            <td>{{ (index + 1) + using.pageBase}}</td>
+          <i-table-row v-for="(item, index) in using" :key="index">
             <td>{{ item['bannerPosition'] }}</td>
             <td>{{ item['activityType'] }}</td>
             <td>{{ item['bannerName'] }}</td>
             <td><img class="float-banner-image" :src="item['bannerPicUrl']"></td>
             <td>{{ item['bannerClickUrl'] }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
       <i-tab title="Deleted">
@@ -23,14 +22,13 @@
           :columns="['bannerPosition', 'activityType', 'bannerName', 'bannerPicUrl', 'bannerClickUrl']"
           v-model="deleted"
           :filter="deletedFilter">
-          <tr v-for="(item, index) in deleted.floatBanners">
-            <td>{{ (index + 1) + deleted.pageBase}}</td>
+          <i-table-row v-for="(item, index) in deleted" :key="index">
             <td>{{ item['bannerPosition'] }}</td>
             <td>{{ item['activityType'] }}</td>
             <td>{{ item['bannerName'] }}</td>
             <td><img class="float-banner-image" :src="item['bannerPicUrl']"></td>
             <td>{{ item['bannerClickUrl'] }}</td>
-          </tr>
+          </i-table-row>
         </i-table>
       </i-tab>
     </i-tabs>

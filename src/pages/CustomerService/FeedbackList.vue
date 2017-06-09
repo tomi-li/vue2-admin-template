@@ -4,10 +4,10 @@
     <i-box>
       <i-form
         :inline="true"
-        :onValue="onFormValue">
+        v-model="filter">
         <i-form-item
           name="userId"
-          type="text"
+          type="number"
           placeholder="User Id"></i-form-item>
         <i-form-item
           name="createBefore"
@@ -22,38 +22,28 @@
 
     <i-box>
       <i-table
-        :api="api.feedbackList"
+        api="feedbackList"
         :columns="['id', 'userId', 'content']"
-        v-model="pictures"
+        v-model="feedbacks"
         :filter="filter"
         :lazy="true">
-        <tr v-for="(item, index) in pictures.entityList">
-          <td>{{ (index + 1) + pictures.pageBase }}</td>
+        <i-table-row v-for="(item, index) in feedbacks" :key="index">
           <td>{{ item['id'] }}</td>
           <td>{{ item['userId'] }}</td>
           <td>{{ item['content'] | ellipses }}</td>
-        </tr>
+        </i-table-row>
       </i-table>
     </i-box>
   </i-page>
 </template>
 
 <script>
-  import api from '../../api';
-
   export default {
     data() {
       return {
-        api,
-        pictures: {},
+        feedbacks: {},
         filter: {},
       };
     },
-    methods: {
-      onFormValue(value) {
-        this.filter = value;
-      },
-    },
   };
-
 </script>
