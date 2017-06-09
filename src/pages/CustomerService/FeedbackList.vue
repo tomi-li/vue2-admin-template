@@ -23,7 +23,7 @@
     <i-box>
       <i-table
         api="feedbackList"
-        :columns="['id', 'userId', 'content']"
+        :columns="['id', 'userId', 'content', 'operations']"
         v-model="feedbacks"
         :filter="filter"
         :lazy="true">
@@ -31,6 +31,10 @@
           <td>{{ item['id'] }}</td>
           <td>{{ item['userId'] }}</td>
           <td>{{ item['content'] | ellipses }}</td>
+          <td>
+            <i-button
+              title=""></i-button>
+          </td>
         </i-table-row>
       </i-table>
     </i-box>
@@ -38,12 +42,25 @@
 </template>
 
 <script>
+  import { confirm } from '../../utils';
+  import API from '../../api';
+
   export default {
     data() {
       return {
         feedbacks: {},
         filter: {},
       };
+    },
+    methods: {
+      remove(id) {
+        confirm('really want to delete this item?')
+          .then(() => {
+            API.feedbackRemove.request({ id })
+              .then()
+          })
+          .catch(() => ({}));
+      },
     },
   };
 </script>

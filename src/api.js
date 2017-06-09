@@ -98,6 +98,6 @@ export default {
   banedUserList: new API('banned-user/'),
   // Feedback
   feedbackList: new API('feedback/'),
-  feedbackDetail: new API('feedback/:id'),
+  feedbackRemove: new API('feedback/:id', { method: 'delete' }),
 };
 
