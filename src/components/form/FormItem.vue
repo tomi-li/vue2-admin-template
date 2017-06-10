@@ -1,10 +1,10 @@
 <template>
-  <div :style="{'display': this.$parent.inline ? 'inline-block' : 'block'}">
+  <div :style="{'display': this.formParent.inline ? 'inline-block' : 'block'}">
     <!---->
     <div v-if="showDivider" class="hr-line-dashed"></div>
 
     <!-- vertical -->
-    <div v-if="this.$parent.direction === 'vertical'" class="form-group" :class="{'has-error' : showError}">
+    <div v-if="this.formParent.direction === 'vertical'" class="form-group" :class="{'has-error' : showError}">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }}</label>
       <!-- one line text -->
       <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
@@ -41,9 +41,9 @@
     </div>
 
     <!-- horizontal -->
-    <div v-if="this.$parent.direction === 'horizontal'" class="form-group" :class="{'has-error' : showError }">
-      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.$parent.ratio[0]}`">{{ label }}</label>
-      <div :class="`col-sm-${this.$parent.ratio[1]}`">
+    <div v-if="this.formParent.direction === 'horizontal'" class="form-group" :class="{'has-error' : showError }">
+      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.formParent.ratio[0]}`">{{ label }}</label>
+      <div :class="`col-sm-${this.formParent.ratio[1]}`">
         <!-- one line text -->
         <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
 
@@ -96,6 +96,14 @@
   /* eslint-disable no-underscore-dangle */
 
   import _includes from 'lodash/includes';
+
+
+  function findParentForm(parent) {
+    if (parent.$options._componentTag === 'i-form') {
+      return parent;
+    }
+    return findParentForm(parent.$parent);
+  }
 
   export default {
     props: {
@@ -173,9 +181,12 @@
       }
 
       this._updateValue(this.internalValue);
-      this.$parent.onItemInserted(this);
+      this.formParent.onItemInserted(this);
     },
     computed: {
+      formParent() {
+        return findParentForm(this);
+      },
       // to determine if show error.
       showError() {
         return !this.validated && this.touched;
@@ -214,12 +225,12 @@
         const errors = this._validate(value);
         if (errors.length > 0) {
           this.validated = false;
-          this.$parent.onItemValueChanged({ [this.name]: undefined });
+          this.formParent.onItemValueChanged({ [this.name]: undefined });
           return;
         }
 
         this.validated = true;
-        this.$parent.onItemValueChanged({ [this.name]: value });
+        this.formParent.onItemValueChanged({ [this.name]: value });
       },
       receiveValue(value) {
         if (!this.touched) this.touched = true;

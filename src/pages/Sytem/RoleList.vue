@@ -33,7 +33,7 @@
               title="permissions"
               size="xs"
               type="primary"
-              @onPress="() => setPermissions()"></i-button>
+              @onPress="() => setPermissions(role)"></i-button>
           </td>
         </i-table-row>
 
@@ -68,8 +68,8 @@
         this.utils.modal(EditRoleModal, { role })
           .then(() => this.$refs.table.updateData());
       },
-      setPermissions() {
-        // TODO add logic
+      setPermissions(role) {
+        this.$router.push({ name: 'Role Permissions', params: { id: role.id } });
       },
     },
   };

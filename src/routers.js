@@ -28,6 +28,7 @@ import FeedbackList from './pages/CustomerService/FeedbackList';
 import FilteredWordList from './pages/Operations/FilteredWordList';
 import AdministratorList from './pages/Sytem/AdministratorList';
 import RoleList from './pages/Sytem/RoleList';
+import RolePermissions from './pages/Sytem/RolePermissions';
 
 export default {
   routes: [
@@ -130,6 +131,7 @@ export default {
           children: [
             { path: 'administrator', name: 'Administrators', component: AdministratorList },
             { path: 'roles', name: 'Role', component: RoleList },
+            { path: 'roles/:id', name: 'Role Permissions', component: RolePermissions, hide: true },
           ],
         },
         {

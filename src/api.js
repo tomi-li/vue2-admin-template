@@ -91,6 +91,7 @@ export default {
   roleCreate: new API('admin/role/', { method: 'post' }),
   roleRemove: new API('admin/role/:id/', { method: 'delete' }),
   roleUpdate: new API('admin/role/:id/', { method: 'put' }),
+  roleDetail: new API('admin/role/:id/', { method: 'get' }),
   // event
   eventList: new API('event/'),
   // banner
