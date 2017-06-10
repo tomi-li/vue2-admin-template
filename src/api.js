@@ -87,6 +87,10 @@ export default {
   adminLogin: new API('admin/login', { method: 'post' }),
   adminLogout: new API('admin/logout', { method: 'post' }),
   adminUpdatePassword: new API('admin/:id/update-password', { method: 'post' }),
+  roleList: new API('admin/role/'),
+  roleCreate: new API('admin/role/', { method: 'post' }),
+  roleRemove: new API('admin/role/:id/', { method: 'delete' }),
+  roleUpdate: new API('admin/role/:id/', { method: 'put' }),
   // event
   eventList: new API('event/'),
   // banner

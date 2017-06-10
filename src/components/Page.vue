@@ -16,7 +16,7 @@
     </div>
 
     <!-- Content -->
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper wrapper-content">
       <slot></slot>
     </div>
   </div>

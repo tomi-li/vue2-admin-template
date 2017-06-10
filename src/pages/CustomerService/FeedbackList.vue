@@ -22,6 +22,7 @@
 
     <i-box>
       <i-table
+        ref="table"
         api="feedbackList"
         :columns="['id', 'userId', 'content', 'operations']"
         v-model="feedbacks"
@@ -57,7 +58,9 @@
         confirm('really want to delete this item?')
           .then(() => {
             API.feedbackRemove.request({ id })
-              .then()
+              .then(() => {
+                this.$refs.table.updateData();
+              });
           })
           .catch(() => ({}));
       },

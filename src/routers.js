@@ -27,6 +27,7 @@ import Event from './pages/Upcoming/Event';
 import FeedbackList from './pages/CustomerService/FeedbackList';
 import FilteredWordList from './pages/Operations/FilteredWordList';
 import AdministratorList from './pages/Sytem/AdministratorList';
+import RoleList from './pages/Sytem/RoleList';
 
 export default {
   routes: [
@@ -128,6 +129,7 @@ export default {
           component: Index,
           children: [
             { path: 'administrator', name: 'Administrators', component: AdministratorList },
+            { path: 'roles', name: 'Role', component: RoleList },
           ],
         },
         {

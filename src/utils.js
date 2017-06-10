@@ -3,8 +3,8 @@ import $ from 'jquery';
 import toastr from 'toastr';
 import _remove from 'lodash/remove';
 import 'toastr/toastr.scss';
-import ConfirmModal from './public/modal/ConfirmModal';
-import AlertModal from './public/modal/AlertModal';
+import ConfirmModal from './components/modal/ConfirmModal';
+import AlertModal from './components/modal/AlertModal';
 
 
 /**

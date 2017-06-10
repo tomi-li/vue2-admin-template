@@ -16,7 +16,7 @@ import Select from './form/Select';
 
 // ui
 import Button from './Button';
-import Modal from './Modal';
+import Modal from './modal/Modal';
 import Page from './Page';
 import Box from './Box';
 import Tabs from './Tabs';
