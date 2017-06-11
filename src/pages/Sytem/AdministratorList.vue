@@ -18,7 +18,7 @@
 
         <i-table-row v-for="(admin, index) in admins" :key="index">
           <td>{{ admin['id'] }}</td>
-          <td>{{ admin['user_name'] }}</td>
+          <td>{{ admin['username'] }}</td>
           <td>{{ admin['role'] && admin['role']['name'] }}</td>
           <td>{{ admin['email'] }}</td>
           <td>{{ admin['create_time'] | datetime }}</td>

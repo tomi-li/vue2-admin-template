@@ -161,6 +161,14 @@
         internalValidators: [], // for add validator in runtime
       };
     },
+    watch: {
+      // Since we are copying value to internal value.
+      // we need to setup a watcher to monitor the changes of value
+      value(value) {
+        this.internalValue = value;
+        this._updateValue(this.internalValue);
+      },
+    },
     created() {
       this.internalValue = this.value;
 

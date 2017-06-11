@@ -75,7 +75,7 @@
         this.$emit('onValue', this.value);
       },
       submit() {
-        this.$children.forEach(formItem => formItem.touch());
+        this.items.forEach(formItem => formItem.touch());
 
         return new Promise((resolve, reject) => {
           if (this.itemsValidated) {

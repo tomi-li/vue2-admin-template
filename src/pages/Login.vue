@@ -52,8 +52,8 @@
               password: values.password,
             })
           ))
-          .then(() => this.$router.push('/dashboard'))
-          .catch(err => this.utils.toast.error(err));
+          .then(() => this.$router.push({ name: 'Dashboard' }))
+          .catch(err => this.utils.toast.error(err.message));
       },
     },
   };

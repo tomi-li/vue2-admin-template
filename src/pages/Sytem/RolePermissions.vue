@@ -1,10 +1,18 @@
 <template>
   <i-page>
 
-    <p>Permission Settings for <b>{{ role.name }}</b></p>
+    <div class="m-b-md">
+      <span>Permission Settings for <b>{{ role.name }}</b></span>
+      <i-button
+        class="pull-right"
+        title="Save"
+        type="primary"
+        size="sm"
+        @onPress="save()"></i-button>
+    </div>
 
     <i-form
-      :debug="true"
+      ref="form"
       v-model="settings">
 
       <div class="row">
@@ -40,6 +48,7 @@
 
         <div class="col-xs-3">
           <i-box title="User Information">
+            {{settings.UserInformation}}
             <i-form-item
               type="checkbox"
               name="UserInformation"
@@ -96,7 +105,6 @@
 </template>
 
 <script>
-  import API from '../../api';
 
   export default {
     data() {
@@ -107,10 +115,29 @@
     },
     created() {
       const params = this.$route.params;
-      API.roleDetail.request({ id: params.id })
+      this.API.roleDetail.request({ id: params.id })
         .then((res) => {
           this.role = res.data;
+          try {
+            this.settings = JSON.parse(res.data.permissions);
+          } catch (e) {
+            console.debug('settings not exist');
+          }
         });
+    },
+    methods: {
+      save() {
+        this.$refs.form.submit()
+          .then((values) => {
+            const params = this.$route.params;
+            return this.API.roleUpdate.request({
+              id: params.id,
+              permissions: JSON.stringify(values),
+            });
+          })
+          .then(() => this.utils.toast.info('updated'))
+          .catch(() => this.utils.toast.info('update failed'));
+      },
     },
   };
 </script>

@@ -39,14 +39,20 @@ class ResponseError extends Error {
 export function request(api, params = {}) {
   const requestURL = replacePathVariables(api.url, params);
   const user = store.getters.user();
-  // TODO using object to assert properties.
-  return axios({
+
+  const requestParams = {
     url: requestURL,
     method: api.method,
-    data: params,
     headers: { Authorization: user && user.token },
-    params,
-  }).then((res) => {
+  };
+
+  if (api.method !== 'get') {
+    requestParams.data = params;
+  } else {
+    requestParams.params = params;
+  }
+
+  return axios(requestParams).then((res) => {
     const errorMessage = res.headers['error-message'];
     const errorCode = res.headers['error-code'];
 
