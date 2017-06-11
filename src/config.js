@@ -1,3 +1,4 @@
-module.exports = {
-  host: '127.0.0.1',
+export default {
+  superUserId: 1,
+  superRoleId: 1,
 };

@@ -112,4 +112,5 @@ export function restoreStateFromLocalStorage() {
   } catch (e) {
     return defaultState;
   }
+  // TODO reload the user with token. if expired. clean self and logout.
 }

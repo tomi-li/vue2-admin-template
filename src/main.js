@@ -12,6 +12,7 @@ import './public/animate.css';
 import './public/inspinia';
 
 import * as utils from './utils';
+import consts from './config';
 import API from './api';
 import RouterConfig from './routers';
 import CustomComponents from './components';
@@ -38,12 +39,6 @@ router.beforeEach((to, from, next) => {
 });
 
 
-// static configurations
-let config = null;
-require.ensure([], (require) => {
-  config = require('../config');
-}, 'config');
-
 // define short hands
 Object.defineProperties(Vue.prototype, {
   utils: {
@@ -56,9 +51,9 @@ Object.defineProperties(Vue.prototype, {
       return API;
     },
   },
-  $config: {
+  consts: {
     get() {
-      return config;
+      return consts;
     },
   },
 });

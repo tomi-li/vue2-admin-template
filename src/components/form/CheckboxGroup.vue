@@ -45,7 +45,7 @@
       };
     },
     updated() {
-      this.checkboxValue = this.value;
+      this.checkboxValue = this.value || [];
     },
     computed: {
       isSimpleData() {
