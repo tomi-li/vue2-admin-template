@@ -1,6 +1,5 @@
 /* eslint-disable global-require,import/no-dynamic-require */
 // components
-import * as utils from '../utils';
 import Navigation from './layouts/navigation';
 import Footer from './layouts/footer';
 import TopNavigation from './layouts/topnavbar';
@@ -33,12 +32,6 @@ import List from './List';
 import ListItem from './ListItem';
 import BooleanText from './BooleanText';
 
-let config = null;
-
-require.ensure([], (require) => {
-  config = require('../config');
-}, 'config');
-
 export default (Vue) => {
   // 注册组件
   Vue.component('top-navigation', TopNavigation);
@@ -69,20 +62,4 @@ export default (Vue) => {
   Vue.component('i-list', List);
   Vue.component('i-list-item', ListItem);
   Vue.component('i-boolean-text', BooleanText);
-
-  /**
-   * 添加通用属性和方法
-   */
-  Object.defineProperties(Vue.prototype, {
-    utils: {
-      get() {
-        return utils;
-      },
-    },
-    $config: {
-      get() {
-        return config;
-      },
-    },
-  });
 };

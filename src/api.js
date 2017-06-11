@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { store } from './main';
 
-// const URL_BASE = 'http://localhost:3000/';
 const URL_BASE = 'http://localhost:5000/';
 
 function replacePathVariables(url, params) {
@@ -26,6 +25,16 @@ function replacePathVariables(url, params) {
   return formattedURL;
 }
 
+/**
+ * Custom Error for display
+ */
+class ResponseError extends Error {
+  constructor(message, code) {
+    super();
+    this.message = message;
+    this.code = code;
+  }
+}
 
 export function request(api, params = {}) {
   const requestURL = replacePathVariables(api.url, params);
@@ -37,7 +46,15 @@ export function request(api, params = {}) {
     data: params,
     headers: { Authorization: user && user.token },
     params,
-  }).then(res => ({ data: res.data, res }));
+  }).then((res) => {
+    const errorMessage = res.headers['error-message'];
+    const errorCode = res.headers['error-code'];
+
+    if (errorCode !== undefined && errorCode !== '0') {
+      throw new ResponseError(errorMessage, errorCode);
+    }
+    return { data: res.data, res };
+  });
 }
 
 
@@ -83,9 +100,11 @@ export default {
   block: new API('block/setBlock', { method: 'post' }),
   unBlock: new API('block/setUnBlock', { method: 'post' }),
   // admin
+  adminCreate: new API('admin/', { method: 'post' }),
+  adminDelete: new API('admin/:id', { method: 'delete' }),
   adminList: new API('admin/'),
-  adminLogin: new API('admin/login', { method: 'post' }),
-  adminLogout: new API('admin/logout', { method: 'post' }),
+  adminLogin: new API('admin/login/', { method: 'post' }),
+  adminLogout: new API('admin/logout/', { method: 'post' }),
   adminUpdatePassword: new API('admin/:id/update-password', { method: 'post' }),
   roleList: new API('admin/role/'),
   roleCreate: new API('admin/role/', { method: 'post' }),

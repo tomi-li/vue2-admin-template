@@ -5,7 +5,7 @@
 
     <!-- vertical -->
     <div v-if="this.formParent.direction === 'vertical'" class="form-group" :class="{'has-error' : showError}">
-      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }}</label>
+      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }} <span v-if="this.required">*</span></label>
       <!-- one line text -->
       <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
       <!-- static text -->
@@ -42,7 +42,7 @@
 
     <!-- horizontal -->
     <div v-if="this.formParent.direction === 'horizontal'" class="form-group" :class="{'has-error' : showError }">
-      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.formParent.ratio[0]}`">{{ label }}</label>
+      <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.formParent.ratio[0]}`">{{ label }} <span v-if="this.required">*</span></label>
       <div :class="`col-sm-${this.formParent.ratio[1]}`">
         <!-- one line text -->
         <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
@@ -93,10 +93,7 @@
 
 
 <script>
-  /* eslint-disable no-underscore-dangle */
-
   import _includes from 'lodash/includes';
-
 
   function findParentForm(parent) {
     if (parent.$options._componentTag === 'i-form') {

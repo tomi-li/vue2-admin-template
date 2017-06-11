@@ -10,7 +10,7 @@ import AlertModal from './components/modal/AlertModal';
 /**
  * 取地址栏参数
  * @param name
- * @returns {string}
+ * @returns {undefined}
  */
 export function getUrlParams(name) {
   const reg = new RegExp(`(^|&|\\?)${name}=([^&]*)(&|$)`, 'i');
@@ -61,7 +61,7 @@ export function modal(VUEModal, params = {}) {
       $(`#${vm.$options.id}`).remove();
       _remove(modalStack, modalInstance => modalInstance === vm);
     });
-  });
+  }).catch(err => console.err(err));
 }
 
 export function alert(params) {

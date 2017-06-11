@@ -46,14 +46,14 @@
       ...mapActions(['login']),
       form_login() {
         this.$refs.form.submit()
-          .then((values) => {
+          .then(values => (
             this.login({
               email: values.email,
               password: values.password,
-            }).then(() => {
-              this.$router.push('/dashboard');
-            });
-          });
+            })
+          ))
+          .then(() => this.$router.push('/dashboard'))
+          .catch(err => this.utils.toast.error(err));
       },
     },
   };

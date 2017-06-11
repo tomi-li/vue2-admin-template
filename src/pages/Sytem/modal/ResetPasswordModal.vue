@@ -7,14 +7,14 @@
 
       <i-form-item
         type="password"
-        name="password"
+        name="new_password"
         label="New Password"
         :required="true"></i-form-item>
 
       <i-form-item
         type="password"
-        name="repassword"
-        label="Repeat Password"
+        name="re_new_password"
+        label="Re-Password"
         :required="true"></i-form-item>
 
     </i-form>
@@ -24,41 +24,28 @@
         title="Cancel"
         @onPress="dismiss"></i-button>
       <i-button
-        title="OK"
+        title="Reset"
+        type="primary"
         @onPress="update"></i-button>
     </div>
   </i-modal>
 </template>
 
 <script>
-  import API from '../../../api';
-
   export default {
     props: ['params', 'ok', 'dismiss'],
-    data() {
-      return {
-        id: this.params.id,
-      };
-    },
     methods: {
       update() {
         this.$refs.form.submit()
-          .then((value) => {
-            if (value.password !== value.repassword) {
-              throw Error('password not match');
+          .then((values) => {
+            if (values.new_password !== values.re_new_password) {
+              this.utils.toast.error('password not match');
+              throw Error();
             }
-
-            return API.adminUpdatePassword.request({
-              id: this.id,
-              new_password: value.password,
-              re_new_password: value.repassword,
-            });
+            return this.API.adminUpdatePassword.request({ ...values, id: this.params.id });
           })
-          .then(() => {
-            this.ok();
-          })
-          .catch(() => {
-          });
+          .then(() => this.ok())
+          .catch(() => ({}));
       },
     },
   };

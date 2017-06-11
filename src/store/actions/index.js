@@ -8,10 +8,6 @@ export default {
       email, password,
     }).then((res) => {
       context.commit(types.LOGIN, res.data);
-    }).catch((e) => {
-      console.error(e);
-      toast.error('Wrong username or password');
-      throw new Error(e);
     })
   ),
   logout: context => (

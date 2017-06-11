@@ -11,6 +11,8 @@ import './public/scss/style.scss';
 import './public/animate.css';
 import './public/inspinia';
 
+import * as utils from './utils';
+import API from './api';
 import RouterConfig from './routers';
 import CustomComponents from './components';
 import RegisterFilter from './filters';
@@ -34,6 +36,33 @@ router.beforeEach((to, from, next) => {
   document.title = to.name;
   next();
 });
+
+
+// static configurations
+let config = null;
+require.ensure([], (require) => {
+  config = require('../config');
+}, 'config');
+
+// define short hands
+Object.defineProperties(Vue.prototype, {
+  utils: {
+    get() {
+      return utils;
+    },
+  },
+  API: {
+    get() {
+      return API;
+    },
+  },
+  $config: {
+    get() {
+      return config;
+    },
+  },
+});
+
 
 // eslint-disable-next-line no-new
 new Vue({

@@ -1,5 +1,14 @@
 <template>
   <i-page>
+
+    <div class="m-b-md">
+      <i-button
+        title="Add Admin"
+        icon="plus"
+        type="primary"
+        @onPress="showAddAdminModal"></i-button>
+    </div>
+
     <i-box>
       <i-table
         api="adminList"
@@ -10,7 +19,7 @@
         <i-table-row v-for="(admin, index) in admins" :key="index">
           <td>{{ admin['id'] }}</td>
           <td>{{ admin['user_name'] }}</td>
-          <td>{{ admin['roles'] }}</td>
+          <td>{{ admin['role'] && admin['role']['name'] }}</td>
           <td>{{ admin['email'] }}</td>
           <td>{{ admin['create_time'] | datetime }}</td>
           <td>
@@ -33,6 +42,7 @@
 
 <script>
   import ResetPasswordModal from './modal/ResetPasswordModal';
+  import AddAdminModal from './modal/AddAdminModal';
 
   export default {
     data() {
@@ -41,15 +51,19 @@
       };
     },
     methods: {
+      showAddAdminModal() {
+        this.utils.modal(AddAdminModal)
+          .then(() => this.$refs.table.updateData());
+      },
       remove(id) {
-        console.log(id);
         this.utils.confirm('are you sure to delete this administrator')
-          .then(() => {
-            console.log(id);
-          });
+          .then(() => this.API.adminDelete.request({ id }))
+          .then(() => this.utils.toast.info('admin has been deleted'))
+          .then(() => this.$refs.table.updateData());
       },
       resetPassword(id) {
-        this.utils.modal(ResetPasswordModal, { id });
+        this.utils.modal(ResetPasswordModal, { id })
+          .then(() => this.utils.toast.info('successfully reset password'));
       },
     },
   };
