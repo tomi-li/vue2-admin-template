@@ -29,5 +29,8 @@
         this.$emit('value', this.value);
       });
     },
+    updated() {
+      $(this.$el).iCheck('update');
+    },
   };
 </script>

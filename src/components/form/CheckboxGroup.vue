@@ -44,6 +44,9 @@
         checkboxValue: this.value || [],
       };
     },
+    updated() {
+      this.checkboxValue = this.value;
+    },
     computed: {
       isSimpleData() {
         if (!this.options || this.options.length === 0) return true;

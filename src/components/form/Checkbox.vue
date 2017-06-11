@@ -22,7 +22,7 @@
       value: {},
     },
     mounted() {
-      $(this.$el).iCheck({
+      this.icheck = $(this.$el).iCheck({
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green',
       }).on('ifChecked', () => {
@@ -30,6 +30,9 @@
       }).on('ifUnchecked', () => {
         this.$emit('remove', this.value);
       });
+    },
+    updated() {
+      $(this.$el).iCheck('update');
     },
   };
 </script>
