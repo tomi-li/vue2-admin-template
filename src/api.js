@@ -36,6 +36,14 @@ class ResponseError extends Error {
   }
 }
 
+function multipartToFormData(params) {
+  const formData = new FormData();
+  Object.keys(params).forEach((key) => {
+    formData.append(key, params[key]);
+  });
+  return formData;
+}
+
 export function request(api, params = {}) {
   const requestURL = replacePathVariables(api.url, params);
   const user = store.getters.user();
@@ -47,7 +55,11 @@ export function request(api, params = {}) {
   };
 
   if (api.method !== 'get') {
-    requestParams.data = params;
+    if (!api.multipart) {
+      requestParams.data = params;
+    } else {
+      requestParams.data = multipartToFormData(params);
+    }
   } else {
     requestParams.params = params;
   }
@@ -65,12 +77,13 @@ export function request(api, params = {}) {
 
 
 class API {
-  constructor(url, { method, baseUrl } = {}) {
+  constructor(url, { method, baseUrl, multipart = false } = {}) {
     if (baseUrl) {
       this.url = `${baseUrl}${url}`;
     } else {
       this.url = `${URL_BASE}${url}`;
     }
+    this.multipart = multipart;
     this.method = method || 'get';
   }
 
@@ -138,5 +151,7 @@ export default {
   // Feedback
   feedbackList: new API('feedback/'),
   feedbackRemove: new API('feedback/:id', { method: 'delete' }),
+  // Photo
+  photoUpload: new API('photo/', { method: 'post', multipart: true }),
 };
 

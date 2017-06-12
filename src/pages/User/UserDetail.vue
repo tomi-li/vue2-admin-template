@@ -129,7 +129,7 @@
               :filter="incomeFilter"
               :columns="['Date', 'Sessions', 'Earning', 'Diamonds']"
               v-model="incomeList">
-              <i-table-row v-for="income in incomeList">
+              <i-table-row v-for="(income, index) in incomeList" :key="index">
                 <td>{{ income['year'] }} / {{ income['month'] }}</td>
                 <td>{{ income['session_count'] }}</td>
                 <td>{{ income['earning'] }}</td>
@@ -154,7 +154,7 @@
               :filter="cashOutFilter"
               :columns="['Request Time','Amount (SAR)','Diamonds','Account','Status','Operation']"
               v-model="cashOutList">
-              <i-table-row v-for="cashOut in cashOutList">
+              <i-table-row v-for="(cashOut, index) in cashOutList" :key="index">
                 <td>{{ cashOut['createTime'] | datetime }}</td>
                 <td>{{ cashOut['cash'] }}</td>
                 <td>{{ cashOut['diamonds'] }}</td>

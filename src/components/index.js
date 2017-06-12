@@ -31,6 +31,7 @@ import ProgressBar from './ProgressBar';
 import List from './List';
 import ListItem from './ListItem';
 import BooleanText from './BooleanText';
+import FileUpload from './FileUpload';
 
 export default (Vue) => {
   // 注册组件
@@ -62,4 +63,5 @@ export default (Vue) => {
   Vue.component('i-list', List);
   Vue.component('i-list-item', ListItem);
   Vue.component('i-boolean-text', BooleanText);
+  Vue.component('i-file-upload', FileUpload);
 };
