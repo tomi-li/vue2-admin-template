@@ -51,6 +51,9 @@
           this.role = res.data;
           try {
             this.settings = JSON.parse(res.data.permissions);
+            if (this.settings === undefined || this.settings === null) {
+              this.settings = {};
+            }
           } catch (e) {
             this.settings = {};
           }

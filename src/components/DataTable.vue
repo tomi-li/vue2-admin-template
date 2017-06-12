@@ -166,9 +166,8 @@
         this.page = pageNumber;
       },
       setPagination(totalCount) {
-        if (!totalCount) {
-          this.pagination = false;
-        }
+        // in case the data is empty and the pagination is not showing anymore
+        this.pagination = !!totalCount;
 
         const pageCount =
                 window.parseInt(totalCount / this.pageSize)

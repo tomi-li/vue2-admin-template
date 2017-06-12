@@ -103,8 +103,79 @@
       </div>
     </div>
 
+
+    <div class="row">
+
+      <div class="col-lg-3">
+        <i-box title="Balance" :noPadding="true">
+          <i-list>
+            <i-list-item label="Diamond Balance">{{ userBalance.diamond_balance }}</i-list-item>
+            <i-list-item label="Coin Balance">{{ userBalance.coin_balance }}</i-list-item>
+            <i-list-item label="Conversion Rate">{{ userBalance.share_ratio }}</i-list-item>
+            <i-list-item label="Estimated Income">{{ userBalance.estimated_income }} / {{ userBalance.currency }}</i-list-item>
+          </i-list>
+        </i-box>
+      </div>
+
+    </div>
+
+    <div class="row m-b-lg">
+      <div class="col-lg-12">
+        <i-tabs>
+          <!-- Income -->
+          <i-tab title="Income History">
+            <i-table
+              api="userIncome"
+              :filter="incomeFilter"
+              :columns="['Date', 'Sessions', 'Earning', 'Diamonds']"
+              v-model="incomeList">
+              <i-table-row v-for="income in incomeList">
+                <td>{{ income['year'] }} / {{ income['month'] }}</td>
+                <td>{{ income['session_count'] }}</td>
+                <td>{{ income['earning'] }}</td>
+                <td>{{ income['diamonds'] }}</td>
+              </i-table-row>
+            </i-table>
+          </i-tab>
+
+          <!-- Cash out-->
+          <i-tab title="Cash-out History">
+            <!-- Filter -->
+            <i-form
+              v-model="cashOutStage">
+              <i-form-item
+                label="Process Stage"
+                name="processStage"
+                :options="['PENDING', 'PROCESSED', 'REJECTED']"
+                type="select"></i-form-item>
+            </i-form>
+            <i-table
+              api="userCashOut"
+              :filter="cashOutFilter"
+              :columns="['Request Time','Amount (SAR)','Diamonds','Account','Status','Operation']"
+              v-model="cashOutList">
+              <i-table-row v-for="cashOut in cashOutList">
+                <td>{{ cashOut['createTime'] | datetime }}</td>
+                <td>{{ cashOut['cash'] }}</td>
+                <td>{{ cashOut['diamonds'] }}</td>
+                <td>{{ cashOut['cashOutBankAccountInfo'] }}</td>
+                <td>{{ cashOut['status'] }}</td>
+                <td>
+                  <i-button
+                    title="Details"
+                    size="xs"
+                    @onPress="showCashoutDetailModel"></i-button>
+                </td>
+              </i-table-row>
+            </i-table>
+          </i-tab>
+        </i-tabs>
+      </div>
+    </div>
+
   </i-page>
 </template>
+
 
 <script>
   import api, { request } from '../../api';
@@ -113,26 +184,43 @@
   export default {
     data() {
       return {
-        id: undefined,
+        id: this.$route.params.id,
         user: {},
         userLevel: {},
         userBillings: {},
         userIsBaned: undefined,
         userIsBlocked: {},
+        userBalance: {},
+        userIncome: {},
+        incomeList: [],
+        cashOutList: [],
+        cashOutStage: {},
       };
     },
+    computed: {
+      incomeFilter() {
+        return { id: this.$route.params.id };
+      },
+      cashOutFilter() {
+        return { id: this.$route.params.id, ...this.cashOutStage };
+      },
+    },
     created() {
-      const { id } = this.$route.params;
+      const id = this.id;
       if (id === undefined) throw new Error('path param <id> can not be null');
-      this.id = id;
+
       Promise.all([
         request(api.userDetail, { id }),
         request(api.userLevel, { id }),
         request(api.isBanned, { id }),
+        request(api.userBalance, { id }),
+        request(api.userIncome, { id }),
       ]).then((resArray) => {
         this.user = resArray[0].data;
         this.userLevel = resArray[1].data;
         this.userIsBaned = resArray[2].data.msg;
+        this.userBalance = resArray[3].data;
+        this.userIncome = resArray[4].data;
       });
     },
     methods: {
@@ -147,6 +235,10 @@
         }).then(() => this.$router.go(0));
       },
       showBanDetailModal() {
+        // TODO
+      },
+      showCashoutDetailModel() {
+        // TODO
       },
     },
   };

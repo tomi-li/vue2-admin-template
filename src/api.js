@@ -80,11 +80,6 @@ class API {
 }
 
 export default {
-  // account
-  userList: new API('account/'),
-  userDetail: new API('account/:id/'),
-  userLevel: new API('account/:id/level/'),
-  isBanned: new API('account/:id/is-banned/'),
   cashOutUser: new API('billing/diamond/cashout-users'),
   diamondIncome: new API('billing/diamond/diamond-earning-users'),
   convertCoinUser: new API('billing/diamond/convert-coin-users'),
@@ -105,6 +100,20 @@ export default {
   isBlocked: new API('block/isBlocked', { method: 'post' }),
   block: new API('block/setBlock', { method: 'post' }),
   unBlock: new API('block/setUnBlock', { method: 'post' }),
+
+  /**
+   * New
+   */
+  // account
+  userList: new API('account/'),
+  userDetail: new API('account/:id/'),
+  userLevel: new API('account/:id/level/'),
+  isBanned: new API('account/:id/is-banned/'),
+  userBalance: new API('account/:id/treasures/'),
+  userIncome: new API('account/:id/income/'),
+  userCashOut: new API('account/:id/cash-out/'),
+  // billing
+
   // admin
   adminCreate: new API('admin/', { method: 'post' }),
   adminDelete: new API('admin/:id', { method: 'delete' }),
