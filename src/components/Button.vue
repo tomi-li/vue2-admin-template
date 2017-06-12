@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn" :class="[`btn-${type}`, `btn-${size}`, {'disabled': loading }]" :data-dismiss="closeModal ? 'modal': ''" @click="click">
+  <button :type="buttonType" class="btn" :class="[`btn-${type}`, `btn-${size}`, {'disabled': loading }]" :data-dismiss="closeModal ? 'modal': ''" @click="click">
     <i v-if="icon" class="fa" :class="`fa-${icon}`"></i>
     {{ title }}
     <i v-if="loading" class="fa fa-spin fa-spinner"></i>
@@ -34,6 +34,15 @@
       loading: {
         type: Boolean,
         default: false,
+      },
+      isSubmit: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    computed: {
+      buttonType() {
+        return this.isSubmit ? 'submit' : 'button';
       },
     },
     methods: {
