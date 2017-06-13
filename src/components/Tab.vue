@@ -27,3 +27,10 @@
     },
   };
 </script>
+
+
+<style scoped>
+  .panel-body {
+    overflow: hidden;
+  }
+</style>

@@ -137,6 +137,7 @@ export default {
   eventList: new API('event/'),
   eventCreate: new API('event/', { method: 'post' }),
   eventDetail: new API('event/:id/'),
+  eventEdit: new API('event/:id/', { method: 'put' }),
   eventRemove: new API('event/:id/', { method: 'delete' }),
   // banner
   bannerList: new API('banner/'),

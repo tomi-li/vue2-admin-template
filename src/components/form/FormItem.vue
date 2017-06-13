@@ -32,7 +32,10 @@
                 @value="value => receiveValue(value)"></i-select>
 
       <!-- Date -->
-      <i-date-picker v-if="_in(type, ['date'])" :placeholder="placeholder" @value="value => receiveValue(value)"></i-date-picker>
+      <i-date-picker v-if="_in(type, ['date'])"
+                     :placeholder="placeholder"
+                     :value="value"
+                     @value="value => receiveValue(value)"></i-date-picker>
 
       <!-- Text Area -->
       <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => receiveValue(e.target.value)"></textarea>
@@ -40,6 +43,7 @@
       <!-- Photo -->
       <i-file-upload
         v-if="_in(type, ['photo'])"
+        :value="value"
         @onValue="value => receiveValue(value)"></i-file-upload>
       <a v-if="_in(type, ['photo']) && internalValue" target="_blank" :href="internalValue">Preview</a>
 
@@ -84,6 +88,7 @@
         <!-- Date -->
         <i-date-picker v-if="_in(type, ['date'])"
                        :placeholder="placeholder"
+                       :value="value"
                        @value="value => receiveValue(value)"></i-date-picker>
 
         <!-- Text Area -->
@@ -92,6 +97,7 @@
         <!-- Photo -->
         <i-file-upload
           v-if="_in(type, ['photo'])"
+          :value="value"
           @onValue="value => receiveValue(value)"></i-file-upload>
         <a v-if="_in(type, ['photo']) && internalValue" target="_blank" :href="internalValue">Preview</a>
 

@@ -17,6 +17,16 @@
    * Event: onValue
    */
   export default {
+    props: {
+      value: {
+        type: String,
+      },
+    },
+    watch: {
+      value(val) {
+        this.empty = !val;
+      },
+    },
     data() {
       return {
         empty: true,

@@ -17,11 +17,19 @@
         type: String,
         default: 'yyyy-mm-dd',
       },
+      value: {
+        type: Number,
+      },
     },
     data() {
       return {
         valid: true,
       };
+    },
+    watch: {
+      value(val) {
+        $(this.$el).datepicker('update', new Date(val));
+      },
     },
     mounted() {
       const datepicker = $(this.$el).datepicker({
