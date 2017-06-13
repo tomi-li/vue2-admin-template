@@ -64,12 +64,12 @@ export function modal(VUEModal, params = {}) {
   }).catch(err => console.err(err));
 }
 
-export function alert(params) {
-  return this.modal(AlertModal, params);
+export function alert(content, title) {
+  return this.modal(AlertModal, { content, title });
 }
 
-export function confirm(params) {
-  return this.modal(ConfirmModal, params);
+export function confirm(content, title) {
+  return this.modal(ConfirmModal, { content, title });
 }
 
 

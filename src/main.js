@@ -60,7 +60,7 @@ Object.defineProperties(Vue.prototype, {
 
 
 // eslint-disable-next-line no-new
-new Vue({
+export const vm = new Vue({
   el: '#app',
   router,
   store,

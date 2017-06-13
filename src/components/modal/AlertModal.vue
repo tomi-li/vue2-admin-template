@@ -12,18 +12,9 @@
     props: ['params', 'ok'],
     data() {
       return {
-        title: '',
-        content: '',
+        title: this.params.title,
+        content: this.params.content,
       };
-    },
-    created() {
-      if (typeof this.params === 'string') {
-        this.content = this.params;
-      }
-      if (typeof this.params === 'object') {
-        this.title = this.params.title;
-        this.content = this.params.content;
-      }
     },
   };
 </script>

@@ -2,7 +2,6 @@
   <i-modal title="Ban User">
     <i-form
       ref="form"
-      :debug="true"
       direction="horizontal">
 
       <i-form-item

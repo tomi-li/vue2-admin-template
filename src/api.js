@@ -71,7 +71,7 @@ export function request(api, params = {}) {
     if (errorCode !== undefined && errorCode !== '0') {
       throw new ResponseError(errorMessage, errorCode);
     }
-    return { data: res.data, res };
+    return Promise.resolve({ data: res.data, res });
   });
 }
 
@@ -101,19 +101,11 @@ export default {
   photos: new API('photo/index'),
 
   filteredWordList: new API('text-filter/get-pagination-words'),
-  // abuse
-  clear: new API('abuse/clear'),
-  // ban
-
-  banDetail: new API('ban/detail'),
-  ban: new API('ban/setBan', { method: 'post' }),
-  unBan: new API('ban/setUnBan', { method: 'post' }),
   // block
   blockedUserList: new API('block/index'),
   isBlocked: new API('block/isBlocked', { method: 'post' }),
   block: new API('block/setBlock', { method: 'post' }),
   unBlock: new API('block/setUnBlock', { method: 'post' }),
-
   /**
    * New
    */
@@ -121,15 +113,18 @@ export default {
   userList: new API('account/'),
   userDetail: new API('account/:id/'),
   userLevel: new API('account/:id/level/'),
-  isBanned: new API('account/:id/is-banned/'),
+  userIsBanned: new API('account/:id/is-banned/'),
   userBalance: new API('account/:id/treasures/'),
   userIncome: new API('account/:id/income/'),
   userCashOut: new API('account/:id/cash-out/'),
+  ban: new API('account/:id/ban/', { method: 'post' }),
+  unBan: new API('account/:id/un-ban/', { method: 'post' }),
+  banDetail: new API('account/:id/ban/'),
   // billing
 
   // admin
   adminCreate: new API('admin/', { method: 'post' }),
-  adminDelete: new API('admin/:id', { method: 'delete' }),
+  adminDelete: new API('admin/:id/', { method: 'delete' }),
   adminList: new API('admin/'),
   adminLogin: new API('admin/login/', { method: 'post' }),
   adminLogout: new API('admin/logout/', { method: 'post' }),
@@ -146,11 +141,15 @@ export default {
   floatBannerList: new API('banner/float/'),
   // Reported User
   reportedUserList: new API('reported-user/'),
+  reportedUserDetail: new API('reported-user/:id/'),
+  // params: 'mark' 1 for ban 2 for ignore
+  reportedUserDelete: new API('reported-user/:id/', { method: 'delete' }),
+
   // Banned User
   banedUserList: new API('banned-user/'),
   // Feedback
   feedbackList: new API('feedback/'),
-  feedbackRemove: new API('feedback/:id', { method: 'delete' }),
+  feedbackRemove: new API('feedback/:id/', { method: 'delete' }),
   // Photo
   photoUpload: new API('photo/', { method: 'post', multipart: true }),
 };

@@ -3,15 +3,32 @@
     <i-box>
       <i-table
         api="reportedUserList"
-        :columns="['id', 'avatar', 'reason', 'Report Time']"
+        ref="table"
+        :columns="['ID', 'times', 'reason', 'Report Time', 'Operations']"
         v-model="userData">
         <i-table-row v-for="(item, index) in userData" :key="index">
-          <td>{{ item['targetId'] }}</td>
           <td>
-            <i-avatar :src="item['avatar']"></i-avatar>
+            <i-user-label :id="item['targetId']" :name="item['targetId']">{{ item['targetId'] }}</i-user-label>
           </td>
+          <td>{{ item['times'] }}</td>
           <td>{{ item['reasons'] | arrayToString }}</td>
           <td>{{ item['reportTime'] | date }}</td>
+          <td>
+            <i-button
+              title="detail"
+              size="xs"
+              @onPress="() => showUserReportDetail(item['targetId'])"></i-button>
+            <i-button
+              title="ban"
+              size="xs"
+              type="danger"
+              @onPress="() => showBanUserModal(item['targetId'])"></i-button>
+            <i-button
+              title="ignore"
+              size="xs"
+              type="warning"
+              @onPress="() => ignoreReports(item['targetId'])"></i-button>
+          </td>
         </i-table-row>
       </i-table>
     </i-box>
@@ -19,11 +36,31 @@
 </template>
 
 <script>
+  import ReportDetailModal from './modal/ReportDetailModal';
+  import BanUserModal from './modal/BanUserModal';
+
   export default {
     data() {
       return {
         userData: {},
       };
+    },
+    methods: {
+      showUserReportDetail(id) {
+        this.utils.modal(ReportDetailModal, { id });
+      },
+      ignoreReports(id) {
+        this.utils.confirm(`Ignore all past reports about this user ( User ID ${id})?`, 'Confirm Deletion')
+          .then(() => this.API.reportedUserDelete.request({ id, mark: 2 }))
+          .then(() => this.$refs.table.updateData())
+          .catch(() => ({}));
+      },
+      showBanUserModal(id) {
+        this.utils.modal(BanUserModal, { id })
+          .then(() => this.API.reportedUserDelete.request({ id, mark: 1 }))
+          .then(() => this.$refs.table.updateData())
+          .catch(() => ({}));
+      },
     },
   };
 </script>

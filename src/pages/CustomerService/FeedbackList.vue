@@ -24,7 +24,7 @@
       <i-table
         ref="table"
         api="feedbackList"
-        :columns="['id', 'userId', 'content', 'operations']"
+        :columns="['ID', 'User Id', 'content', 'operations']"
         v-model="feedbacks"
         :filter="filter"
         :lazy="true">
@@ -34,7 +34,14 @@
           <td>{{ item['content'] | ellipses }}</td>
           <td>
             <i-button
-              title=""></i-button>
+              size="xs"
+              title="Delete"
+              type="danger"
+              @onPress="() => remove(item.id)"></i-button>
+            <i-button
+              size="xs"
+              title="Detail"
+              @onPress="() => detail(item.id)"></i-button>
           </td>
         </i-table-row>
       </i-table>
@@ -43,8 +50,7 @@
 </template>
 
 <script>
-  import { confirm } from '../../utils';
-  import API from '../../api';
+  import FeedbackDetailModal from './modal/FeedbackDetailModal';
 
   export default {
     data() {
@@ -55,14 +61,13 @@
     },
     methods: {
       remove(id) {
-        confirm('really want to delete this item?')
-          .then(() => {
-            API.feedbackRemove.request({ id })
-              .then(() => {
-                this.$refs.table.updateData();
-              });
-          })
+        this.utils.confirm('really want to delete this item?', 'Confirm Deletion')
+          .then(() => this.API.feedbackRemove.request({ id }))
+          .then(() => this.$refs.table.updateData())
           .catch(() => ({}));
+      },
+      detail(id) {
+        this.utils.modal(FeedbackDetailModal, { id });
       },
     },
   };

@@ -179,7 +179,7 @@
 
 <script>
   import api, { request } from '../../api';
-  import BanUserModal from './modal/BanUserModal';
+  import BanUserModal from '../Monitoring/modal/BanUserModal';
 
   export default {
     data() {
@@ -212,7 +212,7 @@
       Promise.all([
         request(api.userDetail, { id }),
         request(api.userLevel, { id }),
-        request(api.isBanned, { id }),
+        request(api.userIsBanned, { id }),
         request(api.userBalance, { id }),
         request(api.userIncome, { id }),
       ]).then((resArray) => {

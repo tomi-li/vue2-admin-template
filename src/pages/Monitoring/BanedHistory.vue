@@ -8,7 +8,9 @@
         v-model="userData">
 
         <i-table-row v-for="(item, index) in userData" :key="index">
-          <td>{{ item['id'] }}</td>
+          <td>
+            <i-user-label :id="item['id']" :name="item['id']"></i-user-label>
+          </td>
           <td>{{ item['reason_flag'] | banReason }}</td>
           <td>{{ item['begin_time'] | datetime }}</td>
           <td>{{ item['end_time'] | datetime }}</td>

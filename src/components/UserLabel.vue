@@ -21,13 +21,17 @@
 </template>
 
 <script>
+  /**
+   * @events: onRedirect
+   */
   import $ from 'jquery';
   import api, { request } from '../api';
+  import { vm } from '../main';
 
   export default {
     props: {
       name: {
-        type: String,
+        type: [String, Number],
         required: true,
       },
       id: {
@@ -68,7 +72,8 @@
           });
       },
       showDetailPage() {
-        this.$router.push({ name: 'User Detail', params: { id: this.id } });
+        vm.$router.push({ name: 'User Detail', params: { id: this.id } });
+        this.$emit('onRedirect');
       },
     },
   };
