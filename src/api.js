@@ -100,7 +100,6 @@ export default {
   topEventList: new API('topevent/index', { method: 'post' }),
   photos: new API('photo/index'),
 
-  filteredWordList: new API('text-filter/get-pagination-words'),
   // block
   blockedUserList: new API('block/index'),
   isBlocked: new API('block/isBlocked', { method: 'post' }),
@@ -136,6 +135,9 @@ export default {
   roleDetail: new API('admin/role/:id/', { method: 'get' }),
   // event
   eventList: new API('event/'),
+  eventCreate: new API('event/', { method: 'post' }),
+  eventDetail: new API('event/:id/'),
+  eventRemove: new API('event/:id/', { method: 'delete' }),
   // banner
   bannerList: new API('banner/'),
   floatBannerList: new API('banner/float/'),
@@ -152,5 +154,9 @@ export default {
   feedbackRemove: new API('feedback/:id/', { method: 'delete' }),
   // Photo
   photoUpload: new API('photo/', { method: 'post', multipart: true }),
+  // Filter Word
+  filteredWordList: new API('text-filter/'),
+  filteredWordAdd: new API('text-filter/', { method: 'post' }),
+  filteredWordRemove: new API('text-filter/:word/', { method: 'delete' }),
 };
 
