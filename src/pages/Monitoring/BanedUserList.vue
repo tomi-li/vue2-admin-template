@@ -18,12 +18,11 @@
           <td>{{ item['end_time'] | datetime }}</td>
           <td>
             <i-button
-              title="details"
+              title="Details"
               size="xs"
               @onPress="() => showBanDetailModal(item['id'])"></i-button>
-
             <i-button
-              title="unban"
+              title="Unban"
               size="xs"
               type="primary"
               @onPress="() => unBan(item['id'])"></i-button>

@@ -4,7 +4,7 @@
       <i-table
         api="reportedUserList"
         ref="table"
-        :columns="['ID', 'times', 'reason', 'Report Time', 'Operations']"
+        :columns="['ID', 'Times', 'Reason', 'Report Time', 'Operations']"
         v-model="userData">
         <i-table-row v-for="(item, index) in userData" :key="index">
           <td>
@@ -15,16 +15,16 @@
           <td>{{ item['reportTime'] | date }}</td>
           <td>
             <i-button
-              title="detail"
+              title="Detail"
               size="xs"
               @onPress="() => showUserReportDetail(item['targetId'])"></i-button>
             <i-button
-              title="ban"
+              title="Ban"
               size="xs"
               type="danger"
               @onPress="() => showBanUserModal(item['targetId'])"></i-button>
             <i-button
-              title="ignore"
+              title="Ignore"
               size="xs"
               type="warning"
               @onPress="() => ignoreReports(item['targetId'])"></i-button>

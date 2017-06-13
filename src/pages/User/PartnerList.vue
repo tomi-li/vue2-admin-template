@@ -84,7 +84,7 @@
     },
     computed: {
       partnerFilter() {
-        return { ...this.filter, AllUser: 'Partner' };
+        return { ...this.filter, type: 'Partner' };
       },
     },
   };

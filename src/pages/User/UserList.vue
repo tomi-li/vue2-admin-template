@@ -51,25 +51,26 @@
     <i-box>
       <i-table
         :api="api.userList"
-        :columns="['id', 'avatar', 'gender', 'name', 'email', 'register time', 'birthday']"
+        :columns="['ID', 'avatar' , 'gender', 'name','type', 'Super User ID', 'email', 'register time']"
         :filter="filter"
         :lazy="true"
         v-model="userData">
 
         <i-table-row v-for="(item, index) in userData" :key="index">
-          <td>{{ item['id'] }}</td>
+          <td>
+            <i-user-label :id="item['id']" :name="item['id']"></i-user-label>
+          </td>
           <td>
             <i-avatar :src="item['avatar']"></i-avatar>
           </td>
           <td>
             <i-gender :type="item['gender']"></i-gender>
           </td>
-          <td>
-            <i-user-label :id="item['id']" :name="item['name']"></i-user-label>
-          </td>
+          <td>{{ item['name'] }}</td>
+          <td>{{ item['membership'] | membershipToUserType }}</td>
+          <td>{{ item['suid'] }}</td>
           <td>{{ item['email'] }}</td>
           <td>{{ item['registerTime'] | datetime }}</td>
-          <td>{{ item['birthday'] | date }}</td>
         </i-table-row>
       </i-table>
 
