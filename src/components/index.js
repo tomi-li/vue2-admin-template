@@ -12,26 +12,29 @@ import Checkbox from './form/Checkbox';
 import CheckboxGroup from './form/CheckboxGroup';
 import DatePicker from './form/DatePicker';
 import Select from './form/Select';
-
+import FileUpload from './form/FileUpload';
 // ui
-import Button from './Button';
+import Page from './ui/Page';
+import Box from './ui/Box';
+import Button from './ui/Button';
+import ProgressBar from './ui/ProgressBar';
+import List from './ui/List';
+import Tabs from './ui/Tabs';
+import Tab from './ui/Tab';
+import Panel from './ui/Panel';
+import Spinner from './ui/Spinner';
+// modal
 import Modal from './modal/Modal';
-import Page from './Page';
-import Box from './Box';
-import Tabs from './Tabs';
-import Tab from './Tab';
+// normal component
 import Gallery from './Gallery';
-import DataTable from './DataTable';
-import DataTableRow from './DataTableRow';
 import UserLabel from './UserLabel';
-import Spinner from './Spinner';
 import Avatar from './Avatar';
 import Gender from './Gender';
-import ProgressBar from './ProgressBar';
-import List from './List';
 import ListItem from './ListItem';
 import BooleanText from './BooleanText';
-import FileUpload from './FileUpload';
+import DataTable from './DataTable';
+import DataTableRow from './DataTableRow';
+
 
 export default (Vue) => {
   // 注册组件
@@ -64,4 +67,5 @@ export default (Vue) => {
   Vue.component('i-list-item', ListItem);
   Vue.component('i-boolean-text', BooleanText);
   Vue.component('i-file-upload', FileUpload);
+  Vue.component('i-panel', Panel);
 };

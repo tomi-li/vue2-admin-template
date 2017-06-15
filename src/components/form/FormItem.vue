@@ -28,7 +28,7 @@
       <!-- Select -->
       <i-select v-if="_in(type, ['select'])"
                 :options="options"
-                :value="value"
+                :value="internalValue"
                 @value="value => receiveValue(value)"></i-select>
 
       <!-- Date -->
@@ -82,7 +82,7 @@
         <!-- Select -->
         <i-select v-if="_in(type, ['select'])"
                   :options="options"
-                  :value="value"
+                  :value="internalValue"
                   @value="value => receiveValue(value)"></i-select>
 
         <!-- Date -->

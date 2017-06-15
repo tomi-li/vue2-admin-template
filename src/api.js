@@ -141,6 +141,8 @@ export default {
   eventRemove: new API('event/:id/', { method: 'delete' }),
   // banner
   bannerList: new API('banner/'),
+  bannerCreate: new API('banner/', { method: 'post' }),
+  bannerRemove: new API('banner/', { method: 'delete' }),
   floatBannerList: new API('banner/float/'),
   // Reported User
   reportedUserList: new API('reported-user/'),

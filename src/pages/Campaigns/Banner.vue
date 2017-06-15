@@ -1,9 +1,19 @@
 <template>
   <i-page>
+
+    <div class="m-b-md">
+      <i-button
+        title="Create Banner"
+        icon="plus-circle"
+        type="primary"
+        @onPress="showCreateBannerModal"></i-button>
+    </div>
+
     <i-tabs>
       <i-tab title="Using">
         <i-table
-          :api="api.bannerList"
+          ref="table"
+          api="bannerList"
           :columns="['weight', 'adv_name', 'pic_url', 'click_url']"
           v-model="using"
           :filter="usingFilter">
@@ -17,7 +27,7 @@
       </i-tab>
       <i-tab title="Deleted">
         <i-table
-          :api="api.bannerList"
+          api="bannerList"
           :columns="['weight', 'adv_name', 'pic_url', 'click_url']"
           v-model="deleted"
           :filter="deletedFilter">
@@ -34,17 +44,23 @@
 </template>
 
 <script>
-  import api from '../../api';
+  import AddBannerModal from './modal/AddBannerModal';
 
   export default {
     data() {
       return {
-        api,
         using: { response: {} },
         usingFilter: { isDeleted: false },
         deleted: { response: {} },
         deletedFilter: { isDeleted: true },
       };
+    },
+    methods: {
+      showCreateBannerModal() {
+        this.utils.modal(AddBannerModal)
+          .then(() => this.$refs.table.updateData())
+          .catch(() => ({}));
+      },
     },
   };
 </script>

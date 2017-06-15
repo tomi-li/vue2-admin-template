@@ -2,6 +2,7 @@ import Vue from 'vue';
 import $ from 'jquery';
 import toastr from 'toastr';
 import _remove from 'lodash/remove';
+import _each from 'lodash/forEach';
 import 'toastr/toastr.scss';
 import ConfirmModal from './components/modal/ConfirmModal';
 import AlertModal from './components/modal/AlertModal';
@@ -26,6 +27,23 @@ export function getUrlParams(name) {
  */
 export function isInWeChat() {
   return /MicroMessenger/i.test(navigator.userAgent.toLowerCase());
+}
+
+/**
+ * Serialize Object
+ * @param object
+ * @returns {string}
+ */
+export function serialize(object) {
+  let str = '';
+
+  _each(Object.keys(object), (key) => {
+    if (str !== '') {
+      str += '&';
+    }
+    str += `${key}=${encodeURIComponent(object[key])}`;
+  });
+  return str;
 }
 
 // make a modal stack
@@ -114,3 +132,4 @@ export function restoreStateFromLocalStorage() {
   }
   // TODO reload the user with token. if expired. clean self and logout.
 }
+

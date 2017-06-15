@@ -9,6 +9,16 @@ exports.assetsPath = function(_path) {
   return path.posix.join(assetsSubDirectory, _path)
 }
 
+
+exports.fontAssetsPath = function(_path) {
+  // TODO absolute url is temporary. need to  be fixed
+  var assetsSubDirectory = process.env.NODE_ENV === 'production'
+    ? config.build.assetsSubDirectory
+    : config.dev.assetsSubDirectory
+  return '/' + path.posix.join(assetsSubDirectory, _path)
+}
+
+
 exports.cssLoaders = function(options) {
   options = options || {}
 
@@ -22,7 +32,7 @@ exports.cssLoaders = function(options) {
 
   // generate loader string to be used with extract text plugin
   function generateLoaders(loader, loaderOptions) {
-    var loaders = [cssLoader]
+    var loaders = [cssLoader];
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
