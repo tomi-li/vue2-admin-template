@@ -12,8 +12,8 @@ import Dashboard from './pages/Dashboard';
 import ReportedUserList from './pages/Monitoring/ReportedUserList';
 import BanedUserList from './pages/Monitoring/BanedUserList';
 import BanedHistory from './pages/Monitoring/BanedHistory';
-import ReplayList from './pages/Monitoring/ReplyVideoList';
-import PictureList from './pages/Monitoring/Picture';
+// import ReplayList from './pages/Monitoring/ReplyVideoList';
+// import PictureList from './pages/Monitoring/Picture';
 import UserDetail from './pages/User/UserDetail';
 import UserList from './pages/User/UserList';
 import PartnerList from './pages/User/PartnerList';
@@ -72,8 +72,8 @@ export default {
             { path: 'reported-user-list', name: 'Reported User List', component: ReportedUserList },
             { path: 'banned-user-list', name: 'Banned User List', component: BanedUserList },
             { path: 'ban-history', name: 'Ban History', component: BanedHistory },
-            { path: 'picture', name: 'Picture', component: PictureList },
-            { path: 'replay-video', name: 'Replay Video', component: ReplayList },
+            //{ path: 'picture', name: 'Picture', component: PictureList },
+            //{ path: 'replay-video', name: 'Replay Video', component: ReplayList },
           ],
         },
         {

@@ -142,7 +142,8 @@ export default {
   // banner
   bannerList: new API('banner/'),
   bannerCreate: new API('banner/', { method: 'post' }),
-  bannerRemove: new API('banner/', { method: 'delete' }),
+  bannerRemove: new API('banner/:id/', { method: 'delete' }),
+  bannerDetail: new API('banner/:id/'),
   floatBannerList: new API('banner/float/'),
   // Reported User
   reportedUserList: new API('reported-user/'),
