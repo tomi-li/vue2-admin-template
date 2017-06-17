@@ -18,20 +18,19 @@
 
     <i-box>
       <i-table
-        :api="api.cashOutRequests"
+        api="transactionDiamondsToCash"
         :columns="['Request Time', 'User ID',  'Amount (SAR)', 'Diamonds', 'Cash-out Account', 'Status']"
         :filter="filter"
         :lazy="true"
-        v-model="userData">
-        <tr v-for="(item, index) in userData.response.result">
-          <td>{{ (index + 1) + userData.pageBase}}</td>
+        v-model="transactions">
+        <i-table-row v-for="(item, index) in transactions" :key="index">
           <td>{{ item['updateTime'] | datetime }}</td>
           <td>{{ item['userId'] }}</td>
           <td>{{ item['cash'] }}</td>
           <td>{{ item['diamonds'] }}</td>
           <td>{{ item['cashOutBankAccountInfo'] && item['cashOutBankAccountInfo']['bankAccountNumber'] }}</td>
           <td>{{ item['status'] }}</td>
-        </tr>
+        </i-table-row>
       </i-table>
     </i-box>
 
@@ -40,16 +39,11 @@
 
 
 <script>
-  import api from '../../api';
-
   export default {
     data() {
       return {
-        api,
         filter: {},
-        userData: {
-          response: {},
-        },
+        transactions: [],
       };
     },
   };

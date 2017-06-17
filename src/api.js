@@ -93,12 +93,10 @@ class API {
 }
 
 export default {
-  cashOutUser: new API('billing/diamond/cashout-users'),
   diamondIncome: new API('billing/diamond/diamond-earning-users'),
   convertCoinUser: new API('billing/diamond/convert-coin-users'),
-  cashOutRequests: new API('treasure/cash-out/details'),
+  cashOutUser: new API('billing/diamond/cashout-users'),
   topEventList: new API('topevent/index', { method: 'post' }),
-
 
   // block
   blockedUserList: new API('block/index'),
@@ -120,7 +118,7 @@ export default {
   unBan: new API('account/:id/un-ban/', { method: 'post' }),
   banDetail: new API('account/:id/ban/'),
   // billing
-
+  transactionDiamondsToCash: new API('transaction/diamonds-to-cash/'),
   // admin
   adminCreate: new API('admin/', { method: 'post' }),
   adminDelete: new API('admin/:id/', { method: 'delete' }),

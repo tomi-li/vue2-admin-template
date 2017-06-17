@@ -17,9 +17,9 @@ import PhotoList from './pages/Monitoring/PhotoList';
 import UserDetail from './pages/User/UserDetail';
 import UserList from './pages/User/UserList';
 import PartnerList from './pages/User/PartnerList';
-import CashOutUserList from './pages/Billing/CashOutUserList';
-import DiamondIncomeList from './pages/Billing/DiamondIncomeList';
-import DiamondToCoinList from './pages/Billing/DiamondToCoinList';
+// import CashOutUserList from './pages/Billing/CashOutUserList';
+// import DiamondIncomeList from './pages/Billing/DiamondIncomeList';
+// import DiamondToCoinList from './pages/Billing/DiamondToCoinList';
 import CashOutRequests from './pages/Billing/CashOutRequests';
 import FloatBanner from './pages/Campaigns/FloatBanner';
 import Banner from './pages/Campaigns/Banner';
@@ -100,9 +100,9 @@ export default {
           component: Index,
           redirect: '/index/billing/cash-out-user',
           children: [
-            { path: 'cash-out', name: 'Cash Out User List', component: CashOutUserList },
-            { path: 'diamond-income', name: 'Diamond Income List', component: DiamondIncomeList },
-            { path: 'diamond-to-coins', name: 'Diamond To Coins List', component: DiamondToCoinList },
+// { path: 'cash-out', name: 'Cash Out User List', component: CashOutUserList },
+// { path: 'diamond-income', name: 'Diamond Income List', component: DiamondIncomeList },
+// { path: 'diamond-to-coins', name: 'Diamond To Coins List', component: DiamondToCoinList },
             { path: 'cash-out-request', name: 'Cash Out Requests', component: CashOutRequests },
           ],
         },
