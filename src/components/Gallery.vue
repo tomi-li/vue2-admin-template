@@ -6,7 +6,9 @@
       </a>
     </div>
     <div v-else="isPureImage">
-      <a v-for="(imageObject, index) in images" class="gallery-image" @click="() => showGallery(index)">
+      <a v-for="(imageObject, index) in images" class="gallery-image"
+         :data-description="imageObject.description"
+         @click="() => showGallery(index)">
         <img :src="imageObject.thumbnail">
       </a>
     </div>
@@ -61,7 +63,7 @@
       showGallery(index) {
         const gallery = $('#blueimp-gallery');
         if (!gallery.length) $('body').append($(template));
-        Gallery(this.images, { index });
+        Gallery(this.images, { index, title: 'wocao ' });
       },
     },
   };

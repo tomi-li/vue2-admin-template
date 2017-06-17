@@ -98,7 +98,7 @@ export default {
   convertCoinUser: new API('billing/diamond/convert-coin-users'),
   cashOutRequests: new API('treasure/cash-out/details'),
   topEventList: new API('topevent/index', { method: 'post' }),
-  photos: new API('photo/index'),
+
 
   // block
   blockedUserList: new API('block/index'),
@@ -158,6 +158,7 @@ export default {
   feedbackDetail: new API('feedback/:id/', { method: 'get' }),
   feedbackRemove: new API('feedback/:id/', { method: 'delete' }),
   // Photo
+  photoList: new API('photo/'),
   photoUpload: new API('photo/', { method: 'post', multipart: true }),
   // Filter Word
   filteredWordList: new API('text-filter/'),

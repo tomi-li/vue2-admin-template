@@ -26,42 +26,32 @@
 
     <i-box>
       <i-table
-        :api="api.photos"
+        api="photoList"
         :columns="['userId', 'Image', 'size', 'type', 'Creation Time']"
         :filter="filter"
         :lazy="true"
         v-model="pictures">
-        <tr v-for="(item, index) in pictures.entityList">
-          <td>{{ (index + 1) + pictures.pageBase }}</td>
+        <i-table-row v-for="(item, index) in pictures" :key="index">
           <td>{{ item['userId'] }}</td>
-          <td><img class="picture-image" :src="item['url']" alt=""></td>
+          <td>
+            <i-gallery :images="[item['url']]"></i-gallery>
+          </td>
           <td>{{ item['size'] | byteToSize }}</td>
           <td>{{ item['type'] }}</td>
           <td>{{ item['createTime'] | datetime }}</td>
-        </tr>
+        </i-table-row>
       </i-table>
     </i-box>
   </i-page>
 </template>
 
 <script>
-  import api from '../../api';
-
   export default {
     data() {
       return {
-        api,
-        pictures: {},
+        pictures: [],
         filter: {},
       };
     },
   };
 </script>
-
-
-<style>
-  .picture-image {
-    width: 80px;
-    height: 80px;
-  }
-</style>
