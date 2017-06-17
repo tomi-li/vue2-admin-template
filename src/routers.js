@@ -13,6 +13,7 @@ import ReportedUserList from './pages/Monitoring/ReportedUserList';
 import BanedUserList from './pages/Monitoring/BanedUserList';
 import BanedHistory from './pages/Monitoring/BanedHistory';
 // import ReplayList from './pages/Monitoring/ReplyVideoList';
+import LiveList from './pages/Monitoring/Live';
 import PhotoList from './pages/Monitoring/PhotoList';
 import UserDetail from './pages/User/UserDetail';
 import UserList from './pages/User/UserList';
@@ -74,7 +75,8 @@ export default {
             { path: 'banned-user-list', name: 'Banned User List', component: BanedUserList },
             { path: 'ban-history', name: 'Ban History', component: BanedHistory },
             { path: 'photo', name: 'Photo', component: PhotoList },
-            //{ path: 'replay-video', name: 'Replay Video', component: ReplayList },
+            { path: 'live', name: 'Live', component: LiveList },
+            //{ path: 'replay', name: 'Replay Video', component: ReplayList },
           ],
         },
         {

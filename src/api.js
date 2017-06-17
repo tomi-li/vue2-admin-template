@@ -145,6 +145,9 @@ export default {
   bannerRemove: new API('banner/:id/', { method: 'delete' }),
   bannerDetail: new API('banner/:id/'),
   floatBannerList: new API('banner/float/'),
+  floatBannerCreate: new API('banner/float/', { method: 'post' }),
+  floatBannerDetail: new API('banner/float/:id/'),
+  floatBannerDelete: new API('banner/float/:id/', { method: 'delete' }),
   // Reported User
   reportedUserList: new API('reported-user/'),
   reportedUserDetail: new API('reported-user/:id/'),
@@ -170,5 +173,7 @@ export default {
   tagDetail: new API('tag/:id/', { method: 'get' }),
   tagRemove: new API('tag/:id/', { method: 'delete' }),
   tagEdit: new API('tag/:id/', { method: 'put' }),
+  // Broadcast (NBS)
+  liveList: new API('live/'),
 };
 

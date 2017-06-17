@@ -16,7 +16,7 @@
 
 
   export default {
-    mounted() {
+    created() {
       videojs(this.$el.querySelector('#test'));
     },
   };

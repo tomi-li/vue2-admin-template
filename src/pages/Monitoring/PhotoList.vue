@@ -32,7 +32,9 @@
         :lazy="true"
         v-model="pictures">
         <i-table-row v-for="(item, index) in pictures" :key="index">
-          <td>{{ item['userId'] }}</td>
+          <td>
+            <i-user-label :id="item['userId']" :name="item['userId']"></i-user-label>
+          </td>
           <td>
             <i-gallery :images="[item['url']]"></i-gallery>
           </td>
