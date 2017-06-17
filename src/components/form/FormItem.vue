@@ -7,7 +7,15 @@
     <div v-if="this.formParent.direction === 'vertical'" class="form-group" :class="{'has-error' : showError}">
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label">{{ label }} <span v-if="this.required">*</span></label>
       <!-- one line text -->
-      <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
+      <input v-if="_in(type, ['text', 'number', 'email', 'password'])"
+             class="form-control"
+             :class="`input-${size}`"
+             :type="type"
+             :id="`form-item-${this._uid}`"
+             :placeholder="placeholder"
+             @input="e => receiveValue(e.target.value)" :value="internalValue"
+             :disabled="disabled">
+
       <!-- static text -->
       <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
       <!-- radio -->
@@ -58,7 +66,15 @@
       <label v-if="label" :for="`form-item-${this._uid}`" class="control-label" :class="`col-sm-${this.formParent.ratio[0]}`">{{ label }} <span v-if="this.required">*</span></label>
       <div :class="`col-sm-${this.formParent.ratio[1]}`">
         <!-- one line text -->
-        <input v-if="_in(type, ['text', 'number', 'email', 'password'])" :type="type" :id="`form-item-${this._uid}`" :placeholder="placeholder" class="form-control" @input="e => receiveValue(e.target.value)" :value="internalValue" :disabled="disabled">
+        <input v-if="_in(type, ['text', 'number', 'email', 'password'])"
+               class="form-control"
+               :class="`input-${size}`"
+               :type="type"
+               :id="`form-item-${this._uid}`"
+               :placeholder="placeholder"
+               @input="e => receiveValue(e.target.value)"
+               :value="internalValue"
+               :disabled="disabled">
 
         <!-- static text -->
         <p v-if="_in(type, ['static'])" class="form-control-static">{{ internalValue }}</p>
@@ -125,6 +141,10 @@
     props: {
       label: {
         type: [String, Number],
+      },
+      size: {
+        // works for [input]
+        type: String,
       },
       name: {
         type: String,

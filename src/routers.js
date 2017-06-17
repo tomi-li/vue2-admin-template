@@ -4,7 +4,6 @@ import { store } from './main';
 // Layout
 import Layout from './components/layouts/content';
 import Login from './pages/Login';
-import Logout from './pages/Logout';
 import Index from './pages/Index';
 import Dashboard from './pages/Dashboard';
 
@@ -38,10 +37,6 @@ export default {
       path: '/login',
       name: 'Login',
       component: Login,
-    },
-    {
-      path: '/logout',
-      component: Logout,
     },
     {
       path: '/',

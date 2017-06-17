@@ -1,35 +1,37 @@
 <template>
   <div class="middle-box text-center loginscreen animated fadeInDown">
-    <div>
-      <div>
-        <h1 class="logo-name">IN+</h1>
-      </div>
-      <h3>Welcome to IN+</h3>
-      <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
-      </p>
-      <p>Login in. To see it in action.</p>
+    <h1 class="logo-name">Loops Live</h1>
 
-      <i-form
-        ref="form">
+    <i-form
+      class="m-t-lg"
+      ref="form">
 
-        <i-form-item
-          name="email"
-          placeholder="Email"
-          type="text"></i-form-item>
+      <i-form-item
+        name="email"
+        size="lg"
+        placeholder="Email"
+        type="text"></i-form-item>
 
-        <i-form-item
-          name="password"
-          placeholder="Password"
-          type="password"></i-form-item>
+      <i-form-item
+        name="password"
+        size="lg"
+        placeholder="Password"
+        type="password"></i-form-item>
 
-      </i-form>
+      <i-button
+        size="lg"
+        title="Login"
+        type="primary"
+        :isSubmit="true"
+        :isBlock="true"
+        :loading="loggingIn"
+        @onPress="formLogin"
+      ></i-button>
+    </i-form>
 
-      <i-button title="Login" @onPress="form_login" type="primary"></i-button>
-
-      <p class="m-t">
-        <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
-      </p>
-    </div>
+    <p class="m-t">
+      <small>&copy Product of Mozat 2017 </small>
+    </p>
   </div>
 </template>
 
@@ -40,11 +42,13 @@
     data() {
       return {
         loginInfo: {},
+        loggingIn: false,
       };
     },
     methods: {
       ...mapActions(['login']),
-      form_login() {
+      formLogin() {
+        this.loggingIn = true;
         this.$refs.form.submit()
           .then(values => (
             this.login({
@@ -53,7 +57,10 @@
             })
           ))
           .then(() => this.$router.push({ name: 'Dashboard' }))
-          .catch(err => this.utils.toast.error(err.message));
+          .catch(err => this.utils.toast.error(err.message))
+          .then(() => {
+            this.loggingIn = false;
+          });
       },
     },
   };

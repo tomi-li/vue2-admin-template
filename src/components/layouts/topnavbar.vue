@@ -6,9 +6,9 @@
       </div>
       <ul class="nav navbar-top-links navbar-right">
         <li>
-          <router-link to="/logout">
+          <a @click="_logout">
             <i class="fa fa-sign-out"></i> Log out
-          </router-link>
+          </a>
         </li>
       </ul>
     </nav>
@@ -16,5 +16,15 @@
 </template>
 
 <script>
-  export default{};
+  import { mapActions } from 'vuex';
+
+  export default{
+    methods: {
+      ...mapActions(['logout']),
+      _logout() {
+        this.logout()
+          .then(() => this.$router.push({ name: 'Login' }));
+      },
+    },
+  };
 </script>
