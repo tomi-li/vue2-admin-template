@@ -26,6 +26,7 @@ import Banner from './pages/Campaigns/Banner';
 import Event from './pages/Upcoming/Event';
 import FeedbackList from './pages/CustomerService/FeedbackList';
 import FilteredWordList from './pages/Operations/FilteredWordList';
+import TrendingTags from './pages/Operations/TrendingTags';
 import AdministratorList from './pages/Sytem/AdministratorList';
 import RoleList from './pages/Sytem/RoleList';
 import RolePermissions from './pages/Sytem/RolePermissions';
@@ -121,7 +122,8 @@ export default {
           name: 'App View Operations',
           component: Index,
           children: [
-            { path: 'filtered-word', name: 'FilteredWordList', component: FilteredWordList },
+            { path: 'filtered-word', name: 'Filtered Word List', component: FilteredWordList },
+            { path: 'trending-tags', name: 'Trending Tags', component: TrendingTags },
           ],
         },
         {

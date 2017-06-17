@@ -50,7 +50,10 @@
         v-model="userData">
 
         <i-table-row v-for="(item, index) in userData" :key="index">
-          <td>{{ item['id'] }}</td>
+          <td>
+            <i-user-label
+              :id="item['id']" :name="item['id']"></i-user-label>
+          </td>
           <td>
             <i-avatar :src="item['avatar']"></i-avatar>
           </td>
@@ -58,7 +61,7 @@
             <i-gender :type="item['gender']"></i-gender>
           </td>
           <td>
-            <i-user-label :id="item['id']" :name="item['name']"></i-user-label>
+            {{ item['name'] }}
           </td>
           <td>{{ item['email'] }}</td>
           <td>{{ item['registerTime'] | datetime }}</td>

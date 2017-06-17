@@ -2,6 +2,7 @@ import API from '../../api';
 import * as types from '../types';
 import { toast } from '../../utils';
 
+// TODO no need to check Logout response
 export default {
   login: (context, { email, password }) => (
     API.adminLogin.request({

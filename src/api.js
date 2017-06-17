@@ -155,6 +155,7 @@ export default {
   banedUserList: new API('banned-user/'),
   // Feedback
   feedbackList: new API('feedback/'),
+  feedbackDetail: new API('feedback/:id/', { method: 'get' }),
   feedbackRemove: new API('feedback/:id/', { method: 'delete' }),
   // Photo
   photoUpload: new API('photo/', { method: 'post', multipart: true }),
@@ -162,5 +163,11 @@ export default {
   filteredWordList: new API('text-filter/'),
   filteredWordAdd: new API('text-filter/', { method: 'post' }),
   filteredWordRemove: new API('text-filter/:word/', { method: 'delete' }),
+  // Tag
+  tagList: new API('tag/'),
+  tagCreate: new API('tag/', { method: 'post' }),
+  tagDetail: new API('tag/:id/', { method: 'get' }),
+  tagRemove: new API('tag/:id/', { method: 'delete' }),
+  tagEdit: new API('tag/:id/', { method: 'put' }),
 };
 

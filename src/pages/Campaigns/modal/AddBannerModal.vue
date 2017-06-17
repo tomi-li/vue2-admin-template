@@ -182,7 +182,7 @@
                 .then(addOnValues =>
                   Promise.resolve({
                     ...newBanner,
-                    click_url: clickUrl + this.utils.serialize(addOnValues),
+                    click_url: `${clickUrl}?${this.utils.serialize(addOnValues)}`,
                   }));
             }
             return Promise.resolve(...newBanner, { clickUrl });

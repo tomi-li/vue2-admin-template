@@ -23,6 +23,10 @@
             <td><img class="float-banner-image" :src="item['pic_url']"></td>
             <td>
               <i-button
+                title="Detail"
+                size="xs"
+                @onPress="() => showBannerDetailModel(item.id)"></i-button>
+              <i-button
                 title="Remove"
                 type="danger"
                 size="xs"
@@ -50,6 +54,7 @@
 
 <script>
   import AddBannerModal from './modal/AddBannerModal';
+  import BannerDetailModal from './modal/BannerDetailModal';
 
   export default {
     data() {
@@ -65,6 +70,9 @@
         this.utils.modal(AddBannerModal)
           .then(() => this.$refs.table.updateData())
           .catch(() => ({}));
+      },
+      showBannerDetailModel(id) {
+        this.utils.modal(BannerDetailModal, { id });
       },
       remove(id) {
         this.utils.confirm(`Are you sure to delete banner with id ${id}`, 'Confirm Deletion')

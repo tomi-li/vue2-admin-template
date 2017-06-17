@@ -1,29 +1,14 @@
 <template>
   <i-modal title="Feedback Detail">
 
-    <i-form
-      direction="horizontal"
-      :ratio="[3, 9]">
+    <i-list>
+      <i-list-item label="ID"> {{ feedback.id }} </i-list-item>
+      <i-list-item label="User ID"> {{ feedback.userId }} </i-list-item>
+      <i-list-item label="Create Time"> {{ feedback.createTime | datetime }} </i-list-item>
+    </i-list>
 
-      <i-form-item
-        name="userId"
-        label="User ID"
-        :value="feedback.userId"
-        type="static"></i-form-item>
-
-      <i-form-item
-        name="creationDate"
-        label="Creation Date"
-        :value="feedback.createTime | datetime"
-        type="static"></i-form-item>
-
-      <i-form-item
-        name="content"
-        label="Content"
-        :value="feedback.content"
-        type="static"></i-form-item>
-
-    </i-form>
+    <h3>Content</h3>
+    <p>{{ feedback.content }}</p>
 
     <div slot="footer">
       <i-button

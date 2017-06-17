@@ -3,7 +3,7 @@
     <i-tabs>
       <i-tab title="Using">
         <i-table
-          :api="api.floatBannerList"
+          api="floatBannerList"
           :columns="['bannerPosition', 'activityType', 'bannerName', 'bannerPicUrl', 'bannerClickUrl']"
           v-model="using"
           :filter="usingFilter">
@@ -18,7 +18,7 @@
       </i-tab>
       <i-tab title="Deleted">
         <i-table
-          :api="api.floatBannerList"
+          api="floatBannerList"
           :columns="['bannerPosition', 'activityType', 'bannerName', 'bannerPicUrl', 'bannerClickUrl']"
           v-model="deleted"
           :filter="deletedFilter">
@@ -36,12 +36,9 @@
 </template>
 
 <script>
-  import api from '../../api';
-
   export default {
     data() {
       return {
-        api,
         using: {},
         usingFilter: { isNotDeleted: true },
         deleted: {},
