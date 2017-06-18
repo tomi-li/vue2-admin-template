@@ -1,6 +1,9 @@
 <template>
   <div class="i-user-label">
-    <span class="badge badge-info" v-mouseenter-delay="showDetails" @mouseleave="hideDetails" @click="showDetailPage">
+    <span class="badge badge-info"
+          v-mouseenter-delay="showDetails"
+          @mouseleave="hideDetails"
+          @click="showDetailPage">
       <i class="fa fa-user"></i>
       <span>{{name}}</span>
     </span>
@@ -10,10 +13,26 @@
         <div class="arrow" style="left: 50%;"></div>
         <div class="popover-content">
           <i-spinner v-if="!user" class="loader" type="circle"></i-spinner>
-          <div v-if="user">
+          <div v-if="user" class="user-info">
             <div class="row">
-              <img :src="user.avatar" class="img-circle">
+              <div class="col-sm-4">
+                <img :src="user.avatar" class="avatar circle-border">
+              </div>
+              <div class="col-sm-8">
+                <h4>{{ user.name }}
+                  <small>{{ user.id }}</small>
+                </h4>
+                <i-gender :type="user.gender"></i-gender>
+              </div>
             </div>
+
+            <i-list size="xs" :isRound="false">
+              <i-list-item label="SUID">{{ user.suid }}</i-list-item>
+              <i-list-item label="IP">{{ user.ip }}</i-list-item>
+              <i-list-item label="Membership">{{ user.membership | membershipToUserType }}</i-list-item>
+              <i-list-item label="Last Online">{{ user.lastOnline | datetime }}</i-list-item>
+              <i-list-item label="Birthday">{{ user.birthday | datetime }}</i-list-item>
+            </i-list>
           </div>
         </div>
       </div>
@@ -71,6 +90,9 @@
         request(api.userDetail, { id: this.id })
           .then(({ data }) => {
             this.user = data;
+          })
+          .catch(() => {
+            this.utils.toast.error('Error fetch user information');
           });
       },
       showDetailPage() {
@@ -81,7 +103,7 @@
   };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .i-user-label {
     position: relative;
     display: inline-block;
@@ -101,7 +123,17 @@
     }
   }
 
-  .user-info-active {
-    opacity: 0;
+  .user-info {
+    min-width: 300px;
+    padding: 0 15px;
+    .avatar {
+      width: 60px;
+      height: 60px;
+    }
+
+    .list-group {
+      margin: 0;
+    }
   }
+
 </style>

@@ -5,7 +5,6 @@ import { store } from './main';
 import Layout from './components/layouts/content';
 import Login from './pages/Login';
 import Index from './pages/Index';
-import Dashboard from './pages/Dashboard';
 
 // Pages
 import ReportedUserList from './pages/Monitoring/ReportedUserList';
@@ -47,11 +46,6 @@ export default {
         next();
       },
       children: [
-        {
-          path: 'dashboard',
-          name: 'Dashboard',
-          component: Dashboard,
-        },
         {
           path: 'customer-service',
           name: 'Customer Service',
@@ -135,7 +129,7 @@ export default {
         },
         {
           path: '*',
-          redirect: () => ({ name: 'Dashboard' }),
+          redirect: () => ({ name: 'Customer Service' }),
         },
       ],
     },
