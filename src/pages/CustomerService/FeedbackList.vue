@@ -24,24 +24,27 @@
       <i-table
         ref="table"
         api="feedbackList"
-        :columns="['ID', 'User Id', 'content', 'operations']"
+        :columns="['User Id', 'content', 'operations']"
         v-model="feedbacks"
         :filter="filter"
         :lazy="true">
         <i-table-row v-for="(item, index) in feedbacks" :key="index">
-          <td>{{ item['id'] }}</td>
-          <td>{{ item['userId'] }}</td>
+          <td>
+            <i-user-label
+              :id="item['userId']"
+              :name="item['userId']"></i-user-label>
+          </td>
           <td>{{ item['content'] | ellipses }}</td>
           <td>
+            <i-button
+              size="xs"
+              title="Detail"
+              @onPress="() => detail(item.id)"></i-button>
             <i-button
               size="xs"
               title="Delete"
               type="danger"
               @onPress="() => remove(item.id)"></i-button>
-            <i-button
-              size="xs"
-              title="Detail"
-              @onPress="() => detail(item.id)"></i-button>
           </td>
         </i-table-row>
       </i-table>

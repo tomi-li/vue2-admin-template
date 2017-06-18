@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { store } from './main';
 
-const URL_BASE = 'http://localhost:5000/';
+// const URL_BASE = 'http://localhost:5000/';
+const URL_BASE = 'https://operation-pre.loopslive.com/api/';
 
 function replacePathVariables(url, params) {
   if (params === {}) {
@@ -17,9 +18,11 @@ function replacePathVariables(url, params) {
     }
     if (params[m[1]] === undefined) {
       console.warn(`"${m[1]}" is not provided in params`);
-      return formattedURL;
+      throw new Error(`"${m[1]}" is not provided in params`);
     }
     formattedURL = formattedURL.replace(`:${m[1]}`, params[m[1]]);
+    // eslint-disable-next-line no-param-reassign
+    delete params[m[1]];
     m = regex.exec(formattedURL);
   }
   return formattedURL;
@@ -173,5 +176,8 @@ export default {
   tagEdit: new API('tag/:id/', { method: 'put' }),
   // Broadcast (NBS)
   liveList: new API('live/'),
+  liveRecommend: new API('live/:id/recommend/', { method: 'post' }),
+  liveUnRecommend: new API('live/:id/un-recommend/', { method: 'post' }),
+  liveStatistic: new API('live/:id/statistic'),
 };
 

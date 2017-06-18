@@ -15,6 +15,7 @@
     "blueimp-gallery": "^2.25.0",
     "bootstrap": "^3.3.7",
     "bootstrap-datepicker": "^1.6.4",
+    "clappr": "^0.2.67",
     "es6-promise": "^4.1.0",
     "font-awesome": "^4.7.0",
     "icheck": "^1.0.2",

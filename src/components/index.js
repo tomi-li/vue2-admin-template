@@ -34,10 +34,9 @@ import ListItem from './ListItem';
 import BooleanText from './BooleanText';
 import DataTable from './DataTable';
 import DataTableRow from './DataTableRow';
-
+import VideoPlayer from './VideoPlayer';
 
 export default (Vue) => {
-  // 注册组件
   Vue.component('top-navigation', TopNavigation);
   Vue.component('navigation', Navigation);
   Vue.component('page-footer', Footer);
@@ -68,4 +67,5 @@ export default (Vue) => {
   Vue.component('i-boolean-text', BooleanText);
   Vue.component('i-file-upload', FileUpload);
   Vue.component('i-panel', Panel);
+  Vue.component('i-video-player', VideoPlayer);
 };

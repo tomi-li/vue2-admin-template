@@ -19,7 +19,7 @@
     props: {
       direction: {
         type: String,
-        default: 'vertical',
+        default: 'horizontal',
         validator: value => _includes(['horizontal', 'vertical'], value),
       },
       ratio: {

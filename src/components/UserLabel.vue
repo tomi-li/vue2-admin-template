@@ -11,7 +11,9 @@
         <div class="popover-content">
           <i-spinner v-if="!user" class="loader" type="circle"></i-spinner>
           <div v-if="user">
-            {{ user }}
+            <div class="row">
+              <img :src="user.avatar" class="img-circle">
+            </div>
           </div>
         </div>
       </div>
