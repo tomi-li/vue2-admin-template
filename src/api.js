@@ -113,6 +113,8 @@ export default {
   userList: new API('account/'),
   userDetail: new API('account/:id/'),
   userLevel: new API('account/:id/level/'),
+  userSetLevel: new API('account/:id/level/', { method: 'post' }),
+  userSetPoint: new API('account/:id/points/', { method: 'post' }),
   userIsBanned: new API('account/:id/is-banned/'),
   userBalance: new API('account/:id/treasures/'),
   userIncome: new API('account/:id/income/'),

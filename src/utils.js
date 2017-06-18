@@ -116,6 +116,7 @@ export const toast = {
 
 export function cloneStateInLocalStorage(state) {
   localStorage.setItem('State', JSON.stringify(state));
+  console.log('save in local storage', JSON.stringify(state));
 }
 
 export function restoreStateFromLocalStorage() {

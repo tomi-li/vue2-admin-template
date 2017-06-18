@@ -5,7 +5,6 @@ import mutations from './mutations';
 import getters from './getters';
 
 const myPluginWithSnapshot = (store) => {
-  // const prevState = _.cloneDeep(store.state);
   store.subscribe((mutation, state) => {
     const nextState = _.cloneDeep(state);
     cloneStateInLocalStorage(nextState);

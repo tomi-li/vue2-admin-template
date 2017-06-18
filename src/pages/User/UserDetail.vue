@@ -37,12 +37,12 @@
           <ul class="stat-list">
             <li>
               <h2 class="no-margins inline">Level <span class="text-navy">{{ userLevel.level }}</span></h2>
-              <i-button class="pull-right" size="xs" type="primary" icon="edit"></i-button>
+              <i-button class="pull-right" size="xs" type="primary" icon="edit" @onPress="showEditLevelModal"></i-button>
               <i-progress-bar :currentValue="userLevel.level"></i-progress-bar>
             </li>
             <li>
               <h2 class="no-margins inline">Points <span class="text-navy">{{ userLevel.point }}</span></h2>
-              <i-button class="pull-right" size="xs" type="primary" icon="edit"></i-button>
+              <i-button class="pull-right" size="xs" type="primary" icon="edit" @onPress="showEditPointsModal"></i-button>
               <i-progress-bar :minValue="userLevel.currentLevelMinPoint" :maxValue="userLevel.currentLevelMaxPoint" :currentValue="userLevel.point"></i-progress-bar>
             </li>
           </ul>
@@ -180,6 +180,8 @@
 <script>
   import api, { request } from '../../api';
   import BanUserModal from '../Monitoring/modal/BanUserModal';
+  import EditLevelModal from './modal/EditLevelModal';
+  import EditPointsModal from './modal/EditPointsModal';
 
   export default {
     data() {
@@ -239,6 +241,20 @@
       },
       showCashoutDetailModel() {
         // TODO
+      },
+      showEditLevelModal() {
+        this.utils.modal(EditLevelModal, { id: this.id, level: this.userLevel })
+          .then(() => request(api.userLevel, { id: this.id }))
+          .then((res) => {
+            this.userLevel = res.data;
+          });
+      },
+      showEditPointsModal() {
+        this.utils.modal(EditPointsModal, { id: this.id, level: this.userLevel })
+          .then(() => request(api.userLevel, { id: this.id }))
+          .then((res) => {
+            this.userLevel = res.data;
+          });
       },
     },
   };
