@@ -56,7 +56,7 @@
               password: values.password,
             })
           ))
-          .then(() => this.$router.push({ name: 'Dashboard' }))
+          .then(() => this.$router.push({ name: 'Customer Service' }))
           .catch(err => this.utils.toast.error(err.message))
           .then(() => {
             this.loggingIn = false;

@@ -42,6 +42,8 @@ export default {
       name: 'Index',
       component: Layout,
       beforeEnter(previous, current, next) {
+        console.log(store.getters.user());
+        console.log(Object.keys(store.getters.user()));
         if (!store.getters.user() || Object.keys(store.getters.user()).length === 0) next({ name: 'Login' });
         next();
       },

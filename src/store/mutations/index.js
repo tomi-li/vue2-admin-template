@@ -3,7 +3,6 @@
  * All Codes below are Lifetime Warranted by mozat-tomi since 8/6/17.
  */
 import * as types from '../types';
-import * as utils from '../../utils';
 
 export default {
   [types.LOGIN]: (state, admin) => {
@@ -11,6 +10,5 @@ export default {
   },
   [types.LOGOUT]: (state) => {
     state.user = undefined;
-    utils.cloneStateInLocalStorage(state);
   },
 };
