@@ -12,14 +12,10 @@
               </span>
             </a>
             <ul class="animated fadeInRight m-t-xs">
-              <li>
-                <a @click="_logout">Logout</a>
-              </li>
+              <li><a @click="_logout">Logout</a></li>
             </ul>
           </div>
-          <div class="logo-element">
-
-          </div>
+          <div class="logo-element">{{ currentUser.username }}</div>
         </li>
 
         <li v-for="route in routes" :key="route.name" :class="{active: _routeIn(route.name)}" v-if="!route.hide">

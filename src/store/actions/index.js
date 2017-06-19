@@ -1,8 +1,6 @@
 import API from '../../api';
 import * as types from '../types';
-import { toast } from '../../utils';
 
-// TODO no need to check Logout response
 export default {
   login: (context, { email, password }) => (
     API.adminLogin.request({
@@ -11,15 +9,11 @@ export default {
       context.commit(types.LOGIN, res.data);
     })
   ),
-  logout: context => (
+  logout: (context) => {
     API.adminLogout.request()
-      .then(() => {
-        context.commit(types.LOGOUT);
-      })
       .catch((e) => {
-        console.error(e);
-        toast.error('Fail to logout');
-        throw new Error(e);
-      })
-  ),
+        console.debug(e);
+      });
+    context.commit(types.LOGOUT);
+  },
 };

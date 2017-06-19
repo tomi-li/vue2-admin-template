@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { store } from './main';
 
-const URL_BASE = 'http://localhost:5000/';
-// const URL_BASE = 'https://operation-pre.loopslive.com/api/';
+// const URL_BASE = 'http://localhost:5000/';
+const URL_BASE = 'https://operation-pre.loopslive.com/api/';
 
 function replacePathVariables(url, params) {
   if (params === {}) {

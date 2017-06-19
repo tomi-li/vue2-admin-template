@@ -51,6 +51,7 @@ export default {
         {
           path: 'customer-service',
           name: 'Customer Service',
+          icon: 'fa-comments',
           redirect: { name: 'Feedback List' },
           component: Index,
           children: [
@@ -60,6 +61,7 @@ export default {
         {
           path: 'monitoring',
           name: 'Monitoring',
+          icon: 'fa-crosshairs',
           component: Index,
           children: [
             { path: 'reported-user-list', name: 'Reported User List', component: ReportedUserList },
@@ -73,6 +75,7 @@ export default {
         {
           path: 'campaigns',
           name: 'Campaigns',
+          icon: 'fa-tasks',
           component: Index,
           children: [
             { path: 'banner', name: 'Banner', component: Banner },
@@ -82,6 +85,7 @@ export default {
         {
           path: 'user',
           name: 'User Information',
+          icon: 'fa-user',
           component: Index,
           redirect: { name: 'User List' },
           children: [
@@ -93,6 +97,7 @@ export default {
         {
           path: 'billing',
           name: 'User Billing',
+          icon: 'fa-money',
           component: Index,
           redirect: '/index/billing/cash-out-user',
           children: [
@@ -105,6 +110,7 @@ export default {
         {
           path: 'upcoming',
           name: 'Upcoming',
+          icon: 'fa-line-chart',
           component: Index,
           children: [
             { path: 'event', name: 'Event', component: Event },
@@ -113,6 +119,7 @@ export default {
         {
           path: 'operations',
           name: 'App View Operations',
+          icon: 'sitemap',
           component: Index,
           children: [
             { path: 'filtered-word', name: 'Filtered Word List', component: FilteredWordList },
@@ -122,6 +129,7 @@ export default {
         {
           path: 'system',
           name: 'System',
+          icon: 'dashboard',
           component: Index,
           children: [
             { path: 'administrator', name: 'Administrators', component: AdministratorList },
