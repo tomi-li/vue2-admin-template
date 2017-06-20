@@ -117,6 +117,13 @@
         </i-box>
       </div>
 
+      <div class="col-lg-9">
+        <i-button
+          title="Block User"
+          type="danger"
+          @onPress="showBlockUserModal"></i-button>
+      </div>
+
     </div>
 
     <div class="row m-b-lg">
@@ -182,6 +189,8 @@
   import BanUserModal from '../Monitoring/modal/BanUserModal';
   import EditLevelModal from './modal/EditLevelModal';
   import EditPointsModal from './modal/EditPointsModal';
+  import BanUserDetailModal from '../Monitoring/modal/BanUserDetailModal';
+  import BlockUserModal from './modal/BlockUserModal';
 
   export default {
     data() {
@@ -237,7 +246,7 @@
         }).then(() => this.$router.go(0));
       },
       showBanDetailModal() {
-        // TODO
+        this.utils.modal(BanUserDetailModal, { id: this.id });
       },
       showCashoutDetailModel() {
         // TODO
@@ -255,6 +264,10 @@
           .then((res) => {
             this.userLevel = res.data;
           });
+      },
+      showBlockUserModal() {
+        this.utils.modal(BlockUserModal, { id: this.id });
+        // TODO
       },
     },
   };

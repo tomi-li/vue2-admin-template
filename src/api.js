@@ -1,8 +1,6 @@
-import axios from 'axios';
+import axios from 'axios/index';
 import { store } from './main';
-
-// const URL_BASE = 'http://localhost:5000/';
-const URL_BASE = 'https://operation-pre.loopslive.com/api/';
+import Config from './config';
 
 function replacePathVariables(url, params) {
   if (params === {}) {
@@ -84,7 +82,7 @@ class API {
     if (baseUrl) {
       this.url = `${baseUrl}${url}`;
     } else {
-      this.url = `${URL_BASE}${url}`;
+      this.url = `${Config.URL_BASE}${url}`;
     }
     this.multipart = multipart;
     this.method = method || 'get';
@@ -102,10 +100,8 @@ export default {
   topEventList: new API('topevent/index', { method: 'post' }),
 
   // block
-  blockedUserList: new API('block/index'),
-  isBlocked: new API('block/isBlocked', { method: 'post' }),
-  block: new API('block/setBlock', { method: 'post' }),
-  unBlock: new API('block/setUnBlock', { method: 'post' }),
+  blockedUserList: new API('block/'),
+
   /**
    * New
    */
@@ -122,6 +118,9 @@ export default {
   ban: new API('account/:id/ban/', { method: 'post' }),
   unBan: new API('account/:id/un-ban/', { method: 'post' }),
   banDetail: new API('account/:id/ban/'),
+  block: new API('account/:id/block/', { method: 'post' }),
+  unBlock: new API('account/:id/block/', { method: 'post' }),
+  isBlocked: new API('account/:id/block/'),
   // billing
   transactionDiamondsToCash: new API('transaction/diamonds-to-cash/'),
   // admin

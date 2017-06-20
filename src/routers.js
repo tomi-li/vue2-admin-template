@@ -119,7 +119,7 @@ export default {
         {
           path: 'operations',
           name: 'App View Operations',
-          icon: 'sitemap',
+          icon: 'fa-sitemap',
           component: Index,
           children: [
             { path: 'filtered-word', name: 'Filtered Word List', component: FilteredWordList },
@@ -129,7 +129,7 @@ export default {
         {
           path: 'system',
           name: 'System',
-          icon: 'dashboard',
+          icon: 'fa-dashboard',
           component: Index,
           children: [
             { path: 'administrator', name: 'Administrators', component: AdministratorList },

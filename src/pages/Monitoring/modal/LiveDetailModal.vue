@@ -20,11 +20,14 @@
       </i-tab>
     </i-tabs>
 
-
   </i-modal>
 </template>
 
 <script>
+  import config from '../../../config';
+  import * as utils from '../../../utils';
+  //  import io from 'socket.io-client';
+
   export default {
     props: ['params', 'ok', 'dismiss'],
     data() {
@@ -39,6 +42,20 @@
       },
     },
     created() {
+      const wsURL = `${config.CHAT_URL_BASE}?${utils.serialize({
+        userID: 10000,
+        roomID: this.live.userId, //  This place has to be userId. DO NOT TOUCH.  it's not a bug.
+      })}`;
+      const socket = new WebSocket(wsURL);
+
+      socket.onopen = (message) => {
+        console.log('opend');
+        console.log(message);
+      };
+      socket.onmessage = (message) => {
+        console.log(message);
+        // TODO handle Message
+      };
       this.API.liveStatistic.request({ id: this.live.sessionId })
         .then((res) => {
           this.statistic = res.data;

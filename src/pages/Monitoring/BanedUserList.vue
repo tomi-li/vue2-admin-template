@@ -36,7 +36,7 @@
 
 
 <script>
-  import BanUserDetail from './modal/BanUserDetail';
+  import BanUserDetail from './modal/BanUserDetailModal';
 
   export default {
     data() {

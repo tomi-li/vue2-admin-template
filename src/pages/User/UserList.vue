@@ -50,7 +50,7 @@
 
     <i-box>
       <i-table
-        :api="api.userList"
+        api="userList"
         :columns="['ID', 'avatar' , 'gender', 'name','type', 'Super User ID', 'email', 'register time']"
         :filter="filter"
         :lazy="true"
@@ -80,12 +80,9 @@
 
 
 <script>
-  import api from '../../api';
-
   export default {
     data() {
       return {
-        api,
         filter: {},
         userData: {},
       };
