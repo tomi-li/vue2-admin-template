@@ -19,16 +19,18 @@
     <i-box>
       <i-table
         api="transactionDiamondsToCash"
-        :columns="['Request Time', 'User ID',  'Amount (SAR)', 'Diamonds', 'Cash-out Account', 'Status']"
+        :columns="[ 'User ID','Amount (SAR)', 'Diamonds', 'Cash-out Account','Request Time',   'Status']"
         :filter="filter"
         :lazy="true"
         v-model="transactions">
         <i-table-row v-for="(item, index) in transactions" :key="index">
-          <td>{{ item['updateTime'] | datetime }}</td>
-          <td>{{ item['userId'] }}</td>
+          <td>
+            <i-user-label :id="item['userId']" :name="item['userId']"></i-user-label>
+          </td>
           <td>{{ item['cash'] }}</td>
           <td>{{ item['diamonds'] }}</td>
           <td>{{ item['cashOutBankAccountInfo'] && item['cashOutBankAccountInfo']['bankAccountNumber'] }}</td>
+          <td>{{ item['updateTime'] | datetime }}</td>
           <td>{{ item['status'] }}</td>
         </i-table-row>
       </i-table>
