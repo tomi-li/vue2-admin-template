@@ -2,8 +2,6 @@
   <i-modal title="Add Banner">
     <i-form
       ref="form"
-      :debug="true"
-      direction="horizontal"
       v-model="formData">
 
       <i-form-item
