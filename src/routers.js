@@ -42,8 +42,6 @@ export default {
       name: 'Index',
       component: Layout,
       beforeEnter(previous, current, next) {
-        console.log(store.getters.user());
-        console.log(Object.keys(store.getters.user()));
         if (!store.getters.user() || Object.keys(store.getters.user()).length === 0) next({ name: 'Login' });
         next();
       },
@@ -69,7 +67,6 @@ export default {
             { path: 'ban-history', name: 'Ban History', component: BanedHistory },
             { path: 'photo', name: 'Photo', component: PhotoList },
             { path: 'live', name: 'Live', component: LiveList },
-            //{ path: 'replay', name: 'Replay Video', component: ReplayList },
           ],
         },
         {
@@ -101,9 +98,6 @@ export default {
           component: Index,
           redirect: '/index/billing/cash-out-user',
           children: [
-// { path: 'cash-out', name: 'Cash Out User List', component: CashOutUserList },
-// { path: 'diamond-income', name: 'Diamond Income List', component: DiamondIncomeList },
-// { path: 'diamond-to-coins', name: 'Diamond To Coins List', component: DiamondToCoinList },
             { path: 'cash-out-request', name: 'Cash Out Requests', component: CashOutRequests },
           ],
         },
