@@ -1,5 +1,6 @@
 <template>
-  <input type="text" class="form-control" :placeholder="placeholder" :class="{'error': !valid}" @input="validateDate">
+  <input v-if="type === 'input'" type="text" class="form-control" :placeholder="placeholder" :class="{'error': !valid}" @input="validateDate">
+  <div v-else-if="type === 'inline'"></div>
 </template>
 
 <script>
@@ -9,6 +10,9 @@
   import 'bootstrap-datepicker/dist/css/bootstrap-datepicker3.css';
 
   export default {
+    model: {
+      event: 'value',
+    },
     props: {
       placeholder: {
         type: String,
@@ -17,8 +21,16 @@
         type: String,
         default: 'yyyy-mm-dd',
       },
+      type: {
+        type: String,
+        default: 'input', // [input, inline]
+      },
       value: {
         type: Number,
+      },
+      clearButton: {
+        type: Boolean,
+        default: true,
       },
     },
     data() {
@@ -28,21 +40,24 @@
     },
     watch: {
       value(val) {
-        $(this.$el).datepicker('update', new Date(val));
+        console.log(val);
+        moment(val);
+        console.log(moment(val).toDate());
+        $(this.$el).datepicker('update', moment(val).toDate());
       },
     },
     mounted() {
       const datepicker = $(this.$el).datepicker({
         autoclose: true,
-        clearBtn: true,
+        clearBtn: this.clearButton,
         format: this.format,
       });
 
       datepicker.on('changeDate', (event) => {
-        const date = moment(event.target.value);
+        const date = moment(event.date);
         if (date.isValid()) {
           this.valid = true;
-          this.$emit('value', moment(event.target.value).format('x'));
+          this.$emit('value', moment(event.date).valueOf());
         }
       });
 

@@ -11,6 +11,7 @@ import RadioGroup from './form/RadioGroup';
 import Checkbox from './form/Checkbox';
 import CheckboxGroup from './form/CheckboxGroup';
 import DatePicker from './form/DatePicker';
+import DateRangePicker from './form/DateRangePicker';
 import Select from './form/Select';
 import FileUpload from './form/FileUpload';
 // ui
@@ -59,6 +60,7 @@ export default (Vue) => {
   Vue.component('i-avatar', Avatar);
   Vue.component('i-gender', Gender);
   Vue.component('i-date-picker', DatePicker);
+  Vue.component('i-date-range-picker', DateRangePicker);
   Vue.component('i-checkbox-group', CheckboxGroup);
   Vue.component('i-radio-group', RadioGroup);
   Vue.component('i-progress-bar', ProgressBar);

@@ -2,6 +2,7 @@
   <i-page>
     <i-box>
       <i-form
+        :debug="true"
         :inline="true"
         v-model="filter">
 
@@ -26,6 +27,9 @@
           type="text"></i-form-item>
 
         <div class="m-t-sm">
+          <i-form-item
+            :name="['registerFrom', 'registerTo']"
+            type="date-range"></i-form-item>
 
           <i-form-item
             name="registerFrom"

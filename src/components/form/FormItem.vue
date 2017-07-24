@@ -44,6 +44,10 @@
                      :placeholder="placeholder"
                      :value="value"
                      @value="value => receiveValue(value)"></i-date-picker>
+      <!-- DateRange -->
+      <i-date-range-picker v-if="_in(type, ['date-range'])"
+                           :value="value"
+                           @value="value => receiveValue(value)"></i-date-range-picker>
 
       <!-- Text Area -->
       <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => receiveValue(e.target.value)"></textarea>
@@ -107,6 +111,12 @@
                        :value="value"
                        @value="value => receiveValue(value)"></i-date-picker>
 
+        <!-- DateRange -->
+        <i-date-range-picker v-if="_in(type, ['date-range'])"
+                             :value="value"
+                             @value="value => receiveValue(value)"></i-date-range-picker>
+
+
         <!-- Text Area -->
         <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => receiveValue(e.target.value)"></textarea>
 
@@ -128,6 +138,8 @@
 
 
 <script>
+  /* eslint-disable max-len */
+
   import _includes from 'lodash/includes';
 
   function findParentForm(parent) {
@@ -147,13 +159,13 @@
         type: String,
       },
       name: {
-        type: String,
+        type: [String, Array],
         required: true,
       },
       type: {
         type: String,
         default: 'text',
-        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date', 'textarea', 'photo'], value),
+        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date', 'date-range', 'textarea', 'photo'], value),
       },
       placeholder: {
         type: [String, Number],
@@ -269,12 +281,23 @@
         const errors = this._validate(value);
         if (errors.length > 0) {
           this.validated = false;
-          this.formParent.onItemValueChanged({ [this.name]: undefined });
+          if (this.name instanceof Array) {
+            this.name.forEach(name => this.formParent.onItemValueChanged({ [name]: undefined }));
+          } else {
+            this.formParent.onItemValueChanged({ [this.name]: undefined });
+          }
           return;
         }
 
         this.validated = true;
-        this.formParent.onItemValueChanged({ [this.name]: value });
+        if (this.name instanceof Array) {
+          if (!(value instanceof Array)) {
+            console.warn('value is not an array. but got name is Array');
+          }
+          this.name.forEach((name, index) => this.formParent.onItemValueChanged({ [name]: value[index] }));
+        } else {
+          this.formParent.onItemValueChanged({ [this.name]: value });
+        }
       },
       receiveValue(value) {
         if (!this.touched) this.touched = true;
