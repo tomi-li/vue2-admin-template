@@ -40,9 +40,6 @@
     },
     watch: {
       value(val) {
-        console.log(val);
-        moment(val);
-        console.log(moment(val).toDate());
         $(this.$el).datepicker('update', moment(val).toDate());
       },
     },

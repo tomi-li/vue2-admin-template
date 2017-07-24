@@ -291,10 +291,19 @@
 
         this.validated = true;
         if (this.name instanceof Array) {
-          if (!(value instanceof Array)) {
+          if (value !== undefined && !(value instanceof Array)) {
             console.warn('value is not an array. but got name is Array');
           }
-          this.name.forEach((name, index) => this.formParent.onItemValueChanged({ [name]: value[index] }));
+
+          if (value === undefined) {
+            this.name.forEach(name => this.formParent.onItemValueChanged({ [name]: undefined }));
+          } else if (value && value instanceof Array) {
+            this.name.forEach((name, index) => this.formParent.onItemValueChanged({ [name]: value[index] }));
+          } else {
+            // there maybe new situations.
+            console.log('warning because value type is not expected');
+            this.name.forEach(name => this.formParent.onItemValueChanged({ [name]: undefined }));
+          }
         } else {
           this.formParent.onItemValueChanged({ [this.name]: value });
         }
