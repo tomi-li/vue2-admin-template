@@ -1,6 +1,6 @@
 <template>
   <div class="input-group date-range-picker w-300">
-    <input type="text" class="form-control disabled" v-model="displayValue" disabled>
+    <input type="text" class="form-control disabled" v-model="displayValue" :placeholder="placeholder" disabled>
     <span class="input-group-btn">
       <button type="button"
               class="btn btn-primary"
@@ -32,31 +32,31 @@
 
   export default {
     props: {
-      fromName: {
+      placeholder: {
         type: String,
       },
-      fromValue: {
-        type: Object,
-      },
-      toName: {
-        type: String,
-      },
-      toValue: {
-        type: Object,
+      value: {
+        type: Array,
+        default: () => [],
       },
     },
     data() {
       return {
         shown: false,
-        from: this.fromValue,
-        to: this.toValue,
-        displayValue: '',
+        from: this.value[0],
+        to: this.value[1],
       };
+    },
+    computed: {
+      displayValue() {
+        return (this.from === undefined && this.to === undefined)
+          ? ''
+          : `${moment(this.from).format('YYYY-MM-DD')} - ${moment(this.to).format('YYYY-MM-DD')}`;
+      },
     },
     methods: {
       submit() {
         this.$emit('value', [this.from, this.to]);
-        this.displayValue = `${moment(this.from).format('YYYY-MM-DD')} - ${moment(this.to).format('YYYY-MM-DD')}`;
         this.toggleDropDown();
       },
       toggleDropDown() {

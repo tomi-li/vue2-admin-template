@@ -50,6 +50,10 @@
         format: this.format,
       });
 
+      if (this.value) {
+        $(this.$el).datepicker('update', moment(this.value).toDate());
+      }
+
       datepicker.on('changeDate', (event) => {
         const date = moment(event.date);
         if (date.isValid()) {

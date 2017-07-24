@@ -28,6 +28,7 @@
 
         <div class="m-t-sm">
           <i-form-item
+            placeholder="Register Time"
             :name="['registerFrom', 'registerTo']"
             type="date-range"></i-form-item>
 

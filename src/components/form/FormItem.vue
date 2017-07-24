@@ -44,8 +44,10 @@
                      :placeholder="placeholder"
                      :value="value"
                      @value="value => receiveValue(value)"></i-date-picker>
+
       <!-- DateRange -->
       <i-date-range-picker v-if="_in(type, ['date-range'])"
+                           :placeholder="placeholder"
                            :value="value"
                            @value="value => receiveValue(value)"></i-date-range-picker>
 
@@ -113,6 +115,7 @@
 
         <!-- DateRange -->
         <i-date-range-picker v-if="_in(type, ['date-range'])"
+                             :placeholder="placeholder"
                              :value="value"
                              @value="value => receiveValue(value)"></i-date-range-picker>
 
