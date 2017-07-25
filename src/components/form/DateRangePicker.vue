@@ -1,6 +1,7 @@
 <template>
   <div class="input-group date-range-picker w-300">
     <input type="text" class="form-control disabled" v-model="displayValue" :placeholder="placeholder" disabled>
+    <a v-if="hasValue" class="remove-value-button" @click="clearValue"><i class="fa fa-remove"></i></a>
     <span class="input-group-btn">
       <button type="button"
               class="btn btn-primary"
@@ -11,11 +12,11 @@
         <div class="pickers">
           <div>
             <h3>From :</h3>
-            <i-date-picker :value="from" @value="v => this.from = v" type="inline" :clearButton="false"></i-date-picker>
+            <i-date-picker v-model="innerFrom" type="inline" :clearButton="false"></i-date-picker>
           </div>
           <div>
             <h3>To :</h3>
-            <i-date-picker :value="to" @value="v => this.to = v" type="inline" :clearButton="false"></i-date-picker>
+            <i-date-picker v-model="innerTo" type="inline" :clearButton="false"></i-date-picker>
           </div>
         </div>
         <div class="buttons">
@@ -43,20 +44,26 @@
     data() {
       return {
         shown: false,
+        hasValue: false,
         from: this.value[0],
         to: this.value[1],
+        innerFrom: this.value[0],
+        innerTo: this.value[1],
       };
     },
     computed: {
       displayValue() {
         return (this.from === undefined && this.to === undefined)
           ? ''
-          : `${moment(this.from).format('YYYY-MM-DD')} - ${moment(this.to).format('YYYY-MM-DD')}`;
+          : `${this.from ? moment(this.from).format('YYYY-MM-DD') : ''} - ${this.to ? moment(this.to).format('YYYY-MM-DD') : ''}`;
       },
     },
     methods: {
       submit() {
+        this.from = this.innerFrom;
+        this.to = this.innerTo;
         this.$emit('value', [this.from, this.to]);
+        this.hasValue = true;
         this.toggleDropDown();
       },
       toggleDropDown() {
@@ -68,6 +75,8 @@
             || $(e.target).parents('.date-range-picker').length !== 0) {
             return;
           }
+          this.innerFrom = undefined;
+          this.innerTo = undefined;
           this.$root.$el.removeEventListener('click', globalCanceler);
           this.shown = false;
         };
@@ -78,12 +87,36 @@
           this.$root.$el.removeEventListener('click', globalCanceler);
         }
       },
+      clearValue() {
+        this.hasValue = false;
+        this.from = undefined;
+        this.to = undefined;
+        this.innerFrom = undefined;
+        this.innerTo = undefined;
+        this.$emit('value', [this.from, this.to]);
+      },
     },
   };
 </script>
 
 <style lang="scss" scoped>
   @import "../../public/SCSS/variables";
+
+  .date-range-picker .remove-value-button {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: calc(245px - 2em);
+    z-index: 101;
+    background-color: darken(#e1e4e9, 20%);
+    line-height: 16px;
+    color: #ffffff;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    margin: 9px 0;
+  }
 
   .date-range-pick-panel {
     position: absolute;
