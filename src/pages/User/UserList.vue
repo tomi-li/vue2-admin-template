@@ -33,14 +33,9 @@
             type="date-range"></i-form-item>
 
           <i-form-item
-            name="registerFrom"
-            placeholder="Register From"
-            type="date"></i-form-item>
-
-          <i-form-item
-            name="registerTo"
-            placeholder="Register To"
-            type="date"></i-form-item>
+            placeholder="Level"
+            :name="['levelFrom', 'levelTo']"
+            type="number-range"></i-form-item>
 
           <i-form-item
             name="type"

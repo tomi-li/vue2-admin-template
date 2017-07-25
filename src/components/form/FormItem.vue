@@ -54,6 +54,12 @@
       <!-- Text Area -->
       <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => receiveValue(e.target.value)"></textarea>
 
+      <!-- NumberRange -->
+      <i-number-range-picker v-if="_in(type, ['number-range'])"
+                             :placeholder="placeholder"
+                             :value="value"
+                             @value="value => receiveValue(value)"></i-number-range-picker>
+
       <!-- Photo -->
       <i-file-upload
         v-if="_in(type, ['photo'])"
@@ -119,6 +125,11 @@
                              :value="value"
                              @value="value => receiveValue(value)"></i-date-range-picker>
 
+        <!-- NumberRange -->
+        <i-number-range-picker v-if="_in(type, ['number-range'])"
+                               :placeholder="placeholder"
+                               :value="value"
+                               @value="value => receiveValue(value)"></i-number-range-picker>
 
         <!-- Text Area -->
         <textarea v-if="_in(type, ['textarea'])" class="form-control" @input="e => receiveValue(e.target.value)"></textarea>
@@ -168,7 +179,7 @@
       type: {
         type: String,
         default: 'text',
-        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date', 'date-range', 'textarea', 'photo'], value),
+        validator: value => _includes(['text', 'email', 'number', 'password', 'static', 'radio', 'checkbox', 'select', 'date', 'date-range', 'textarea', 'photo', 'number-range'], value),
       },
       placeholder: {
         type: [String, Number],
