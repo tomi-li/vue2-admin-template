@@ -1,5 +1,5 @@
 <template>
-  <div :style="{'display': this.formParent.inline ? 'inline-block' : 'block'}">
+  <div :class="`form-item ${this.formParent.inline ? 'inline' : ''}`">
     <!---->
     <div v-if="showDivider" class="hr-line-dashed"></div>
 
@@ -329,3 +329,14 @@
     },
   };
 </script>
+
+<style>
+  .form-item {
+    display: block;
+  }
+
+  .form-item.inline {
+    display: inline-block;
+    margin: 2px;
+  }
+</style>
