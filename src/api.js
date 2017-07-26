@@ -120,7 +120,7 @@ export default {
   banDetail: new API('account/:id/ban/'),
   block: new API('account/:id/block/', { method: 'post' }),
   unBlock: new API('account/:id/block/', { method: 'post' }),
-  isBlocked: new API('account/:id/block/'),
+  blockList: new API('account/:id/block/'),
   // billing
   transactionDiamondsToCash: new API('transaction/diamonds-to-cash/'),
   // admin
@@ -155,7 +155,6 @@ export default {
   reportedUserDetail: new API('reported-user/:id/'),
   // params: 'mark' 1 for ban 2 for ignore
   reportedUserDelete: new API('reported-user/:id/', { method: 'delete' }),
-
   // Banned User
   banedUserList: new API('banned-user/'),
   // Feedback

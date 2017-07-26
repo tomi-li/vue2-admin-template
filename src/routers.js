@@ -14,11 +14,9 @@ import BanedHistory from './pages/Monitoring/BanedHistory';
 import LiveList from './pages/Monitoring/Live';
 import PhotoList from './pages/Monitoring/PhotoList';
 import UserDetail from './pages/User/UserDetail';
+import UserDetailBasicInfo from './pages/User/UserDetail/BasicInfo';
+import UserDetailBlockedUsers from './pages/User/UserDetail/BlockedUsers';
 import UserList from './pages/User/UserList';
-import PartnerList from './pages/User/PartnerList';
-// import CashOutUserList from './pages/Billing/CashOutUserList';
-// import DiamondIncomeList from './pages/Billing/DiamondIncomeList';
-// import DiamondToCoinList from './pages/Billing/DiamondToCoinList';
 import CashOutRequests from './pages/Billing/CashOutRequests';
 import FloatBanner from './pages/Campaigns/FloatBanner';
 import Banner from './pages/Campaigns/Banner';
@@ -87,8 +85,22 @@ export default {
           redirect: { name: 'User List' },
           children: [
             { path: 'list', name: 'User List', component: UserList },
-            { path: 'detail/:id', name: 'User Detail', component: UserDetail, hide: true },
-            { path: 'partners', name: 'Partner List', component: PartnerList },
+            {
+              path: 'detail/:id',
+              name: 'User Detail',
+              component: UserDetail,
+              hide: true,
+              redirect: { name: 'Basic Info' },
+              children: [
+                { path: 'basic-info', name: 'Basic Info', component: UserDetailBasicInfo },
+                { path: 'comments', name: 'Comments', component: UserDetailBasicInfo },
+                { path: 'replay', name: 'Replay', component: UserDetailBasicInfo },
+                { path: 'title-history', name: 'Title History', component: UserDetailBasicInfo },
+                { path: 'photos', name: 'Photos', component: UserDetailBasicInfo },
+                { path: 'blocked-users', name: 'Blocked Users', component: UserDetailBlockedUsers },
+                { path: 'banned-history', name: 'Banned History', component: UserDetailBlockedUsers },
+              ],
+            },
           ],
         },
         {
@@ -131,10 +143,10 @@ export default {
             { path: 'roles/:id', name: 'Role Permissions', component: RolePermissions, hide: true },
           ],
         },
-        {
-          path: '*',
-          redirect: () => ({ name: 'Customer Service' }),
-        },
+        // {
+        //  path: '*',
+        //  redirect: () => ({ name: 'Customer Service' }),
+        // },
       ],
     },
   ],

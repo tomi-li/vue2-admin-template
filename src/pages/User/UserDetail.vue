@@ -54,6 +54,21 @@
     </div>
 
     <div class="row">
+      <i-tab-navigation
+        :links="[
+          {name: 'Basic Info',path: 'basic-info'},
+          {name: 'Comments',path: 'comments'},
+          {name: 'Replay',path: 'replay'},
+          {name: 'Title History',path: 'title-history'},
+          {name: 'Photos',path: 'photos'},
+          {name: 'Blocked Users',path: 'blocked-users'},
+          {name: 'Banned history',path: 'banned-history'},
+          ]"></i-tab-navigation>
+
+    </div>
+
+
+    <div class="row">
       <!-- Properties -->
       <div class="col-lg-3">
         <i-box title="User Properties" :noPadding="true">
@@ -87,25 +102,10 @@
           </i-list>
         </i-box>
       </div>
-
-      <!-- Others -->
-      <div class="col-lg-5">
-        <i-box title="Other Information">
-          <h4>userAgent</h4>
-          <p>{{ user.userAgent }}</p>
-
-          <h4>remark</h4>
-          <p>{{ user.remark }}</p>
-
-          <h4>verifyRemark</h4>
-          <p>{{ user.verifyRemark }}</p>
-        </i-box>
-      </div>
     </div>
 
 
     <div class="row">
-
       <div class="col-lg-3">
         <i-box title="Balance" :noPadding="true">
           <i-list>
@@ -125,61 +125,6 @@
       </div>
 
     </div>
-
-    <div class="row m-b-lg">
-      <div class="col-lg-12">
-        <i-tabs>
-          <!-- Income -->
-          <i-tab title="Income History">
-            <i-table
-              api="userIncome"
-              :filter="incomeFilter"
-              :columns="['Date', 'Sessions', 'Earning', 'Diamonds']"
-              v-model="incomeList">
-              <i-table-row v-for="(income, index) in incomeList" :key="index">
-                <td>{{ income['year'] }} / {{ income['month'] }}</td>
-                <td>{{ income['session_count'] }}</td>
-                <td>{{ income['earning'] }}</td>
-                <td>{{ income['diamonds'] }}</td>
-              </i-table-row>
-            </i-table>
-          </i-tab>
-
-          <!-- Cash out-->
-          <i-tab title="Cash-out History">
-            <!-- Filter -->
-            <i-form
-              v-model="cashOutStage">
-              <i-form-item
-                label="Process Stage"
-                name="processStage"
-                :options="['PENDING', 'PROCESSED', 'REJECTED']"
-                type="select"></i-form-item>
-            </i-form>
-            <i-table
-              api="userCashOut"
-              :filter="cashOutFilter"
-              :columns="['Request Time','Amount (SAR)','Diamonds','Account','Status','Operation']"
-              v-model="cashOutList">
-              <i-table-row v-for="(cashOut, index) in cashOutList" :key="index">
-                <td>{{ cashOut['createTime'] | datetime }}</td>
-                <td>{{ cashOut['cash'] }}</td>
-                <td>{{ cashOut['diamonds'] }}</td>
-                <td>{{ cashOut['cashOutBankAccountInfo'] }}</td>
-                <td>{{ cashOut['status'] }}</td>
-                <td>
-                  <i-button
-                    title="Details"
-                    size="xs"
-                    @onPress="showCashoutDetailModel"></i-button>
-                </td>
-              </i-table-row>
-            </i-table>
-          </i-tab>
-        </i-tabs>
-      </div>
-    </div>
-
   </i-page>
 </template>
 
@@ -202,7 +147,6 @@
         userIsBaned: undefined,
         userIsBlocked: {},
         userBalance: {},
-        userIncome: {},
         incomeList: [],
         cashOutList: [],
         cashOutStage: {},
@@ -225,13 +169,11 @@
         request(api.userLevel, { id }),
         request(api.userIsBanned, { id }),
         request(api.userBalance, { id }),
-        request(api.userIncome, { id }),
       ]).then((resArray) => {
         this.user = resArray[0].data;
         this.userLevel = resArray[1].data;
         this.userIsBaned = resArray[2].data.msg;
         this.userBalance = resArray[3].data;
-        this.userIncome = resArray[4].data;
       });
     },
     methods: {
@@ -247,9 +189,6 @@
       },
       showBanDetailModal() {
         this.utils.modal(BanUserDetailModal, { id: this.id });
-      },
-      showCashoutDetailModel() {
-        // TODO
       },
       showEditLevelModal() {
         this.utils.modal(EditLevelModal, { id: this.id, level: this.userLevel })
