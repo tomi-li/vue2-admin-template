@@ -18,10 +18,10 @@
         <router-link :to="{name: 'User Billing'}">Billing</router-link>
       </div>
 
-      <div class="col-md-4 col-lg-4">
+      <div class="col-md-4 col-lg-4 flex-center">
         <i-button title="Block User" type="warning" :onPress="showBlockUserModal"></i-button>
         <i-button title="Ban User" type="danger" :onPress="showBanModal"></i-button>
-        <i-button title="Unban User" type="primary" :onPress="showUnBanModal"></i-button>
+        <i-button title="Unban User" type="primary" :disabled="!this.userBanned" :onPress="showUnBanModal"></i-button>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
 <script>
   import api, { request } from '../../api';
   import BanUserModal from '../Monitoring/modal/BanUserModal';
-  import BanUserDetailModal from '../Monitoring/modal/BanUserDetailModal';
+  import UnBanUnderModal from '../Monitoring/modal/UnBanUnderModal';
   import BlockUserModal from './modal/BlockUserModal';
 
   export default {
@@ -44,6 +44,8 @@
       return {
         id: this.$route.params.id,
         user: {},
+        userBanned: false,
+        userBanInfo: {},
         currentView: '', // ['basic info', 'billing']
       };
     },
@@ -55,23 +57,22 @@
         .then((res) => {
           this.user = res.data;
         });
+
+      request(api.userIsBanned, { id })
+        .then((res) => {
+          this.userBanned = !!res.data;
+          this.userBanInfo = res.data;
+        });
     },
     methods: {
       showBanModal() {
-        this.utils.modal(BanUserModal, { id: this.id })
-          .then(() => this.$router.go(0));
+        this.utils.modal(BanUserModal, { id: this.id });
       },
       showUnBanModal() {
-        this.utils.confirm(`Do you really want to unBan this user: ${this.id}`, 'UnBun User')
-          .then(() => request(api.unBan, { id: this.id }))
-          .then(() => this.$router.go(0));
-      },
-      showBanDetailModal() {
-        this.utils.modal(BanUserDetailModal, { id: this.id });
+        this.utils.modal(UnBanUnderModal, { id: this.id });
       },
       showBlockUserModal() {
-        this.utils.modal(BlockUserModal, { id: this.id });
-        // TODO
+        this.utils.modal(BlockUserModal, { id: this.id, name: this.user.name });
       },
     },
   };

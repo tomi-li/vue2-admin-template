@@ -70,7 +70,6 @@
           <td>{{ item['level'] }}</td>
         </i-table-row>
       </i-table>
-
     </i-box>
   </i-page>
 </template>

@@ -1,57 +1,38 @@
 <template>
-  <i-modal>
+  <i-modal title="Block User">
     <i-form
       ref="form"
-      direction="horizontal">
+      direction="horizontal"
+      :ratio="[3,9]">
 
       <i-form-item
-        label="User ID"
-        name="id"
+        label="Host ID"
+        name="host_id"
         :value="params.id"
         type="static"></i-form-item>
 
       <i-form-item
-        label="Host ID"
-        name="channel_id"
-        :required="true"></i-form-item>
+        label="Host Name"
+        name="host_name"
+        :value="params.name"
+        type="static"></i-form-item>
 
       <i-form-item
-        label="Duration"
-        name="duration"
-        :value="getDuration(1, 'weeks')"
-        :options="[
-          { name: '5 minutes', value: getDuration(5, 'minutes')},
-          { name: '10 minutes', value: getDuration(10, 'minutes')},
-          { name: '30 minutes', value: getDuration(30, 'minutes')},
-          { name: '1 hour', value: getDuration(1, 'hours')},
-          { name: '1 day', value: getDuration(1, 'days')},
-          { name: '1 week', value: getDuration(1, 'weeks')},
-          { name: '1 month', value: getDuration(1, 'months')},
-          { name: '6 months', value: getDuration(6, 'months')},
-          { name: '1 year', value: getDuration(1, 'years')},
-          { name: '5 years', value: getDuration(5, 'years')}
-        ]"
-        type="select"></i-form-item>
-
+        label="User ID"
+        name="user_id"
+        helpText="Blocked user will not be able to chat in broadcasts of this host"
+        :required="true"></i-form-item>
     </i-form>
 
     <div slot="footer">
       <i-button type="default" title="Cancel" :closeModal="true"></i-button>
-      <i-button type="danger" title="Block" @onPress="Block"></i-button>
+      <i-button type="danger" title="Block" @onPress="block"></i-button>
     </div>
-
   </i-modal>
 </template>
-
 <script>
-  import moment from 'moment';
-  import { mapGetters } from 'vuex';
-
   export default {
     props: ['params', 'ok', 'dismiss'],
-    computed: {
-      ...mapGetters(['userInfo']),
-    },
     created() {
       if (this.params.id === undefined) {
         console.warn('[Modal] required properties id is not exist in params');
@@ -59,12 +40,10 @@
       }
     },
     methods: {
-      getDuration(number, unit) {
-        return moment.duration(number, unit).asMilliseconds();
-      },
-      Block() {
+      block() {
         this.$refs.form.submit()
-          .then(data => this.API.block.request({ ...data, id: this.params.id }))
+          .then(data => this.API.block.request({ ...data, id: this.params.id, block_forever: true }))
+          .then(() => this.utils.toast.success(`The user has been blocked from host ${this.params.id}`))
           .then(() => this.ok());
       },
     },

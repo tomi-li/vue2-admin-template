@@ -17,6 +17,7 @@ import UserDetail from './pages/User/UserDetail';
 import UserDetailBasicProfileIndex from './pages/User/UserDetail/BasicProfile/BasicProfileIndex';
 import UserDetailBasicInfo from './pages/User/UserDetail/BasicProfile/BasicInfo';
 import UserDetailBlockedUsers from './pages/User/UserDetail/BasicProfile/BlockedUsers';
+import UserDetailBannedHistory from './pages/User/UserDetail/BasicProfile/BannedHistory';
 import UserBillingIndex from './pages/User/UserDetail/Billing/BillingIndex';
 import GiftSent from './pages/User/UserDetail/Billing/GiftSent';
 import UserList from './pages/User/UserList';
@@ -107,7 +108,7 @@ export default {
                     { path: 'title-history', name: 'Title History', component: UserDetailBasicInfo },
                     { path: 'photos', name: 'Photos', component: UserDetailBasicInfo },
                     { path: 'blocked-users', name: 'Blocked Users', component: UserDetailBlockedUsers },
-                    { path: 'banned-history', name: 'Banned History', component: UserDetailBlockedUsers },
+                    { path: 'banned-history', name: 'Banned History', component: UserDetailBannedHistory },
                   ],
                 },
                 {

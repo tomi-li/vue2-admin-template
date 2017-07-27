@@ -111,6 +111,8 @@
         this.updateData();
       },
       filter() {
+        console.log(this);
+        console.log('aa');
         this.filterUpdate();
       },
     },
