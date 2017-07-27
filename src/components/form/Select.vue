@@ -1,7 +1,7 @@
 <template>
   <select class="form-control" @change="select">
     <!-- if there are no default value. will put empty value as default -->
-    <option v-if="!value" value="">------</option>
+    <option v-if="placeholder" value="">{{placeholder}}</option>
     <option v-if="isSimpleData" v-for="option in options" :value="option">{{option}}</option>
     <option v-if="!isSimpleData" v-for="option in options" :value="option.value" :selected="isEqual(option.value, value)">{{option.name}}</option>
   </select>
@@ -15,6 +15,9 @@
       },
       value: {
         type: [String, Number],
+      },
+      placeholder: {
+        type: String,
       },
     },
     computed: {

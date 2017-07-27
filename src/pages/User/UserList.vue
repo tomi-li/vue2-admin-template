@@ -17,12 +17,12 @@
 
         <i-form-item
           placeholder="Register Time"
-          :name="['registerFrom', 'registerTo']"
+          :name="['register_begin_time', 'register_end_time']"
           type="date-range"></i-form-item>
 
         <i-form-item
           placeholder="Level"
-          :name="['levelFrom', 'levelTo']"
+          :name="['level_lower', 'level_upper']"
           type="number-range"></i-form-item>
 
         <i-form-item
@@ -32,10 +32,15 @@
 
         <i-form-item
           name="type"
-          placeholder="asd"
           type="select"
-          :value="'AllUser'"
-          :options="['AllUser', 'NormalUser', 'Partner', 'Administrator']"></i-form-item>
+          placeholder="All Users"
+          :options="['NormalUser', 'Partner', 'Administrator']"></i-form-item>
+
+        <i-form-item
+          name="gender"
+          type="select"
+          placeholder="All Gender"
+          :options="['UNKNOWN', 'MALE', 'FEMALE']"></i-form-item>
 
       </i-form>
     </i-box>
@@ -43,7 +48,7 @@
     <i-box>
       <i-table
         api="userList"
-        :columns="['ID', 'Name' , 'Gender','Type', 'Super User ID', 'Register time']"
+        :columns="['ID', 'Name' , 'Gender','Type', 'Super User ID', 'Register time', 'Level']"
         :filter="filter"
         :lazy="true"
         v-model="userData">
@@ -62,6 +67,7 @@
           <td>{{ item['membership'] | membershipToUserType }}</td>
           <td>{{ item['suid'] }}</td>
           <td>{{ item['registerTime'] | datetime }}</td>
+          <td>{{ item['level'] }}</td>
         </i-table-row>
       </i-table>
 

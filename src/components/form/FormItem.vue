@@ -35,6 +35,7 @@
                         @value="value => receiveValue(value)"></i-checkbox-group>
       <!-- Select -->
       <i-select v-if="_in(type, ['select'])"
+                :placeholder="placeholder"
                 :options="options"
                 :value="internalValue"
                 @value="value => receiveValue(value)"></i-select>
@@ -109,6 +110,7 @@
 
         <!-- Select -->
         <i-select v-if="_in(type, ['select'])"
+                  :placeholder="placeholder"
                   :options="options"
                   :value="internalValue"
                   @value="value => receiveValue(value)"></i-select>
