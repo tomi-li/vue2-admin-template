@@ -13,6 +13,7 @@
       <i-form-item
         label="Duration"
         name="duration"
+        :required="true"
         :value="getDuration(1, 'weeks')"
         :options="[
           { name: '5 minutes', value: getDuration(5, 'minutes')},
@@ -32,15 +33,18 @@
         label="Reason"
         name="reason_flag"
         :required="true"
+        :value="0"
         :options="[
             { name: $root.$options.filters.reasonFlag(0) , value: 0 },
             { name: $root.$options.filters.reasonFlag(1) , value: 1 },
             { name: $root.$options.filters.reasonFlag(2) , value: 2 },
             { name: $root.$options.filters.reasonFlag(3) , value: 3 },
             { name: $root.$options.filters.reasonFlag(4) , value: 4 },
-            { name: $root.$options.filters.reasonFlag(5) , value: 5 }
+            { name: $root.$options.filters.reasonFlag(5) , value: 5 },
+            { name: $root.$options.filters.reasonFlag(6) , value: 6 },
+            { name: $root.$options.filters.reasonFlag(7) , value: 7 }
           ]"
-        type="radio"></i-form-item>
+        type="select"></i-form-item>
 
       <i-form-item
         label="Remark"

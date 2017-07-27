@@ -55,7 +55,7 @@
       displayValue() {
         return (this.from === undefined && this.to === undefined)
           ? ''
-          : `${this.from ? moment(this.from).format('YYYY-MM-DD') : ''} - ${this.to ? moment(this.to).format('YYYY-MM-DD') : ''}`;
+          : `${this.from ? moment(this.from).format('DD MMM, YYYY') : ''} - ${this.to ? moment(this.to).format('DD MMM, YYYY') : ''}`;
       },
     },
     methods: {

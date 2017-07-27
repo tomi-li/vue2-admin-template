@@ -77,13 +77,14 @@
       submit() {
         this.items.forEach(formItem => formItem.touch());
 
-        return new Promise((resolve, reject) => {
+        const promise = new Promise((resolve, reject) => {
           if (this.itemsValidated) {
             resolve(this.value);
           } else {
             reject();
           }
         });
+        return promise;
       },
     },
   };

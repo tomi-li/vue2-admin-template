@@ -14,8 +14,11 @@ import BanedHistory from './pages/Monitoring/BanedHistory';
 import LiveList from './pages/Monitoring/Live';
 import PhotoList from './pages/Monitoring/PhotoList';
 import UserDetail from './pages/User/UserDetail';
-import UserDetailBasicInfo from './pages/User/UserDetail/BasicInfo';
-import UserDetailBlockedUsers from './pages/User/UserDetail/BlockedUsers';
+import UserDetailBasicProfileIndex from './pages/User/UserDetail/BasicProfile/BasicProfileIndex';
+import UserDetailBasicInfo from './pages/User/UserDetail/BasicProfile/BasicInfo';
+import UserDetailBlockedUsers from './pages/User/UserDetail/BasicProfile/BlockedUsers';
+import UserBillingIndex from './pages/User/UserDetail/Billing/BillingIndex';
+import GiftSent from './pages/User/UserDetail/Billing/GiftSent';
 import UserList from './pages/User/UserList';
 import CashOutRequests from './pages/Billing/CashOutRequests';
 import FloatBanner from './pages/Campaigns/FloatBanner';
@@ -89,23 +92,40 @@ export default {
               path: 'detail/:id',
               name: 'User Detail',
               component: UserDetail,
+              redirect: { name: 'User Basic Profile' },
               hide: true,
-              redirect: { name: 'Basic Info' },
               children: [
-                { path: 'basic-info', name: 'Basic Info', component: UserDetailBasicInfo },
-                { path: 'comments', name: 'Comments', component: UserDetailBasicInfo },
-                { path: 'replay', name: 'Replay', component: UserDetailBasicInfo },
-                { path: 'title-history', name: 'Title History', component: UserDetailBasicInfo },
-                { path: 'photos', name: 'Photos', component: UserDetailBasicInfo },
-                { path: 'blocked-users', name: 'Blocked Users', component: UserDetailBlockedUsers },
-                { path: 'banned-history', name: 'Banned History', component: UserDetailBlockedUsers },
+                {
+                  path: 'basic-profile',
+                  name: 'User Basic Profile',
+                  component: UserDetailBasicProfileIndex,
+                  redirect: { name: 'Basic Info' },
+                  children: [
+                    { path: 'basic-info', name: 'Basic Info', component: UserDetailBasicInfo },
+                    { path: 'comments', name: 'Comments', component: UserDetailBasicInfo },
+                    { path: 'replay', name: 'Replay', component: UserDetailBasicInfo },
+                    { path: 'title-history', name: 'Title History', component: UserDetailBasicInfo },
+                    { path: 'photos', name: 'Photos', component: UserDetailBasicInfo },
+                    { path: 'blocked-users', name: 'Blocked Users', component: UserDetailBlockedUsers },
+                    { path: 'banned-history', name: 'Banned History', component: UserDetailBlockedUsers },
+                  ],
+                },
+                {
+                  path: 'basic-profile',
+                  name: 'User Billing',
+                  component: UserBillingIndex,
+                  redirect: { name: 'Gift Sent' },
+                  children: [
+                    { path: 'gift-sent', name: 'Gift Sent', component: GiftSent },
+                  ],
+                },
               ],
             },
           ],
         },
         {
           path: 'billing',
-          name: 'User Billing',
+          name: 'Billing',
           icon: 'fa-money',
           component: Index,
           redirect: '/index/billing/cash-out-user',

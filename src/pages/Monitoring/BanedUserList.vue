@@ -13,7 +13,7 @@
           <td>
             <i-user-label :id="item['id']" :name="item['id']"></i-user-label>
           </td>
-          <td>{{ item['reason_flag'] | banReason }}</td>
+          <td>{{ item['reason_flag'] | reasonFlag }}</td>
           <td>{{ item['begin_time'] | datetime }}</td>
           <td>{{ item['end_time'] | datetime }}</td>
           <td>

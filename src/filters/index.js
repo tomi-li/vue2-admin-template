@@ -5,25 +5,6 @@ export default function RegisterFilter(Vue) {
 
   Vue.filter('datetime', value => Moment(value).format('YYYY-MM-DD HH:mm'));
 
-  Vue.filter('banReason', (value) => {
-    switch (value) {
-      case 0:
-        return 'Others';
-      case 1:
-        return 'Inappropriate avatar';
-      case 2:
-        return 'Inappropriate video';
-      case 3:
-        return 'Inappropriate event poster';
-      case 4:
-        return 'Offensive language';
-      case 5:
-        return 'Underage';
-      default:
-        return 'Others';
-    }
-  });
-
   Vue.filter('byteToSize', (bytes, decimals) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1000;
@@ -63,8 +44,6 @@ export default function RegisterFilter(Vue) {
   });
 
   Vue.filter('reasonFlag', (value) => {
-    if (value === undefined) return '';
-
     switch (value) {
       case 0:
         return 'Others';
@@ -78,8 +57,12 @@ export default function RegisterFilter(Vue) {
         return 'Offensive language';
       case 5:
         return 'Underage';
+      case 6:
+        return 'Spamming';
+      case 7:
+        return 'Fake report';
       default:
-        throw new Error('wrong reason flag type');
+        return 'Others';
     }
   });
 }

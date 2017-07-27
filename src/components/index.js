@@ -19,6 +19,7 @@ import NumberRangePicker from './form/NumberRangePicker';
 import Page from './ui/Page';
 import Box from './ui/Box';
 import Button from './ui/Button';
+import ButtonGroup from './ui/ButtonGroup';
 import ProgressBar from './ui/ProgressBar';
 import List from './ui/List';
 import Tabs from './ui/Tabs';
@@ -44,6 +45,7 @@ export default (Vue) => {
   Vue.component('navigation', Navigation);
   Vue.component('page-footer', Footer);
   Vue.component('i-button', Button);
+  Vue.component('i-button-group', ButtonGroup);
   Vue.component('i-modal', Modal);
   Vue.component('i-page', Page);
   Vue.component('i-box', Box);

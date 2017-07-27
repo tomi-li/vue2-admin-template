@@ -11,7 +11,7 @@
           <i-list-item label="Start time">{{ banInfo.begin_time | datetime }}</i-list-item>
           <i-list-item label="End time">{{ banInfo.end_time | datetime }}</i-list-item>
           <i-list-item label="Duration">{{ duration(banInfo.begin_time, banInfo.end_time) }}</i-list-item>
-          <i-list-item label="Reason">{{ banInfo.reason_flag | banReason }}</i-list-item>
+          <i-list-item label="Reason">{{ banInfo.reason_flag | reasonFlag }}</i-list-item>
           <i-list-item label="Create time">{{ banInfo.create_time | datetime}}</i-list-item>
           <i-list-item label="Update time">{{ banInfo.update_time | datetime }}</i-list-item>
           <i-list-item label="Remark">{{ banInfo.remark }}</i-list-item>
