@@ -1,4 +1,5 @@
 import Moment from 'moment';
+import * as _ from 'lodash';
 
 export default function RegisterFilter(Vue) {
   Vue.filter('date', value => Moment(value).format('YYYY-MM-DD'));
@@ -65,4 +66,6 @@ export default function RegisterFilter(Vue) {
         return 'Others';
     }
   });
+
+  Vue.filter('startCase', value => _.startCase(value));
 }

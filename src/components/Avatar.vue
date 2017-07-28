@@ -32,9 +32,10 @@
     },
     created() {
       const img = new Image();
-      img.onerror = () => {
-        this.hasError = true;
-      };
+      //      img.onerror = (e) => {
+      //        console.log(e);
+      //        this.hasError = true;
+      //      };
       img.src = this.src;
     },
   };

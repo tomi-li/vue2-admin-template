@@ -27,6 +27,7 @@ import Tab from './ui/Tab';
 import Panel from './ui/Panel';
 import Spinner from './ui/Spinner';
 import TabNavigation from './ui/TabNavigation';
+import Switch from './ui/Switch';
 // modal
 import Modal from './modal/Modal';
 // normal component
@@ -76,4 +77,5 @@ export default (Vue) => {
   Vue.component('i-panel', Panel);
   Vue.component('i-video-player', VideoPlayer);
   Vue.component('i-tab-navigation', TabNavigation);
+  Vue.component('i-switch', Switch);
 };

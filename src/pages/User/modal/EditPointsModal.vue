@@ -30,7 +30,7 @@
             id: this.params.id,
             points: values.points,
           }))
-          .then(() => this.utils.toast.success('level set success'))
+          .then(() => this.utils.toast.success('Point edit success'))
           .then(() => this.ok())
           .catch(e => this.utils.toast.error(e));
       },

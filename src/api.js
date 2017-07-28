@@ -94,17 +94,6 @@ class API {
 }
 
 export default {
-  diamondIncome: new API('billing/diamond/diamond-earning-users'),
-  convertCoinUser: new API('billing/diamond/convert-coin-users'),
-  cashOutUser: new API('billing/diamond/cashout-users'),
-  topEventList: new API('topevent/index', { method: 'post' }),
-
-  // block
-  blockedUserList: new API('block/'),
-
-  /**
-   * New
-   */
   // account
   userList: new API('account/'),
   userDetail: new API('account/:id/'),
@@ -121,8 +110,8 @@ export default {
   block: new API('account/:id/block/', { method: 'post' }),
   unBlock: new API('account/:id/block/', { method: 'post' }),
   blockList: new API('account/:id/block/'),
-  // billing
-  transactionDiamondsToCash: new API('transaction/diamonds-to-cash/'),
+  userPrivileges: new API('account/:id/privileges/'),
+  userSetPrivileges: new API('account/:id/privileges/', { method: 'post' }),
   // admin
   adminCreate: new API('admin/', { method: 'post' }),
   adminDelete: new API('admin/:id/', { method: 'delete' }),

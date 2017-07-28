@@ -1,85 +1,40 @@
 <template>
   <div class="row">
     <div class="col-xs-6">
-      <i-box title="User Properties" :noPadding="true">
-        <i-list>
-          <i-list-item label="Admin"><i-boolean-text :value="user.admin"></i-boolean-text></i-list-item>
-          <i-list-item label="Available"><i-boolean-text :value="user.available"></i-boolean-text></i-list-item>
-          <i-list-item label="guest"><i-boolean-text :value="user.guest"></i-boolean-text></i-list-item>
-          <i-list-item label="partner"><i-boolean-text :value="user.partner"></i-boolean-text></i-list-item>
-          <i-list-item label="robot"><i-boolean-text :value="user.robot"></i-boolean-text></i-list-item>
-          <i-list-item label="verified"><i-boolean-text :value="user.verified"></i-boolean-text></i-list-item>
-        </i-list>
+      <i-box title="Basic Info">
+        <ul class="list">
+          <li><label>ID</label> <span>{{user.id}}</span></li>
+          <li><label>Super ID</label> <span>{{user.uid}}</span></li>
+          <li><label>Avarta</label>
+            <i-avatar type="rounded" :src="user.avatar"></i-avatar>
+          </li>
+          <li><label>Name</label> <span>{{user.name}}</span></li>
+          <li><label>Gender</label> <span>{{user.gender}}</span></li>
+          <li><label>Birthday</label> <span>{{user.birthday}}</span></li>
+          <li><label>Email</label> <span>{{user.email}}</span></li>
+          <li><label>Tagline</label> <span>{{user.tagline}}</span></li>
+          <li><label>Platform</label> <span>{{user.platform}}</span></li>
+          <li><label>3rd-party Login</label> <span>{{user.third_party_platform}}</span></li>
+          <li><label>Registered Time</label> <span>{{user.register_time}}</span></li>
+          <li><label>User Type</label> <span>{{user.membership}}</span></li>
+          <li><label>Remark</label> <span>{{user.remark}}</span></li>
+        </ul>
       </i-box>
     </div>
     <div class="col-xs-6">
-      <div class="row">
-        <!-- Properties -->
-        <div class="col-lg-3">
-          <i-box title="User Properties" :noPadding="true">
-            <i-list>
-              <i-list-item label="Banned">
-                <i-button v-if="userIsBaned" title="UnBan" size="xs" type="info" :onPress="showUnBanModal"></i-button>
-                <i-button v-if="userIsBaned" title="Detail" size="xs" type="default" :onPress="showBanDetailModal"></i-button>
-                <i-button v-else="userIsBaned" title="Ban" size="xs" type="warning" :onPress="showBanModal"></i-button>
-                <i-boolean-text :value="userIsBaned"></i-boolean-text>
-              </i-list-item>
-              <i-list-item label="Admin"><i-boolean-text :value="user.admin"></i-boolean-text></i-list-item>
-              <i-list-item label="Available"><i-boolean-text :value="user.available"></i-boolean-text></i-list-item>
-              <i-list-item label="guest"><i-boolean-text :value="user.guest"></i-boolean-text></i-list-item>
-              <i-list-item label="partner"><i-boolean-text :value="user.partner"></i-boolean-text></i-list-item>
-              <i-list-item label="robot"><i-boolean-text :value="user.robot"></i-boolean-text></i-list-item>
-              <i-list-item label="verified"><i-boolean-text :value="user.verified"></i-boolean-text></i-list-item>
-            </i-list>
-          </i-box>
-        </div>
-
-        <!-- Activity -->
-        <div class="col-lg-4">
-          <i-box title="User Activity" :noPadding="true">
-            <i-list>
-              <i-list-item label="IP">{{ user.ip }}</i-list-item>
-              <i-list-item label="Register Date">{{ user.registerTime | datetime}}</i-list-item>
-              <i-list-item label="Last Online">{{ user.lastOnline | datetime }}</i-list-item>
-              <i-list-item label="Last Offline">{{ user.lastOffline | datetime }}</i-list-item>
-              <i-list-item label="Third Part Platform">{{ user.thirdPartyPlatform }}</i-list-item>
-              <i-list-item label="Third Part UserId">{{ user.thirdPartyUserId }}</i-list-item>
-            </i-list>
-          </i-box>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-3">
-          <i-box title="Balance" :noPadding="true">
-            <i-list>
-              <i-list-item label="Diamond Balance">{{ userBalance.diamond_balance }}</i-list-item>
-              <i-list-item label="Coin Balance">{{ userBalance.coin_balance }}</i-list-item>
-              <i-list-item label="Conversion Rate">{{ userBalance.share_ratio }}</i-list-item>
-              <i-list-item label="Estimated Income">{{ userBalance.estimated_income }} / {{ userBalance.currency }}</i-list-item>
-            </i-list>
-          </i-box>
-        </div>
-      </div>
-    </div>
-    <!-- Level Infos -->
-    <div class="col-lg-4">
-      <i-box>
-        <ul class="stat-list">
-          <li>
-            <h2 class="no-margins inline">Level <span class="text-navy">{{ userLevel.level }}</span></h2>
-            <i-button class="pull-right" size="xs" type="primary" icon="edit" @onPress="showEditLevelModal"></i-button>
-            <i-progress-bar :currentValue="userLevel.level"></i-progress-bar>
-          </li>
-          <li>
-            <h2 class="no-margins inline">Points <span class="text-navy">{{ userLevel.point }}</span></h2>
-            <i-button class="pull-right" size="xs" type="primary" icon="edit" @onPress="showEditPointsModal"></i-button>
-            <i-progress-bar :minValue="userLevel.currentLevelMinPoint" :maxValue="userLevel.currentLevelMaxPoint" :currentValue="userLevel.point"></i-progress-bar>
+      <i-box title="Level Info">
+        <ul class="list">
+          <li><label>Level</label> <span>{{ userLevel.level }}</span> <a class="edit-link" @click="showEditLevelModal">Edit</a></li>
+          <li><label>Point</label> <span>{{ userLevel.point }}</span> <a class="edit-link" @click="showEditPointsModal">Edit</a></li>
+        </ul>
+      </i-box>
+      <i-box title="Privilege Settings">
+        <ul class="list">
+          <li v-for="(value, key) in userPrivileges">
+            <label>{{ key | startCase }}</label>
+            <i-switch @change="(value) => changeSetting(key, value)" :value="value"></i-switch>
           </li>
         </ul>
-        <div class="m-t-md">
-          <small class="pull-right"><i class="fa fa-clock-o"></i> Update on {{ userLevel.updateTime | datetime }}</small>
-        </div>
       </i-box>
     </div>
   </div>
@@ -90,17 +45,27 @@
   import EditLevelModal from '../../modal/EditLevelModal';
   import EditPointsModal from '../../modal/EditPointsModal';
 
-
   export default {
     data() {
       return {
+        id: this.$route.params.id,
         user: {},
+        userLevel: {},
+        userPrivileges: {},
       };
     },
     created() {
-      request(api.userDetail, { id: this.$route.params.id })
+      request(api.userDetail, { id: this.id })
         .then((res) => {
           this.user = res.data;
+        });
+      request(api.userLevel, { id: this.id })
+        .then((res) => {
+          this.userLevel = res.data;
+        });
+      request(api.userPrivileges, { id: this.id })
+        .then((res) => {
+          this.userPrivileges = res.data;
         });
     },
     methods: {
@@ -118,6 +83,30 @@
             this.userLevel = res.data;
           });
       },
+      changeSetting(key, value) {
+        request(api.userSetPrivileges, {
+          id: this.id,
+          [key]: value,
+        });
+      },
     },
   };
 </script>
+
+<style lang="scss">
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+    label {
+      width: 30%;
+      text-align: right;
+      margin-right: 1em;
+    }
+  }
+
+  .edit-link {
+    margin-left: 10px;
+  }
+</style>
