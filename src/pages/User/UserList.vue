@@ -11,7 +11,7 @@
           type="text"></i-form-item>
 
         <i-form-item
-          name="userId"
+          name="id"
           placeholder="User Id"
           type="text"></i-form-item>
 

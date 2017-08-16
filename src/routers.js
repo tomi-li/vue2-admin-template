@@ -16,6 +16,7 @@ import PhotoList from './pages/Monitoring/PhotoList';
 import UserDetail from './pages/User/UserDetail';
 import UserDetailBasicProfileIndex from './pages/User/UserDetail/BasicProfile/BasicProfileIndex';
 import UserDetailBasicInfo from './pages/User/UserDetail/BasicProfile/BasicInfo';
+import UserDetailComments from './pages/User/UserDetail/BasicProfile/Comments';
 import UserDetailBlockedUsers from './pages/User/UserDetail/BasicProfile/BlockedUsers';
 import UserDetailBannedHistory from './pages/User/UserDetail/BasicProfile/BannedHistory';
 import UserBillingIndex from './pages/User/UserDetail/Billing/BillingIndex';
@@ -103,7 +104,7 @@ export default {
                   redirect: { name: 'Basic Info' },
                   children: [
                     { path: 'basic-info', name: 'Basic Info', component: UserDetailBasicInfo },
-                    { path: 'comments', name: 'Comments', component: UserDetailBasicInfo },
+                    { path: 'comments', name: 'Comments', component: UserDetailComments },
                     { path: 'replay', name: 'Replay', component: UserDetailBasicInfo },
                     { path: 'title-history', name: 'Title History', component: UserDetailBasicInfo },
                     { path: 'photos', name: 'Photos', component: UserDetailBasicInfo },

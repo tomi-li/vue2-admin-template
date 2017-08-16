@@ -79,11 +79,9 @@ export function request(api, params = {}) {
 
 class API {
   constructor(url, { method, baseUrl, multipart = false } = {}) {
-    if (baseUrl) {
-      this.url = `${baseUrl}${url}`;
-    } else {
-      this.url = `${Config.URL_BASE}${url}`;
-    }
+    this.url = (baseUrl)
+      ? `${baseUrl}${url}`
+      : `${Config.URL_BASE}${url}`;
     this.multipart = multipart;
     this.method = method || 'get';
   }
@@ -112,6 +110,7 @@ export default {
   blockList: new API('account/:id/block/'),
   userPrivileges: new API('account/:id/privileges/'),
   userSetPrivileges: new API('account/:id/privileges/', { method: 'post' }),
+  userComments: new API('account/:id/comments/'),
   // admin
   adminCreate: new API('admin/', { method: 'post' }),
   adminDelete: new API('admin/:id/', { method: 'delete' }),

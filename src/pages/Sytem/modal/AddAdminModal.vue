@@ -2,7 +2,6 @@
   <i-modal title="Add Admin">
     <i-form
       ref="form"
-      :debug="true"
       :ratio="[3,9]"
       direction="horizontal">
 

@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    props: ['params', 'ok', 'dismiss'],
+    props: ['params', 'ok', 'dismiss', 'okCallback'],
     data() {
       return {
         title: this.params.title,
@@ -19,9 +19,9 @@
     },
     methods: {
       internalOK() {
-        const okHook = this.params.fn;
-        if (okHook) {
-          okHook()
+        console.log(this.okCallback);
+        if (this.okCallback) {
+          this.okCallback()
             .then(() => this.ok())
             .catch(() => this.dismiss());
         } else {

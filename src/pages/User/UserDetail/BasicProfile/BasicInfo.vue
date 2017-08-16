@@ -16,7 +16,7 @@
           <li><label>Platform</label> <span>{{user.platform}}</span></li>
           <li><label>3rd-party Login</label> <span>{{user.third_party_platform}}</span></li>
           <li><label>Registered Time</label> <span>{{user.register_time}}</span></li>
-          <li><label>User Type</label> <span>{{user.membership}}</span></li>
+          <li><label>User Type</label> <span>{{user.membership | membershipToUserType}}</span></li>
           <li><label>Remark</label> <span>{{user.remark}}</span></li>
         </ul>
       </i-box>

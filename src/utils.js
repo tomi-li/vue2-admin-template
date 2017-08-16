@@ -47,7 +47,7 @@ export function serialize(object) {
 }
 
 // make a modal stack
-export function modal(VUEModal, params = {}) {
+export function modal(VUEModal, params = {}, okCallback) {
   return new Promise((resolve, reject) => {
     this.modalStack = this.modalStack || [];
     const modalStack = this.modalStack;
@@ -56,7 +56,7 @@ export function modal(VUEModal, params = {}) {
     const modalId = 1050 + (modalStack.length * 50);
     const vm = new Vue({
       id: modalId,
-      data: { params },
+      data: { params, okCallback },
       methods: {
         ok(value) {
           $(vm.$el).modal('hide');
@@ -67,7 +67,7 @@ export function modal(VUEModal, params = {}) {
           reject(value);
         },
       },
-      template: `<VUEModal :id="${modalId}" style="z-index:${modalId}" :params="params" :ok="ok" :dismiss="dismiss"></VUEModal>`,
+      template: `<VUEModal :id="${modalId}" :okCallback="okCallback" style="z-index:${modalId}" :params="params" :ok="ok" :dismiss="dismiss"></VUEModal>`,
       components: { VUEModal },
     }).$mount('#modal');
 
@@ -86,8 +86,8 @@ export function alert(content, title) {
   return this.modal(AlertModal, { content, title });
 }
 
-export function confirm(content, title) {
-  return this.modal(ConfirmModal, { content, title });
+export function confirm(content, title, okCallback) {
+  return this.modal(ConfirmModal, { content, title, okCallback });
 }
 
 
